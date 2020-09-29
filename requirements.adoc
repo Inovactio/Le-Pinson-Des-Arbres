@@ -1,11 +1,1 @@
-= Requirements for Game
-
-Rules : You can either be a Citizen, MrWhite or Undercover. All citizens will be assigned the same word while Undercover will be assigned a similar
-one but different from the citizens' one. MrWhite is assigned no word.
-When we create a lobby, we chose how many Undercover there will be in the game, how many maximum round the game will have and if we want to play
-with a MrWhite or not.
-Each round, each player will turn by turn write a word similar or that have any relation with the secret word. At the end of each room, players can
-choose between skipping and hence starting a new round or vote to eliminate the imposter. If the latter is chosen, players can vote for the imposter
-and who they think is Mr White. When the vote is over, the player who got the most votes is eliminated. Mr White then try to guess the Citizens' word.
-If he's correct, he wins, otherwise if the Undercover is eliminated the Citizens win. Eventually, if no one or a citizen is eliminated the Undercover win.
-
+include:
