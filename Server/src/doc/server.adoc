@@ -1,0 +1,7 @@
+= Server
+
+== Server method
+
+vote(String player) : allow a player to vote for another one at the end of the game.
+
+write(String word) : allow a player to write a word during his turn.
