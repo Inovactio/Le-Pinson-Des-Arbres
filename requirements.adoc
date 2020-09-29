@@ -1,1 +1,1 @@
-include:
+include::doc/rules.adoc
