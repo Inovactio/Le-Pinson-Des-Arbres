@@ -1,22 +1,15 @@
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ServerGame extends UnicastRemoteObject implements IServerGame {
 
+    private static final long serialVersionUID = 1L;
+    private Set<Room> rooms;
+
     public ServerGame() throws RemoteException {
-
-    }
-
-    public static void main(String[] args) {
-        try {
-            LocateRegistry.createRegistry(8090);
-            ServerGame serverGame = new ServerGame();
-            Naming.bind("localhost", serverGame);
-        } catch (Exception e) {
-            System.out.println("Erreur Server Main");
-        }
+        this.rooms = new HashSet<Room>();
     }
 
     public void vote(String player) {
@@ -29,6 +22,9 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
 
     }
 
-    
+    public void guessWord(String word) {
+        // TODO Auto-generated method stub
+
+    }
 
 }
