@@ -28,12 +28,14 @@ public class DataBaseConnect {
 
 
 
+            if(!(statement.executeQuery("").getFetchSize()>0)){
 
-            if(!(statement.executeQuery("").getFetchSize()>0)) initializeDataBase(statement);
+                initializeDataBase(statement);
+            }
 
         } catch ( SQLException e ) {
-            /* Gérer les éventuelles erreurs ici */
-        } finally {
+            System.out.println(e.getErrorCode());
+        }finally {
             if ( connexion != null )
                 try {
                     /* Fermeture de la connexion */
