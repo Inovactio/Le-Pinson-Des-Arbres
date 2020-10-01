@@ -17,7 +17,7 @@ public class JsonParser {
 
     private final static String FILEPATH = "Server/src/main/resources/words.json";
 
-    public TupleWord getWords() {
+    public Tuple<String,String> getWords() {
         int MIN = 0;
         String firstword = "",secondword = "";
 
@@ -57,7 +57,7 @@ public class JsonParser {
             System.out.println("Json File cannot be parsed");
             e.printStackTrace();
         }
-        return new TupleWord(firstword,secondword);
+        return new Tuple<String, String>(firstword,secondword);
 
     }
 
