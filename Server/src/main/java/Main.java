@@ -18,6 +18,7 @@ public class Main {
             ServerGame serverGame = new ServerGame();
             Naming.bind("//localhost:8090", serverGame);
 
+            JsonParser jsonParser = new JsonParser("Server/src/main/resources/words.json");
 
 
 

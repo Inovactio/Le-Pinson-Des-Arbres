@@ -15,18 +15,21 @@ import java.io.IOException;
 public class JsonParser {
 
 
-    private final static String FILEPATH = "Server/src/main/resources/words.json";
 
-    public Tuple<String,String> getWords() {
+    private String filepath;
+
+    public JsonParser(String fp){
+        filepath = fp;
+    }
+
+    public Tuple<String,String> getRandomWords() {
         int MIN = 0;
         String firstword = "",secondword = "";
 
 
-
-
         JSONParser jsonParser = new JSONParser();
 
-        try(FileReader reader = new FileReader(FILEPATH)){
+        try(FileReader reader = new FileReader(filepath)){
 
             //READ Json
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
@@ -45,10 +48,8 @@ public class JsonParser {
             secondword =randomwords.get("word2").toString();
 
 
-
-
         }catch (FileNotFoundException e){
-            System.out.println("Error the Json file was not found with the following path : "+FILEPATH);
+            System.out.println("Error the Json file was not found with the following path : "+filepath);
             e.getStackTrace();
         } catch (IOException e) {
             System.out.println("The file cannot be opened");
