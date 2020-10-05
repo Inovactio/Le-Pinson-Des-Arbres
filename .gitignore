@@ -1,7 +1,12 @@
 # Intellij
 .idea
 *.iml
+#Gradle
 
+.gradle
+*/build
+gradlew
+gradlew.bat
 # Maven target
 */target
 # Compiled class file
