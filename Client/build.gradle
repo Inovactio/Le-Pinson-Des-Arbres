@@ -15,6 +15,5 @@ application{
     mainClassName = 'GUI.Main'
 }
 
-run.dependsOn(':Server:run')
 
 
