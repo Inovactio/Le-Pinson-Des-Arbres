@@ -10,7 +10,7 @@ allprojects {
 }
 
 subprojects {
-
+    apply plugin: 'application'
 
     repositories {
         mavenLocal()
@@ -30,3 +30,5 @@ subprojects {
         }
     }
 }
+
+

@@ -3,7 +3,6 @@
  */
 
 plugins {
-    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
@@ -12,4 +11,10 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.base', 'javafx.graphics','javafx.fxml']
 }
 
-mainClassName = 'GUI.Main'
+application{
+    mainClassName = 'GUI.Main'
+}
+
+run.dependsOn(':Server:run')
+
+
