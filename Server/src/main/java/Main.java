@@ -14,11 +14,10 @@ public class Main {
             final String url = "localhost";
             final int port = 8090;
             LocateRegistry.createRegistry(port);
-            ServerGame serverGame = new ServerGame();
-            
+            IServerGame serverGame = new ServerGame();
             Naming.rebind("//"+url+":"+port+"/undercover", serverGame);
 
-            JsonParser jsonParser = new JsonParser("Server/src/main/resources/words.json");
+            //JsonParser jsonParser = new JsonParser("Server/src/main/resources/words.json");
 
         } catch (Exception e) {
             System.out.println("Erreur lors de la création du serveur de jeu.");
