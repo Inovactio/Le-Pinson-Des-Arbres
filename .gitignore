@@ -1,10 +1,10 @@
 # Intellij
 .idea
 *.iml
-#Gradle
 
+#Graddle
 .gradle
-*/build
+/build/
 
 # Maven target
 */target

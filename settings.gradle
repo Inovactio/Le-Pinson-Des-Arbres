@@ -3,5 +3,5 @@
  */
 
 rootProject.name = 'Le-Pinson-Des-Arbres'
-include(':Server')
-include(':Client')
+include ':Client',':Server',':Components'
+
