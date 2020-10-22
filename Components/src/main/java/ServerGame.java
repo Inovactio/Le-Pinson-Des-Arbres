@@ -12,19 +12,32 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
         this.rooms = new HashSet<Room>();
     }
 
-    public void vote(String player) {
+    public void vote(String player) throws RemoteException {
         // TODO Auto-generated method stub
 
     }
 
-    public void write(String word) {
+    public void write(String word) throws RemoteException {
         // TODO Auto-generated method stub
 
     }
 
-    public void guessWord(String word) {
+    public void guessWord(String word) throws RemoteException {
         // TODO Auto-generated method stub
 
     }
 
+    @Override
+    public void createLobby(Player creator,int roomSize) throws RemoteException {
+        System.out.println("Création du lobby par le joueur : "+creator.getName());
+        Room newRoom = new Room(creator,roomSize);
+        rooms.add(newRoom);
+    }
+
+    @Override
+    public void connectToLobby(Player player, Room room) throws RemoteException {
+        if(!rooms.contains(room)) return;
+        room.join(player);
+        player.setCurrentRoom(room);
+    }
 }

@@ -1,13 +1,15 @@
+import java.applet.Applet;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Player {
+public class Player extends Applet {
 
     private String name;
     private Role role;
     private String givenWord;
     private List<String> writtenWords;
     private String votedPlayer;
+    private Room currentRoom;
 
     public Player(String name, Role role, String givenWord) {
         this.name = name;
@@ -47,4 +49,7 @@ public class Player {
         return votedPlayer;
     }
 
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
 }
