@@ -12,21 +12,6 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
         this.rooms = new HashSet<Room>();
     }
 
-    public void vote(String player) throws RemoteException {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void write(String word) throws RemoteException {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void guessWord(String word) throws RemoteException {
-        // TODO Auto-generated method stub
-
-    }
-
     @Override
     public void createLobby(Player creator,int roomSize) throws RemoteException {
         System.out.println("Création du lobby par le joueur : "+creator.getName());

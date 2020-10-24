@@ -34,6 +34,21 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
+    public void vote(String player) throws RemoteException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void write(String word) throws RemoteException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void guessWord(String word) throws RemoteException {
+        // TODO Auto-generated method stub
+
+    }
+
     private boolean isRoomFull(){
         return (players.size()>= roomSize);
     }
