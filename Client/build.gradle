@@ -10,7 +10,11 @@
         id 'application'
     }
 
-group 'com.univ.nantes.alma'
+    dependencies {
+      implementation project(":Components")
+    }
+
+    group 'com.univ.nantes.alma'
 
     javafx {
         version = "14"
@@ -21,8 +25,6 @@ group 'com.univ.nantes.alma'
         mainClassName = 'GUI.Main'
     }
 
-    dependencies {
-        implementation project(":Components")
-    }
+
 
 

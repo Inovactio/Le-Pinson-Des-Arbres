@@ -1,0 +1,22 @@
+{
+  "info": "this Json is used to manage words for undercover game.",
+
+  "words": [
+    {
+      "word1" : "marron",
+      "word2" : "jaune"
+    },
+
+    {
+      "word1" : "réfrigérateur",
+      "word2" : "congèlateur"
+    },
+
+    {
+      "word1" : "vache",
+      "word2" : "cochon"
+    }
+  ]
+
+
+}

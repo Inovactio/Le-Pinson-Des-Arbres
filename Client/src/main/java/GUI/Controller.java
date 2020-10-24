@@ -15,10 +15,11 @@ public class Controller {
 
     @FXML
     private Button createLobby,joinLobby;
+    @FXML
     private TextField labelmots, labeltours, tempstours,nbimposteurs;
-    private int valuemots = 12;
 
 
+    
 
     @FXML
     private void createLobbyButtonAction(ActionEvent event) throws Exception {
@@ -34,21 +35,65 @@ public class Controller {
 
     @FXML
     private void incrementNumberOfWords(ActionEvent event) throws Exception {
-        System.out.println(Integer.toString(valuemots));
-        labelmots.setText(Integer.toString(valuemots));
-        System.out.println(labelmots.getText());
         int value = Integer.parseInt(labelmots.getText())+1;
-        System.out.println(value);
         labelmots.setText(Integer.toString(value));
-        System.out.println(labelmots.getText());
 
 
     }
 
     @FXML
-    private void test1(ActionEvent event) throws Exception {
-        labelmots.setText(Integer.toString(12));
-        System.out.println(labelmots.getText()==null);
+    private void decrementNumberOfWords(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(labelmots.getText())-1;
+        labelmots.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void incrementNumberOfRounds(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(labeltours.getText())+1;
+        labeltours.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void decrementNumberOfRounds(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(labeltours.getText())-1;
+        labeltours.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void incrementTimeOfRounds(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(tempstours.getText())+1;
+        tempstours.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void decrementTimeOfRounds(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(tempstours.getText())-1;
+        tempstours.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void incrementNumberOfImposters(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(nbimposteurs.getText())+1;
+        nbimposteurs.setText(Integer.toString(value));
+
+
+    }
+
+    @FXML
+    private void decrementNumberOfImposters(ActionEvent event) throws Exception {
+        int value = Integer.parseInt(nbimposteurs.getText())-1;
+        nbimposteurs.setText(Integer.toString(value));
+
 
     }
 
