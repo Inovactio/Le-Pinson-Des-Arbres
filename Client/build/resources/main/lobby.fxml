@@ -89,7 +89,7 @@
             <Font name="Cambria" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="playGame" layoutX="497.0" layoutY="585.0" mnemonicParsing="false" onAction="#playGameButtonAction" text="Jouer">
+      <Button layoutX="497.0" layoutY="585.0" mnemonicParsing="false" text="Jouer">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>

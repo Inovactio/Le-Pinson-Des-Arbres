@@ -7,6 +7,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+        private static String valPseudoJoueur1;
+
+        public static String getValPseudoJoueur1(){
+            return valPseudoJoueur1;
+        }
+
+        public static void setValPseudoJoueur1(String valeur){
+            valPseudoJoueur1=valeur;
+        }
         public static void main(String[] args){
             launch(args);
         }

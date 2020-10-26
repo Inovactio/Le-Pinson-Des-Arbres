@@ -31,7 +31,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="joinLobby" layoutX="440.0" layoutY="411.0" mnemonicParsing="false" onAction="#joinLobbyButtonAction" prefHeight="51.0" prefWidth="173.0" text="Join Lobby" AnchorPane.topAnchor="420.0">
+      <Button fx:id="joinLobby" layoutX="440.0" layoutY="411.0" mnemonicParsing="false" onAction="#createLobbyButtonAction" prefHeight="51.0" prefWidth="173.0" text="Join Lobby" AnchorPane.topAnchor="420.0">
          <font>
             <Font size="24.0" />
          </font>

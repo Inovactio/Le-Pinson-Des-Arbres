@@ -6,17 +6,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import GUI.Main;
+
 
 
 
 public class Controller {
 
     @FXML
-    private Button createLobby,joinLobby;
+    private Button createLobby,joinLobby, playGame;
     @FXML
-    private TextField labelmots, labeltours, tempstours,nbimposteurs;
+    private TextField labelmots, labeltours, tempstours,nbimposteurs,pseudoTextField;
+    @FXML
+    private ImageView joueur1, joueur2, joueur3, joueur4, joueur5, joueur6;
+    @FXML
+    private Label pseudoJoueur1,pseudoJoueur2,pseudoJoueur3,pseudoJoueur4,pseudoJoueur5,pseudoJoueur6, nbJoueurs;
+
+
 
 
     
@@ -26,8 +36,36 @@ public class Controller {
         Stage stage;
         Parent root;
 
+        Main.setValPseudoJoueur1(pseudoTextField.getText());
         stage = (Stage) createLobby.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/lobby.fxml"));
+        Scene scene = new Scene(root,1080,720);
+        stage.setScene(scene);
+        stage.show();
+
+
+
+    }
+
+    @FXML
+    private void joinLobbyButtonAction(ActionEvent event) throws Exception {
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) joinLobby.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/join.fxml"));
+        Scene scene = new Scene(root,1080,720);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void playGameButtonAction(ActionEvent event) throws Exception {
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) playGame.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/game.fxml"));
         Scene scene = new Scene(root,1080,720);
         stage.setScene(scene);
         stage.show();
@@ -95,6 +133,17 @@ public class Controller {
         nbimposteurs.setText(Integer.toString(value));
 
 
+    }
+
+    @FXML
+    private void validateLobby(ActionEvent event) throws Exception {
+        pseudoJoueur1.setText(Main.getValPseudoJoueur1());
+        joueur2.setVisible(false);
+        joueur3.setVisible(false);
+        joueur4.setVisible(false);
+        joueur5.setVisible(false);
+        joueur6.setVisible(false);
+        nbJoueurs.setText("Joueurs (1/6)");
     }
 
 }
