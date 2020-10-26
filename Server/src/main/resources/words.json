@@ -3,18 +3,78 @@
 
   "words": [
     {
-      "word1" : "marron",
-      "word2" : "jaune"
+      "word1" : "Noir",
+      "word2" : "Blanc"
     },
 
     {
-      "word1" : "réfrigérateur",
-      "word2" : "congèlateur"
+      "word1" : "Réfrigérateur",
+      "word2" : "Congèlateur"
     },
 
     {
-      "word1" : "vache",
-      "word2" : "cochon"
+      "word1" : "Vache",
+      "word2" : "Cochon"
+    },
+
+    {
+      "word1" : "Superman",
+      "word2" : "Batman"
+    },
+
+    {
+      "word1" : "New York",
+      "word2" : "Washington"
+    },
+
+    {
+      "word1" : "Paris",
+      "word2" : "Marseille"
+    },
+
+    {
+      "word1" : "Carré",
+      "word2" : "Rectangle"
+    },
+
+    {
+      "word1" : "Rap",
+      "word2" : "R&b"
+    },
+
+    {
+      "word1" : "Gaufre",
+      "word2" : "Crêpe"
+    },
+
+    {
+      "word1" : "Beurre",
+      "word2" : "Huile"
+    },
+
+    {
+      "word1" : "Canapé",
+      "word2" : "Fauteuil"
+    },
+
+    {
+      "word1" : "Télévision",
+      "word2" : "Ordinateur"
+    },
+
+    {
+      "word1" : "Main",
+      "word2" : "Pied"
+    },
+
+    {
+      "word1" : "Football",
+      "word2" : "Basketball"
+    },
+
+    {
+      "word1" : "France",
+      "word2" : "Belgique"
     }
   ]
 
