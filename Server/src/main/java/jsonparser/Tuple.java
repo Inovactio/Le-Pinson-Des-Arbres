@@ -1,20 +1,21 @@
 package jsonparser;
 
-public class Tuple<F,S> {
-    private F first;
-    private S second;
 
-    public Tuple(F f,S s){
+public class Tuple<E> {
+    private E first;
+    private E second;
+
+
+    public Tuple(E f,E s){
         first = f;
         second = s;
-
     }
 
-    public F getFirst() {
+    public E getFirst() {
         return first;
     }
 
-    public S getSecond() {
+    public E getSecond() {
         return second;
     }
 
