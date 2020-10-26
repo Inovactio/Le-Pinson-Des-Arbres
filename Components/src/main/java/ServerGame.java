@@ -13,16 +13,16 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
     }
 
     @Override
-    public void createLobby(Player creator,int roomSize) throws RemoteException {
+    public void createLobby(BasicPlayer creator, int roomSize) throws RemoteException {
         System.out.println("Création du lobby par le joueur : "+creator.getName());
         Room newRoom = new Room(creator,roomSize);
         rooms.add(newRoom);
     }
 
     @Override
-    public void connectToLobby(Player player, Room room) throws RemoteException {
+    public void connectToLobby(BasicPlayer basicPlayer, Room room) throws RemoteException {
         if(!rooms.contains(room)) return;
-        room.join(player);
-        player.setCurrentRoom(room);
+        room.join(basicPlayer);
+        basicPlayer.setCurrentRoom(room);
     }
 }

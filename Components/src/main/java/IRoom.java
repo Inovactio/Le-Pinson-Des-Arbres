@@ -9,6 +9,6 @@ public interface IRoom extends Remote {
 
     public void guessWord(String word) throws RemoteException;
 
-    public boolean join(Player player) throws RemoteException;
+    public boolean join(BasicPlayer basicPlayer) throws RemoteException;
 
 }

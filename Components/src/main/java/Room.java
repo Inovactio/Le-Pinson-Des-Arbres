@@ -5,12 +5,12 @@ import java.util.Set;
 
 public class Room extends UnicastRemoteObject implements IRoom {
 
-    private Set<Player> players;
+    private Set<BasicPlayer> basicPlayers;
     private boolean gameLaunched;
     private int roomSize;
 
     public Room(int roomSize) throws RemoteException {
-        this.players = new HashSet<Player>();
+        this.basicPlayers = new HashSet<BasicPlayer>();
         this.gameLaunched = false;
         if(roomSize>=6 && roomSize<=10){
             this.roomSize = roomSize;
@@ -21,16 +21,16 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     }
 
-    public Room(Player player,int roomSize) throws RemoteException{
+    public Room(BasicPlayer basicPlayer, int roomSize) throws RemoteException{
         this(roomSize);
-        join(player);
+        join(basicPlayer);
     }
 
-    public synchronized boolean join(Player player) throws RemoteException {
+    public synchronized boolean join(BasicPlayer basicPlayer) throws RemoteException {
         if (gameLaunched) {
             return false;
         } else {
-            return players.add(player) && islaunchable();
+            return basicPlayers.add(basicPlayer) && islaunchable();
         }
     }
 
@@ -50,7 +50,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
     }
 
     private boolean isRoomFull(){
-        return (players.size()>= roomSize);
+        return (basicPlayers.size()>= roomSize);
     }
 
     private boolean islaunchable(){
