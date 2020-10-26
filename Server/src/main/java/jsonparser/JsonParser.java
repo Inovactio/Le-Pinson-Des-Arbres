@@ -11,16 +11,18 @@ import java.io.IOException;
 
 public class JsonParser {
 
-
-
     private String filepath;
 
     public JsonParser(String fp){
         filepath = fp;
     }
 
-    public Tuple<String,String> getRandomWords() {
-        int MIN = 0;
+    /**
+     * get random words from the Json file
+     * @return a random couple of word
+     */
+    public Tuple<String> getRandomWords() {
+
         String firstword = "",secondword = "";
 
 
@@ -32,12 +34,7 @@ public class JsonParser {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
             JSONArray words = (JSONArray) jsonObject.get("words");
-
-            //SET max for random generation
-            int max =words.size();
-
-            //GENERATE a random number
-            int randomNumber = MIN + (int)(Math.random() * ((max - MIN)));
+            int randomNumber = getRandomNumber(words);
 
             //PICK the tuple of random words
             JSONObject randomwords = (JSONObject) words.get(randomNumber);
@@ -55,8 +52,15 @@ public class JsonParser {
             System.out.println("Json File cannot be parsed");
             e.printStackTrace();
         }
-        return new Tuple<String, String>(firstword,secondword);
+        return new Tuple<String>(firstword,secondword);
 
+    }
+
+    private int getRandomNumber(JSONArray words) {
+        int MIN = 0;
+        int max =words.size();
+
+        return MIN + (int)(Math.random() * ((max - MIN)));
     }
 
 }
