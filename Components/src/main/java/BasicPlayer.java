@@ -7,7 +7,6 @@ public class BasicPlayer {
     private String name;
     private List<String> writtenWords;
     private String votedPlayer;
-    private Room currentRoom;
 
     public BasicPlayer(String name) {
         this.name = name;
@@ -37,7 +36,4 @@ public class BasicPlayer {
         return votedPlayer;
     }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
 }

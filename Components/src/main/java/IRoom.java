@@ -5,8 +5,8 @@ public interface IRoom extends Remote {
 
     public void vote(String player) throws RemoteException;
 
-    public boolean join(Client client) throws RemoteException;
+    public boolean join(IClient client) throws RemoteException;
 
-    public boolean quit(Client client) throws RemoteException;
+    public boolean quit(IClient client) throws RemoteException;
 
 }

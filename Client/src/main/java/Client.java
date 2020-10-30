@@ -23,11 +23,13 @@ public class Client extends UnicastRemoteObject {
     public void getVote() throws RemoteException {
 
     }
-
+    
+    
     public String getWrite() throws RemoteException {
-        
+        wait();
     }
 
+   
     public String getGuess() throws RemoteException {
 
     }

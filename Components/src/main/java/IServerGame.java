@@ -3,7 +3,7 @@ import java.rmi.RemoteException;
 
 public interface IServerGame  extends Remote{
 
-    public boolean createLobby(Client client, int roomSize) throws RemoteException;
+    public boolean createLobby(IClient client, int roomSize) throws RemoteException;
 
-    public boolean connectToLobby(Client client, Room room) throws RemoteException;
+    public boolean connectToLobby(IClient client, IRoom room) throws RemoteException;
 }
