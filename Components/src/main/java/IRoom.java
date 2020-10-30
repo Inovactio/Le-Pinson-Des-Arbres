@@ -7,4 +7,6 @@ public interface IRoom extends Remote {
 
     public boolean join(Client client) throws RemoteException;
 
+    public boolean quit(Client client) throws RemoteException;
+
 }
