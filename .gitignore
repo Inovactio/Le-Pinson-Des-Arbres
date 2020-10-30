@@ -4,7 +4,7 @@
 
 #Graddle
 .gradle
-**  /build/
+**/build/
 
 # Maven target
 */target
