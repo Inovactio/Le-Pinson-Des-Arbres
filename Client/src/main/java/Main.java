@@ -1,4 +1,3 @@
-package GUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +7,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
         private static String valPseudoJoueur1;
+        private static final String SERVER_ADDRESS = "//localhost:8090/undercover";
+        private static Client client;
 
         public static String getValPseudoJoueur1(){
             return valPseudoJoueur1;
@@ -22,6 +23,7 @@ public class Main extends Application {
 
         @Override
         public void start(Stage primaryStage) throws Exception{
+            client = new Client(SERVER_ADDRESS);
             Parent root = FXMLLoader.load(getClass().getResource("/Undercover.fxml"));
             primaryStage.setTitle("Undercover");
             primaryStage.setScene(new Scene(root,1080,720));
