@@ -4,10 +4,9 @@ import java.rmi.RemoteException;
 
 public class Client extends UnicastRemoteObject {
 
-    IServerGame server;
-    IRoom currentRoom;
-    String username;
-    
+    private IServerGame server;
+    private IRoom currentRoom;
+    private String username;
 
     public Client(String address) throws RemoteException {
         try {
