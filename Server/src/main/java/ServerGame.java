@@ -16,7 +16,11 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
     public boolean createLobby(IClient client, int roomSize) throws RemoteException {
         System.out.println("Création du lobby par le joueur : "+ client.getUsername());
         Room newRoom = new Room(client, roomSize);
-        return rooms.add(newRoom);
+        boolean res = rooms.add(newRoom);
+        if (res) {
+            client.setCurrentRoom(newRoom);
+        }
+        return res;
     }
 
     @Override
