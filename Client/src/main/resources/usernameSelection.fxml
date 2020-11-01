@@ -15,31 +15,26 @@
             <Image url="@light-background-wallpaper-preview.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="361.0" layoutY="264.0" prefHeight="44.0" prefWidth="150.0" text="Username :" textAlignment="CENTER" AnchorPane.leftAnchor="361.0" AnchorPane.topAnchor="264.0">
-         <font>
-            <Font name="Cambria" size="24.0" />
-         </font>
-      </Label>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="385.0" layoutY="27.0" prefHeight="46.0" prefWidth="311.0" text="Undercover" textAlignment="CENTER" AnchorPane.bottomAnchor="647.0" AnchorPane.leftAnchor="385.0" AnchorPane.rightAnchor="384.0" AnchorPane.topAnchor="27.0">
          <font>
             <Font name="Cambria Bold" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="pseudoTextField" layoutX="521.0" layoutY="274.0" AnchorPane.leftAnchor="521.0" AnchorPane.topAnchor="274.0" />
-      <Button fx:id="createLobby" layoutX="442.0" layoutY="340.0" mnemonicParsing="false" onAction="#createLobbyButtonAction" prefHeight="65.0" prefWidth="197.0" text="Create Lobby" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="340.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="joinLobby" layoutX="442.0" layoutY="425.0" mnemonicParsing="false" onAction="#joinLobbyButtonAction" prefHeight="65.0" prefWidth="197.0" text="Join Lobby" AnchorPane.topAnchor="425.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="462.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@kisspng-virtual-private-network-internet-information-secur-spy-5b15dee6e21106.026296441528159974926.png" />
          </image>
       </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="290.0" prefHeight="46.0" prefWidth="311.0" text="Please select a username :" textAlignment="CENTER">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextField" layoutX="418.0" layoutY="360.0" prefHeight="46.0" prefWidth="238.0" />
+      <Button fx:id="connect" layoutX="491.0" layoutY="427.0" mnemonicParsing="false" onAction="#takeUsername" prefHeight="39.0" prefWidth="93.0" text="Connect">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
