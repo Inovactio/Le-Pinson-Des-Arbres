@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,8 +37,15 @@ public class Controller {
     private void createLobbyButtonAction(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
+        String username = pseudoTextField.getText();
 
-        client.setUsername(pseudoTextField.getText());
+        if (username.equals("")) {
+            Alert alert = new Alert(AlertType.ERROR, "Please enter a username.");
+            alert.show();
+            return;
+        }
+
+        client.setUsername(username);
 
         if (client.getServer().createLobby(client, 6)) {
             stage = (Stage) createLobby.getScene().getWindow();
@@ -45,7 +54,7 @@ public class Controller {
             root = loader.load();
             Scene scene = new Scene(root,1080,720);
             stage.setScene(scene);
-            refreshLobby(client.getUsername());
+            refreshLobby(username);
             stage.show();
         }
        
@@ -55,6 +64,13 @@ public class Controller {
     private void joinLobbyButtonAction(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
+        String username = pseudoTextField.getText();
+
+        if (username.equals("")) {
+            Alert alert = new Alert(AlertType.ERROR, "Please enter a username.");
+            alert.show();
+            return;
+        }
 
         stage = (Stage) joinLobby.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/join.fxml"));
