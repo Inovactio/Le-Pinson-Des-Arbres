@@ -24,7 +24,9 @@ public class Main extends Application {
         @Override
         public void start(Stage primaryStage) throws Exception{
             client = new Client(SERVER_ADDRESS);
-            Parent root = FXMLLoader.load(getClass().getResource("/Undercover.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Undercover.fxml"));
+            loader.setController(client.getController());
+            Parent root = loader.load();
             primaryStage.setTitle("Undercover");
             primaryStage.setScene(new Scene(root,1080,720));
             primaryStage.show();

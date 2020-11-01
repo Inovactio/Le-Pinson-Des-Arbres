@@ -13,10 +13,10 @@ public class PlayerInteractionController {
     @FXML
     private Label inputInfo;
 
-    private IClient client;
+    private Client client;
     private String givenWord;
 
-    public PlayerInteractionController(IClient client) {
+    public PlayerInteractionController(Client client) {
         this.client = client;
     }
 

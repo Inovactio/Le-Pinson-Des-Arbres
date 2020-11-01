@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
-
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Controller {
@@ -22,26 +22,33 @@ public class Controller {
     private ImageView joueur1, joueur2, joueur3, joueur4, joueur5, joueur6;
     @FXML
     private Label pseudoJoueur1,pseudoJoueur2,pseudoJoueur3,pseudoJoueur4,pseudoJoueur5,pseudoJoueur6, nbJoueurs;
-
-
-
-
     
+    private Client client;
+
+    public Controller() {}
+
+    public Controller(Client client) {
+        this.client = client;
+    }
 
     @FXML
     private void createLobbyButtonAction(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
 
-        Main.setValPseudoJoueur1(pseudoTextField.getText());
-        stage = (Stage) createLobby.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/lobby.fxml"));
-        Scene scene = new Scene(root,1080,720);
-        stage.setScene(scene);
-        stage.show();
+        client.setUsername(pseudoTextField.getText());
 
-
-
+        if (client.getServer().createLobby(client, 6)) {
+            stage = (Stage) createLobby.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lobby.fxml"));
+            loader.setController(client.getController());
+            root = loader.load();
+            Scene scene = new Scene(root,1080,720);
+            stage.setScene(scene);
+            refreshLobby(client.getUsername());
+            stage.show();
+        }
+       
     }
 
     @FXML
@@ -132,15 +139,26 @@ public class Controller {
 
     }
 
-    @FXML
-    private void validateLobby(ActionEvent event) throws Exception {
-        pseudoJoueur1.setText(Main.getValPseudoJoueur1());
+    //Creation refresh
+    private void refreshLobby(String creator) {
+        pseudoJoueur1.setText(creator);
         joueur2.setVisible(false);
         joueur3.setVisible(false);
         joueur4.setVisible(false);
         joueur5.setVisible(false);
         joueur6.setVisible(false);
         nbJoueurs.setText("Joueurs (1/6)");
+    }
+
+    //Join refresh
+    public void refreshLobby(Set<String> players) {
+        pseudoJoueur1.setText(Main.getValPseudoJoueur1());
+        joueur2.setVisible(false);
+        joueur3.setVisible(false);
+        joueur4.setVisible(false);
+        joueur5.setVisible(false);
+        joueur6.setVisible(false);
+        nbJoueurs.setText("Joueurs (" + players.size() + "/6)");
     }
 
 }

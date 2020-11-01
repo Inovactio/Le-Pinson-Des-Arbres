@@ -1,13 +1,15 @@
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.Set;
 
 public class Client extends UnicastRemoteObject implements IClient {
 
     private IServerGame server;
     private IRoom currentRoom;
     private String username;
-    private PlayerInteractionController controller;
+    private PlayerInteractionController playerInteractionController;
+    private Controller controller;
 
     private boolean bufferEmpty;
     private String buffer;
@@ -20,8 +22,13 @@ public class Client extends UnicastRemoteObject implements IClient {
             System.out.println("Connection failed.");
             e.printStackTrace();
         }
-        controller = new PlayerInteractionController(this);
+        playerInteractionController = new PlayerInteractionController(this);
+        controller = new Controller(this);
         bufferEmpty = true;
+    }
+
+    public void refreshLobby(Set<String> players) throws RemoteException {
+        controller.refreshLobby(players);
     }
 
     /*
@@ -31,7 +38,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     
     
     public synchronized String getWord() throws RemoteException, InterruptedException {
-        controller.openInput();
+        playerInteractionController.openInput();
         wait(20000);
         bufferEmpty = true;
         return buffer;
@@ -59,4 +66,15 @@ public class Client extends UnicastRemoteObject implements IClient {
         return username;
     }
 
+    public IServerGame getServer() {
+        return server;
+    }
+
+    public void setCurrentRoom(IRoom room) {
+        currentRoom = room;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
 }
