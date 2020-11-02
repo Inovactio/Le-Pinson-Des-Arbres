@@ -10,15 +10,16 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
 
     private static final long serialVersionUID = 1L;
     private Map<String, IRoom> rooms;
-    private Set<String> usernames;
+    private UsernamesMonitor usernamesMonitor;
+    
 
     public ServerGame() throws RemoteException {
         this.rooms = new ConcurrentHashMap<String, IRoom>();
-        this.usernames = new HashSet<String>();
+        this.usernamesMonitor = new UsernamesMonitor();
     }
 
-    public synchronized boolean takeUsername(String username) throws RemoteException {
-        return usernames.add(username);
+    public boolean takeUsername(String username) throws RemoteException {
+        return usernamesMonitor.takeUsername(username);
     }
 
     @Override
