@@ -13,11 +13,12 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.util.Callback;
 
 public class Controller {
 
@@ -93,11 +94,6 @@ public class Controller {
         stage.setScene(scene);
         refreshLobbiesList(client.getServer().getLobbies());
         stage.show();
-    }
-
-    @FXML
-    private void joinLobbyButtonAction(ActionEvent event) throws Exception {
-        
     }
 
     @FXML
@@ -181,9 +177,44 @@ public class Controller {
 
     public void refreshLobbiesList(Set<RoomInfo> rooms) {
 
-        ObservableList roomsList = FXCollections.observableArrayList(rooms);
+        ObservableList<RoomInfo> roomsList = FXCollections.observableArrayList(rooms);
+
+        Callback<TableColumn<RoomInfo, Void>, TableCell<RoomInfo, Void>> cellFactory = new Callback<TableColumn<RoomInfo, Void>, TableCell<RoomInfo, Void>>() {
+            @Override
+            public TableCell<RoomInfo, Void> call(final TableColumn<RoomInfo, Void> param) {
+                final TableCell<RoomInfo, Void> cell = new TableCell<RoomInfo, Void>() {
+
+                    private final Button btn = new Button("Join");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            RoomInfo room = getTableView().getItems().get(getIndex());
+                            joinLobby(room.getOwner());
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
         lobbiesList.getVisibleLeafColumn(0).setCellValueFactory(new PropertyValueFactory<>("owner"));
         lobbiesList.getVisibleLeafColumn(1).setCellValueFactory(new PropertyValueFactory<>("capacity"));
+        lobbiesList.getVisibleLeafColumn(2).setCellFactory(cellFactory);
         lobbiesList.setItems(roomsList);
     }
+
+    private void joinLobby(String owner) {
+        System.out.println("Trying to join room owned by " + owner);
+    }
+
 }
