@@ -24,7 +24,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="joinLobby" layoutX="442.0" layoutY="425.0" mnemonicParsing="false" onAction="#joinLobbyButtonAction" prefHeight="65.0" prefWidth="197.0" text="Join Lobby" AnchorPane.topAnchor="425.0">
+      <Button fx:id="showLobbies" layoutX="442.0" layoutY="425.0" mnemonicParsing="false" onAction="#showLobbies" prefHeight="65.0" prefWidth="197.0" text="Join Lobby" AnchorPane.topAnchor="425.0">
          <font>
             <Font size="24.0" />
          </font>

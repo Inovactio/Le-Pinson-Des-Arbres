@@ -12,18 +12,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.util.HashSet;
 import java.util.Set;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 public class Controller {
 
     @FXML
-    private Button connect, createLobby, joinLobby, playGame;
+    private Button connect, createLobby, showLobbies, playGame;
     @FXML
     private TextField usernameTextField, labelmots, labeltours, tempstours,nbimposteurs;
     @FXML
     private ImageView joueur1, joueur2, joueur3, joueur4, joueur5, joueur6;
     @FXML
     private Label pseudoJoueur1,pseudoJoueur2,pseudoJoueur3,pseudoJoueur4,pseudoJoueur5,pseudoJoueur6, nbJoueurs;
+    @FXML
+    private TableView lobbiesList;
     
     private Client client;
 
@@ -77,12 +84,20 @@ public class Controller {
     }
 
     @FXML
-    private void joinLobbyButtonAction(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/join.fxml"));
-        Stage stage = (Stage) joinLobby.getScene().getWindow();
+    private void showLobbies(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/join.fxml"));
+        loader.setController(client.getController());
+        Parent root = loader.load();
+        Stage stage = (Stage) showLobbies.getScene().getWindow();
         Scene scene = new Scene(root,1080,720);
         stage.setScene(scene);
+        refreshLobbiesList(client.getServer().getLobbies());
         stage.show();
+    }
+
+    @FXML
+    private void joinLobbyButtonAction(ActionEvent event) throws Exception {
+        
     }
 
     @FXML
@@ -164,4 +179,11 @@ public class Controller {
         nbJoueurs.setText("Joueurs (" + players.size() + "/6)");
     }
 
+    public void refreshLobbiesList(Set<RoomInfo> rooms) {
+
+        ObservableList roomsList = FXCollections.observableArrayList(rooms);
+        lobbiesList.getVisibleLeafColumn(0).setCellValueFactory(new PropertyValueFactory<>("owner"));
+        lobbiesList.getVisibleLeafColumn(1).setCellValueFactory(new PropertyValueFactory<>("capacity"));
+        lobbiesList.setItems(roomsList);
+    }
 }

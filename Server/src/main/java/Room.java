@@ -6,6 +6,7 @@ import java.util.Set;
 public class Room extends UnicastRemoteObject implements IRoom {
 
     private Set<IClient> clients;
+    private String owner;
     private boolean gameLaunched;
     private int roomSize;
 
@@ -21,9 +22,10 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     }
 
-    public Room(IClient client,int roomSize) throws RemoteException{
+    public Room(IClient client, int roomSize) throws RemoteException{
         this(roomSize);
         join(client);
+        owner = client.getUsername();
     }
 
     public synchronized boolean join(IClient client) throws RemoteException {
@@ -32,6 +34,18 @@ public class Room extends UnicastRemoteObject implements IRoom {
         } else {
             return clients.add(client);
         }
+    }
+
+    public String getOwner() throws RemoteException {
+        return owner;
+    }
+
+    public int getNbPlayers() throws RemoteException {
+        return clients.size();
+    }
+
+    public int getRoomSize() throws RemoteException {
+        return roomSize;
     }
 
     public synchronized boolean quit(IClient client) {
@@ -50,4 +64,5 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private void launch(){
         gameLaunched = true;
     }
+
 }

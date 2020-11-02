@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="lobbiesList" layoutX="142.0" layoutY="11.0" prefHeight="378.0" prefWidth="317.0">
+        <columns>
+          <TableColumn prefWidth="122.0" text="Owner" />
+          <TableColumn prefWidth="99.0" text="Players" />
+            <TableColumn prefWidth="95.0" text="Join" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

@@ -9,4 +9,10 @@ public interface IRoom extends Remote {
 
     public boolean quit(IClient client) throws RemoteException;
 
+    public String getOwner() throws RemoteException;
+
+    public int getNbPlayers() throws RemoteException;
+
+    public int getRoomSize() throws RemoteException;
+
 }

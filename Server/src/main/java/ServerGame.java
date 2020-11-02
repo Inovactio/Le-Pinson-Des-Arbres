@@ -2,15 +2,18 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map.Entry;
 
 public class ServerGame extends UnicastRemoteObject implements IServerGame {
 
     private static final long serialVersionUID = 1L;
-    private Set<IRoom> rooms;
+    private Map<String, IRoom> rooms;
     private Set<String> usernames;
 
     public ServerGame() throws RemoteException {
-        this.rooms = new HashSet<IRoom>();
+        this.rooms = new ConcurrentHashMap<String, IRoom>();
         this.usernames = new HashSet<String>();
     }
 
@@ -21,18 +24,32 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
     @Override
     public boolean createLobby(IClient client, int roomSize) throws RemoteException {
 
-        System.out.println("Création du lobby par le joueur : "+ client.getUsername());
+        String clientUsername = client.getUsername();
+        System.out.println("Création du lobby par le joueur : "+ clientUsername);
         Room newRoom = new Room(client, roomSize);
-        boolean res = rooms.add(newRoom);
-        if (res) {
+        rooms.putIfAbsent(clientUsername, newRoom);
+        if (rooms.containsKey(clientUsername)) {
             client.setCurrentRoom(newRoom);
+            return true;
+        } else {
+            return false;
         }
-        return res;
     }
 
     @Override
-    public boolean connectToLobby(IClient client, IRoom room) throws RemoteException {
-        if(!rooms.contains(room)) return false;
-        return room.join(client);
+    public boolean connectToLobby(IClient client, String owner) throws RemoteException {
+        if(!rooms.containsKey(owner)) return false;
+        return rooms.get(owner).join(client);
+    }
+
+    @Override
+    public Set<RoomInfo> getLobbies() throws RemoteException {
+        Set res = new HashSet<RoomInfo>();
+
+        for (Map.Entry<String, IRoom> entry : rooms.entrySet()) {
+            res.add(new RoomInfo(entry.getValue()));
+        }
+
+        return res;
     }
 }
