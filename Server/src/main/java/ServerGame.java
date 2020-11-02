@@ -37,9 +37,11 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
     }
 
     @Override
-    public boolean connectToLobby(IClient client, String owner) throws RemoteException {
-        if(!rooms.containsKey(owner)) return false;
-        return rooms.get(owner).join(client);
+    public Set<String> connectToLobby(IClient client, String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
+        if (!rooms.containsKey(owner)) throw new RoomInexistentException();
+        Set<String> res = rooms.get(owner).join(client);
+        client.setCurrentRoom(rooms.get(owner));
+        return res;
     }
 
     @Override

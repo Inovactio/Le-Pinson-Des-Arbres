@@ -77,4 +77,12 @@ public class Client extends UnicastRemoteObject implements IClient {
     public Controller getController() {
         return controller;
     }
+
+    public Set<RoomInfo> getLobbies() throws RemoteException {
+        return server.getLobbies();
+    }
+
+    public Set<String> connectToLobby(String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
+        return server.connectToLobby(this, owner);
+    }
 }

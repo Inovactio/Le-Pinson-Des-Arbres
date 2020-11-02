@@ -6,12 +6,14 @@ import java.util.Set;
 public class Room extends UnicastRemoteObject implements IRoom {
 
     private Set<IClient> clients;
+    private Set<String> usernames;
     private String owner;
     private boolean gameLaunched;
     private int roomSize;
 
     public Room(int roomSize) throws RemoteException {
         this.clients = new HashSet<IClient>();
+        this.usernames = new HashSet<String>();
         this.gameLaunched = false;
         if(roomSize>=6 && roomSize<=10){
             this.roomSize = roomSize;
@@ -22,18 +24,19 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     }
 
-    public Room(IClient client, int roomSize) throws RemoteException{
+    public Room(IClient client, int roomSize) throws RemoteException {
         this(roomSize);
-        join(client);
+        clients.add(client);
+        usernames.add(client.getUsername());
         owner = client.getUsername();
     }
 
-    public synchronized boolean join(IClient client) throws RemoteException {
-        if (gameLaunched) {
-            return false;
-        } else {
-            return clients.add(client);
-        }
+    public synchronized Set<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException {
+        if (gameLaunched) throw new GameLaunchedException();
+        if (clients.size() >= roomSize) throw new RoomFullException();
+        usernames.add(client.getUsername());
+        clients.add(client);
+        return usernames;
     }
 
     public String getOwner() throws RemoteException {
@@ -48,8 +51,12 @@ public class Room extends UnicastRemoteObject implements IRoom {
         return roomSize;
     }
 
-    public synchronized boolean quit(IClient client) {
-        return clients.remove(client);
+    public synchronized boolean quit(IClient client) throws RemoteException {
+        if (clients.remove(client) && usernames.remove(client.getUsername())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void vote(String player) throws RemoteException {
