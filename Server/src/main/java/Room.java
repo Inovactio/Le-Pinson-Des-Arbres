@@ -35,6 +35,9 @@ public class Room extends UnicastRemoteObject implements IRoom {
         if (gameLaunched) throw new GameLaunchedException();
         if (clients.size() >= roomSize) throw new RoomFullException();
         usernames.add(client.getUsername());
+        for (IClient c : clients) {
+            c.giveLobbyUpdate(usernames);
+        }
         clients.add(client);
         return usernames;
     }

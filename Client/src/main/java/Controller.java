@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import java.util.HashSet;
 import java.util.Set;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableCell;

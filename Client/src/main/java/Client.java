@@ -11,6 +11,8 @@ public class Client extends UnicastRemoteObject implements IClient {
     private PlayerInteractionController playerInteractionController;
     private Controller controller;
 
+    private LobbyUpdatesMonitor lobbyUpdatesMonitor;
+
     private boolean bufferEmpty;
     private String buffer;
 
@@ -24,11 +26,12 @@ public class Client extends UnicastRemoteObject implements IClient {
         }
         playerInteractionController = new PlayerInteractionController(this);
         controller = new Controller(this);
+        lobbyUpdatesMonitor = new LobbyUpdatesMonitor(controller);
         bufferEmpty = true;
     }
 
-    public void refreshLobby(Set<String> players) throws RemoteException {
-        controller.refreshLobby(players);
+    public void giveLobbyUpdate(Set<String> update) throws RemoteException {
+        lobbyUpdatesMonitor.giveUpdate(update);
     }
 
     /*

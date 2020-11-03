@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface IClient extends Remote {
 
-    public void refreshLobby(Set<String> players) throws RemoteException;
+    public void giveLobbyUpdate(Set<String> update) throws RemoteException;
 
     //public void getVote() throws RemoteException;
     
