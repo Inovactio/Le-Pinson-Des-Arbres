@@ -62,6 +62,16 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
+    public synchronized void launchGame() throws RemoteException {
+
+        // TODO : randomly select words and roles
+        String word = "cochon";
+
+        for (IClient client : clients) {
+            client.init(word, Role.CITIZEN, usernames);
+        }
+    }
+
     public void vote(String player) throws RemoteException {
         // TODO Auto-generated method stub
 

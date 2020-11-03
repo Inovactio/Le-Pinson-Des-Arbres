@@ -1,3 +1,5 @@
+import java.util.Set;
+
 import javafx.application.Platform;
 
 public class GameMonitor {
@@ -5,6 +7,9 @@ public class GameMonitor {
     private GameController gameController;
     private Request buffer;
     private boolean bufferIsEmpty;
+    private String givenWord;
+    private Role role;
+    private Set<String> players;
 
     public GameMonitor(GameController gameController) {
         this.gameController = gameController;
@@ -38,7 +43,8 @@ public class GameMonitor {
                 Platform.runLater(thread);
                 break;
             case INIT:
-                
+                thread = new Thread(() -> {gameController.init(givenWord, role, players);});
+                Platform.runLater(thread);
                 break;
             default:
                 break;
@@ -47,6 +53,25 @@ public class GameMonitor {
         bufferIsEmpty = true;
         notify();
         getRequest();
+    }
+
+    public synchronized void init(String word, Role role, Set<String> players) {
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+
+        givenWord = word;
+        this.role = role;
+        this.players = players;
+
+        buffer = Request.INIT;
+        bufferIsEmpty = false;
+        notify();
     }
 
     public synchronized void requestWord() {

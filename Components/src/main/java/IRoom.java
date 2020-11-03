@@ -12,6 +12,8 @@ public interface IRoom extends Remote {
 
     public boolean quit(IClient client) throws RemoteException;
 
+    public void launchGame() throws RemoteException;
+
     public String getOwner() throws RemoteException;
 
     public int getNbPlayers() throws RemoteException;

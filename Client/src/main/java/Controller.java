@@ -121,11 +121,7 @@ public class Controller {
 
     @FXML
     private void playGameButtonAction(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/game.fxml"));
-        Scene scene = new Scene(root,1080,720);
-        Stage stage = (Stage) playGame.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        client.launchGame();
     }
 
     @FXML

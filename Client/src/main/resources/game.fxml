@@ -14,9 +14,16 @@
             <Image url="@light-background-wallpaper-preview.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="278.0" layoutY="45.0" text="Votre mot est :" />
+      <Label layoutX="194.0" layoutY="23.0" text="Votre mot est :" />
       <TextField id="input" fx:id="input" alignment="CENTER" editable="false" layoutX="249.0" layoutY="335.0" />
       <Button id="send" fx:id="send" disable="true" layoutX="434.0" layoutY="335.0" mnemonicParsing="false" onAction="#sendButtonAction" text="Send" />
       <Label id="inputInfo" fx:id="inputInfo" alignment="CENTER" layoutX="316.0" layoutY="305.0" text="Info label" visible="false" />
+      <Label fx:id="givenWord" layoutX="298.0" layoutY="23.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer1" layoutX="34.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer2" layoutX="138.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer3" layoutX="241.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer4" layoutX="340.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer5" layoutX="444.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label fx:id="pseudoPlayer6" layoutX="547.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
    </children>
 </AnchorPane>

@@ -39,7 +39,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     */
     
     
-    public synchronized void requestWord() throws RemoteException, InterruptedException {
+    public void requestWord() throws RemoteException, InterruptedException {
         gameMonitor.requestWord();
     }
 
@@ -50,7 +50,23 @@ public class Client extends UnicastRemoteObject implements IClient {
     */
 
     public void init(String word, Role role, Set<String> players) {
-        gameController.init(word, role, players);
+        gameMonitor.init(word, role, players);
+    }
+
+    public Set<RoomInfo> getLobbies() throws RemoteException {
+        return server.getLobbies();
+    }
+
+    public void sendWord(String word) throws RemoteException {
+
+    } 
+
+    public Set<String> connectToLobby(String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
+        return server.connectToLobby(this, owner);
+    }
+
+    public void launchGame() throws RemoteException {
+        currentRoom.launchGame();
     }
 
     //Getters and setters
@@ -75,15 +91,8 @@ public class Client extends UnicastRemoteObject implements IClient {
         return controller;
     }
 
-    public Set<RoomInfo> getLobbies() throws RemoteException {
-        return server.getLobbies();
+    public GameController getGameController() {
+        return gameController;
     }
 
-    public void sendWord(String word) throws RemoteException {
-
-    }  
-
-    public Set<String> connectToLobby(String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
-        return server.connectToLobby(this, owner);
-    }
 }
