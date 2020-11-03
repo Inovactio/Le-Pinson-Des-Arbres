@@ -4,7 +4,9 @@ import java.util.Set;
 
 public interface IRoom extends Remote {
 
-    public void vote(String player) throws RemoteException;
+    public void sendVote(String player) throws RemoteException;
+
+    public void sendWord(String word) throws RemoteException;
 
     public Set<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException;
 

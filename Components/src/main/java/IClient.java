@@ -6,13 +6,13 @@ public interface IClient extends Remote {
 
     public void giveLobbyUpdate(Set<String> update) throws RemoteException;
 
-    //public void getVote() throws RemoteException;
+    //public void requestVote() throws RemoteException;
     
-    public String getWord() throws RemoteException, InterruptedException;
+    public void requestWord() throws RemoteException, InterruptedException;
 
-    //public String getGuess() throws RemoteException;
+    //public String requestGuess() throws RemoteException;
 
-    public void giveWord(String word) throws RemoteException;
+    public void init(String word, Role role, Set<String> players) throws RemoteException;
 
     public void setCurrentRoom(IRoom room) throws RemoteException;
 

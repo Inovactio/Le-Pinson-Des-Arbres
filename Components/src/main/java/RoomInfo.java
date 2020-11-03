@@ -2,6 +2,7 @@ import java.rmi.RemoteException;
 import java.io.Serializable;
 
 public class RoomInfo implements Serializable {
+  
     private String owner;
     private String capacity;
 

@@ -8,13 +8,12 @@ public class Client extends UnicastRemoteObject implements IClient {
     private IServerGame server;
     private IRoom currentRoom;
     private String username;
-    private PlayerInteractionController playerInteractionController;
+    private GameController gameController;
     private Controller controller;
 
     private LobbyUpdatesMonitor lobbyUpdatesMonitor;
+    private GameMonitor gameMonitor;
 
-    private boolean bufferEmpty;
-    private String buffer;
 
     public Client(String address) throws RemoteException {
         try {
@@ -24,10 +23,10 @@ public class Client extends UnicastRemoteObject implements IClient {
             System.out.println("Connection failed.");
             e.printStackTrace();
         }
-        playerInteractionController = new PlayerInteractionController(this);
+        gameController = new GameController(this);
         controller = new Controller(this);
         lobbyUpdatesMonitor = new LobbyUpdatesMonitor(controller);
-        bufferEmpty = true;
+        gameMonitor = new GameMonitor(gameController);
     }
 
     public void giveLobbyUpdate(Set<String> update) throws RemoteException {
@@ -40,11 +39,8 @@ public class Client extends UnicastRemoteObject implements IClient {
     */
     
     
-    public synchronized String getWord() throws RemoteException, InterruptedException {
-        playerInteractionController.openInput();
-        wait(20000);
-        bufferEmpty = true;
-        return buffer;
+    public synchronized void requestWord() throws RemoteException, InterruptedException {
+        gameMonitor.requestWord();
     }
 
    /*
@@ -53,10 +49,8 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
     */
 
-    public synchronized void giveWord(String word) {
-        buffer = word;
-        bufferEmpty = false;
-        notify();
+    public void init(String word, Role role, Set<String> players) {
+        gameController.init(word, role, players);
     }
 
     //Getters and setters
@@ -84,6 +78,10 @@ public class Client extends UnicastRemoteObject implements IClient {
     public Set<RoomInfo> getLobbies() throws RemoteException {
         return server.getLobbies();
     }
+
+    public void sendWord(String word) throws RemoteException {
+
+    }  
 
     public Set<String> connectToLobby(String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
         return server.connectToLobby(this, owner);

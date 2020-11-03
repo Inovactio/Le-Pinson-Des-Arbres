@@ -256,6 +256,7 @@ public class Controller {
             initUsernamesLobby();
             initImagesLobby();
             refreshLobby(players);
+            playGame.setVisible(false);
             stage.show();
         } catch (RoomFullException e) {
             Alert alert = new Alert(AlertType.ERROR, "This room is full.");

@@ -67,12 +67,17 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     }
 
-    private boolean isRoomFull(){
-        return (clients.size()>= roomSize);
+    @Override
+    public void sendVote(String player) throws RemoteException {
+        // TODO Auto-generated method stub
+
     }
 
-    private void launch(){
-        gameLaunched = true;
+    @Override
+    public void sendWord(String word) throws RemoteException {
+        // TODO Auto-generated method stub
+
     }
+
 
 }
