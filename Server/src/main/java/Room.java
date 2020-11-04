@@ -1,7 +1,11 @@
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Set;
+
+import jsonparser.JsonParser;
+import jsonparser.Tuple;
 
 public class Room extends UnicastRemoteObject implements IRoom {
 
@@ -73,11 +77,15 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     public synchronized void launchGame() throws RemoteException {
 
-        // TODO : randomly select words and roles
-        String word = "cochon";
+        // TODO : randomly select roles
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = classLoader.getResource("words.json").getPath();
+        JsonParser jsonParser = new JsonParser(path);
+        Tuple<String> words = jsonParser.getRandomWords();
+        System.out.println("Words : " + words.getFirst() + " / " + words.getSecond());
 
         for (IClient client : clients) {
-            client.init(word, Role.CITIZEN, usernames);
+            client.init(words.getFirst(), Role.CITIZEN, usernames);
         }
     }
 

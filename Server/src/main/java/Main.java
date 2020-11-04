@@ -1,6 +1,3 @@
-import jsonparser.JsonParser;
-
-import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
@@ -16,8 +13,7 @@ public class Main {
             LocateRegistry.createRegistry(port);
             IServerGame serverGame = new ServerGame();
             Naming.rebind("//"+url+":"+port+"/undercover", serverGame);
-
-            //JsonParser jsonParser = new JsonParser("Server/src/main/resources/words.json");
+            System.out.println("Server running at //" + url + ":" + port + "/undercovers");
 
         } catch (Exception e) {
             System.out.println("Erreur lors de la création du serveur de jeu.");
