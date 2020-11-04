@@ -65,6 +65,16 @@ public class Client extends UnicastRemoteObject implements IClient {
         return server.connectToLobby(this, owner);
     }
 
+    public void quit() throws RemoteException {
+        currentRoom.quit(this);
+        currentRoom = null;
+    }
+
+    public void kick() throws RemoteException {
+        lobbyUpdatesMonitor.kick();
+        currentRoom = null;
+    }
+
     public void launchGame() throws RemoteException {
         currentRoom.launchGame();
     }

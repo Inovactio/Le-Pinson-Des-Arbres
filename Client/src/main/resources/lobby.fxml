@@ -89,7 +89,7 @@
             <Font name="Cambria" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="playGame" layoutX="497.0" layoutY="585.0" mnemonicParsing="false" onAction="#playGameButtonAction" text="Jouer">
+      <Button fx:id="playGame" layoutX="497.0" layoutY="585.0" mnemonicParsing="false" onAction="#playGameButtonAction" text="Play">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -159,5 +159,10 @@
             <Font name="Cambria Bold" size="20.0" />
          </font>
       </Label>
+      <Button fx:id="lobbyToMainMenuButton" layoutX="45.0" layoutY="41.0" mnemonicParsing="false" onAction="#lobbyToMainMenu" text="Back">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -16,6 +16,8 @@ public interface IClient extends Remote {
 
     public void setCurrentRoom(IRoom room) throws RemoteException;
 
+    public void kick() throws RemoteException;
+
     public String getUsername() throws RemoteException;
 
 }

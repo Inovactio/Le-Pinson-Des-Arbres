@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.io.IOException;
 import java.util.Set;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableCell;
@@ -22,27 +24,29 @@ import javafx.util.Callback;
 public class Controller {
 
     @FXML
-    private Button connect, createLobby, showLobbies, playGame, refreshButton, joinToMainMenuButton;
+    private Button connect, createLobby, showLobbies, playGame, refreshButton, joinToMainMenuButton,
+            lobbyToMainMenuButton;
     @FXML
-    private TextField usernameTextField, labelmots, labeltours, tempstours,nbimposteurs;
+    private TextField usernameTextField, labelmots, labeltours, tempstours, nbimposteurs;
     @FXML
     private ImageView joueur1, joueur2, joueur3, joueur4, joueur5, joueur6;
     @FXML
-    private Label pseudoJoueur1,pseudoJoueur2,pseudoJoueur3,pseudoJoueur4,pseudoJoueur5,pseudoJoueur6, nbJoueurs;
+    private Label pseudoJoueur1, pseudoJoueur2, pseudoJoueur3, pseudoJoueur4, pseudoJoueur5, pseudoJoueur6, nbJoueurs;
     @FXML
     private TableView lobbiesList;
-    
+
     private Client client;
     private Label usernamesLobby[];
     private ImageView imagesLobby[];
 
-    public Controller() {}
+    public Controller() {
+    }
 
     public Controller(Client client) {
         this.client = client;
     }
 
-    //-----Interactions-----
+    // -----Interactions-----
 
     @FXML
     private void takeUsername(ActionEvent event) throws Exception {
@@ -61,7 +65,7 @@ public class Controller {
             loader.setController(client.getController());
             Parent root = loader.load();
             Stage stage = (Stage) connect.getScene().getWindow();
-            Scene scene = new Scene(root,1080,720);
+            Scene scene = new Scene(root, 1080, 720);
             stage.setScene(scene);
             stage.show();
         } else {
@@ -73,20 +77,20 @@ public class Controller {
 
     @FXML
     private void createLobbyButtonAction(ActionEvent event) throws Exception {
-     
+
         if (client.getServer().createLobby(client, 6)) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lobby.fxml"));
             loader.setController(client.getController());
             Parent root = loader.load();
             Stage stage = (Stage) createLobby.getScene().getWindow();
-            Scene scene = new Scene(root,1080,720);
+            Scene scene = new Scene(root, 1080, 720);
             stage.setScene(scene);
             initUsernamesLobby();
             initImagesLobby();
             refreshLobby(client.getUsername());
             stage.show();
         }
-       
+
     }
 
     @FXML
@@ -95,7 +99,7 @@ public class Controller {
         loader.setController(client.getController());
         Parent root = loader.load();
         Stage stage = (Stage) showLobbies.getScene().getWindow();
-        Scene scene = new Scene(root,1080,720);
+        Scene scene = new Scene(root, 1080, 720);
         stage.setScene(scene);
         refreshLobbiesList(client.getLobbies());
         stage.show();
@@ -111,7 +115,7 @@ public class Controller {
         refreshLobbiesList(client.getLobbies());
     }
 
-    //-----Back buttons-----
+    // -----Back buttons-----
 
     @FXML
     public void joinToMainMenu(ActionEvent event) throws Exception {
@@ -119,62 +123,73 @@ public class Controller {
         loader.setController(client.getController());
         Parent root = loader.load();
         Stage stage = (Stage) lobbiesList.getScene().getWindow();
-        Scene scene = new Scene(root,1080,720);
+        Scene scene = new Scene(root, 1080, 720);
         stage.setScene(scene);
         stage.show();
     }
 
-    //-----Lobby tuning-----
+    public void lobbyToMainMenu(ActionEvent event) throws Exception {
+        client.quit();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu.fxml"));
+        loader.setController(client.getController());
+        Parent root = loader.load();
+        Stage stage = (Stage) lobbyToMainMenuButton.getScene().getWindow();
+        Scene scene = new Scene(root, 1080, 720);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    // -----Lobby tuning-----
 
     @FXML
     private void incrementNumberOfWords(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labelmots.getText())+1;
+        int value = Integer.parseInt(labelmots.getText()) + 1;
         labelmots.setText(Integer.toString(value));
     }
 
     @FXML
     private void decrementNumberOfWords(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labelmots.getText())-1;
+        int value = Integer.parseInt(labelmots.getText()) - 1;
         labelmots.setText(Integer.toString(value));
     }
 
     @FXML
     private void incrementNumberOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labeltours.getText())+1;
+        int value = Integer.parseInt(labeltours.getText()) + 1;
         labeltours.setText(Integer.toString(value));
     }
 
     @FXML
     private void decrementNumberOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labeltours.getText())-1;
+        int value = Integer.parseInt(labeltours.getText()) - 1;
         labeltours.setText(Integer.toString(value));
     }
 
     @FXML
     private void incrementTimeOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(tempstours.getText())+1;
+        int value = Integer.parseInt(tempstours.getText()) + 1;
         tempstours.setText(Integer.toString(value));
     }
 
     @FXML
     private void decrementTimeOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(tempstours.getText())-1;
+        int value = Integer.parseInt(tempstours.getText()) - 1;
         tempstours.setText(Integer.toString(value));
     }
 
     @FXML
     private void incrementNumberOfImposters(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(nbimposteurs.getText())+1;
+        int value = Integer.parseInt(nbimposteurs.getText()) + 1;
         nbimposteurs.setText(Integer.toString(value));
     }
 
     @FXML
     private void decrementNumberOfImposters(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(nbimposteurs.getText())-1;
+        int value = Integer.parseInt(nbimposteurs.getText()) - 1;
         nbimposteurs.setText(Integer.toString(value));
     }
 
-    //-----Intermediate methods-----
+    // -----Intermediate methods-----
 
     private void initUsernamesLobby() {
         usernamesLobby = new Label[6];
@@ -196,7 +211,7 @@ public class Controller {
         imagesLobby[5] = joueur6;
     }
 
-    //Creation refresh
+    // Creation refresh
     private void refreshLobby(String creator) {
         pseudoJoueur1.setText(creator);
         joueur2.setVisible(false);
@@ -207,7 +222,7 @@ public class Controller {
         nbJoueurs.setText("Joueurs (1/6)");
     }
 
-    //Join refresh
+    // Join refresh
     public void refreshLobby(Set<String> players) {
         int i = 0;
         for (String player : players) {
@@ -217,14 +232,13 @@ public class Controller {
             i++;
         }
 
-        for (int j = i; j<=5; j++) {
+        for (int j = i; j <= 5; j++) {
             usernamesLobby[j].setVisible(false);
             imagesLobby[j].setVisible(false);
         }
 
         nbJoueurs.setText("Joueurs (" + players.size() + "/6)");
     }
-
 
     private void refreshLobbiesList(Set<RoomInfo> rooms) {
 
@@ -272,7 +286,7 @@ public class Controller {
             loader.setController(client.getController());
             Parent root = loader.load();
             Stage stage = (Stage) lobbiesList.getScene().getWindow();
-            Scene scene = new Scene(root,1080,720);
+            Scene scene = new Scene(root, 1080, 720);
             stage.setScene(scene);
             initUsernamesLobby();
             initImagesLobby();
@@ -292,6 +306,23 @@ public class Controller {
             e.printStackTrace();
         }
 
+    }
+
+    public void kick() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu.fxml"));
+        loader.setController(client.getController());
+        try {
+            Parent root = loader.load();
+            Stage stage = (Stage) lobbyToMainMenuButton.getScene().getWindow();
+            Scene scene = new Scene(root,1080,720);
+            stage.setScene(scene);
+            stage.show();
+            Alert alert = new Alert(AlertType.WARNING, "The owner left the lobby.");
+            alert.show();
+        } catch (IOException e) {
+            System.out.println("Kick failed.");
+            e.printStackTrace();
+        }
     }
 
 }

@@ -27,7 +27,7 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
 
         String clientUsername = client.getUsername();
         System.out.println("Création du lobby par le joueur : "+ clientUsername);
-        Room newRoom = new Room(client, roomSize);
+        Room newRoom = new Room(client, roomSize, this);
         rooms.putIfAbsent(clientUsername, newRoom);
         if (rooms.containsKey(clientUsername)) {
             client.setCurrentRoom(newRoom);
@@ -54,5 +54,9 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
         }
 
         return res;
+    }
+
+    public void removeRoom(String owner) {
+        rooms.remove(owner);
     }
 }

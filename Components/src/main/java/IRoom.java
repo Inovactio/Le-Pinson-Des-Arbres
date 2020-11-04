@@ -10,7 +10,7 @@ public interface IRoom extends Remote {
 
     public Set<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException;
 
-    public boolean quit(IClient client) throws RemoteException;
+    public void quit(IClient client) throws RemoteException;
 
     public void launchGame() throws RemoteException;
 
