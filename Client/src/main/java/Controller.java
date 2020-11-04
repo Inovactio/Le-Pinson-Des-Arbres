@@ -22,7 +22,7 @@ import javafx.util.Callback;
 public class Controller {
 
     @FXML
-    private Button connect, createLobby, showLobbies, playGame;
+    private Button connect, createLobby, showLobbies, playGame, refreshButton, joinToMainMenuButton;
     @FXML
     private TextField usernameTextField, labelmots, labeltours, tempstours,nbimposteurs;
     @FXML
@@ -42,25 +42,7 @@ public class Controller {
         this.client = client;
     }
 
-    private void initUsernamesLobby() {
-        usernamesLobby = new Label[6];
-        usernamesLobby[0] = pseudoJoueur1;
-        usernamesLobby[1] = pseudoJoueur2;
-        usernamesLobby[2] = pseudoJoueur3;
-        usernamesLobby[3] = pseudoJoueur4;
-        usernamesLobby[4] = pseudoJoueur5;
-        usernamesLobby[5] = pseudoJoueur6;
-    }
-
-    private void initImagesLobby() {
-        imagesLobby = new ImageView[6];
-        imagesLobby[0] = joueur1;
-        imagesLobby[1] = joueur2;
-        imagesLobby[2] = joueur3;
-        imagesLobby[3] = joueur4;
-        imagesLobby[4] = joueur5;
-        imagesLobby[5] = joueur6;
-    }
+    //-----Interactions-----
 
     @FXML
     private void takeUsername(ActionEvent event) throws Exception {
@@ -125,6 +107,26 @@ public class Controller {
     }
 
     @FXML
+    public void refreshLobbiesList() throws Exception {
+        refreshLobbiesList(client.getLobbies());
+    }
+
+    //-----Back buttons-----
+
+    @FXML
+    public void joinToMainMenu(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu.fxml"));
+        loader.setController(client.getController());
+        Parent root = loader.load();
+        Stage stage = (Stage) lobbiesList.getScene().getWindow();
+        Scene scene = new Scene(root,1080,720);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    //-----Lobby tuning-----
+
+    @FXML
     private void incrementNumberOfWords(ActionEvent event) throws Exception {
         int value = Integer.parseInt(labelmots.getText())+1;
         labelmots.setText(Integer.toString(value));
@@ -172,6 +174,28 @@ public class Controller {
         nbimposteurs.setText(Integer.toString(value));
     }
 
+    //-----Intermediate methods-----
+
+    private void initUsernamesLobby() {
+        usernamesLobby = new Label[6];
+        usernamesLobby[0] = pseudoJoueur1;
+        usernamesLobby[1] = pseudoJoueur2;
+        usernamesLobby[2] = pseudoJoueur3;
+        usernamesLobby[3] = pseudoJoueur4;
+        usernamesLobby[4] = pseudoJoueur5;
+        usernamesLobby[5] = pseudoJoueur6;
+    }
+
+    private void initImagesLobby() {
+        imagesLobby = new ImageView[6];
+        imagesLobby[0] = joueur1;
+        imagesLobby[1] = joueur2;
+        imagesLobby[2] = joueur3;
+        imagesLobby[3] = joueur4;
+        imagesLobby[4] = joueur5;
+        imagesLobby[5] = joueur6;
+    }
+
     //Creation refresh
     private void refreshLobby(String creator) {
         pseudoJoueur1.setText(creator);
@@ -201,7 +225,8 @@ public class Controller {
         nbJoueurs.setText("Joueurs (" + players.size() + "/6)");
     }
 
-    public void refreshLobbiesList(Set<RoomInfo> rooms) {
+
+    private void refreshLobbiesList(Set<RoomInfo> rooms) {
 
         ObservableList<RoomInfo> roomsList = FXCollections.observableArrayList(rooms);
 
