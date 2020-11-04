@@ -7,9 +7,6 @@ public class GameMonitor {
     private GameController gameController;
     private Request buffer;
     private boolean bufferIsEmpty;
-    private String givenWord;
-    private Role role;
-    private Set<String> players;
 
     public GameMonitor(GameController gameController) {
         this.gameController = gameController;
@@ -28,28 +25,8 @@ public class GameMonitor {
             }
         }
 
-        Thread thread;
-        switch (buffer) {
-            case GUESS:
-                thread = new Thread(() -> {gameController.openInput("Guess the word :");});
-                Platform.runLater(thread);
-                break;
-            case VOTE:
-                thread = new Thread(() -> {gameController.openInput("Vote for a player :");});
-                Platform.runLater(thread);
-                break;
-            case WORD:
-                thread = new Thread(() -> {gameController.openInput("Write a word :");});
-                Platform.runLater(thread);
-                break;
-            case INIT:
-                thread = new Thread(() -> {gameController.init(givenWord, role, players);});
-                Platform.runLater(thread);
-                break;
-            default:
-                break;
-        }
-
+        Thread thread = new Thread(() -> {buffer.handle(gameController);});
+        Platform.runLater(thread);
         bufferIsEmpty = true;
         notify();
         getRequest();
@@ -65,11 +42,7 @@ public class GameMonitor {
             }
         }
 
-        givenWord = word;
-        this.role = role;
-        this.players = players;
-
-        buffer = Request.INIT;
+        buffer = new InitRequest(word,role, players);
         bufferIsEmpty = false;
         notify();
     }
@@ -83,12 +56,79 @@ public class GameMonitor {
                 e.printStackTrace();
             }
         }
-        buffer = Request.WORD;
+        buffer = new WordRequest();
         bufferIsEmpty = false;
         notify();
     }
 
-    private enum Request {
-        WORD, VOTE, GUESS, INIT
+    public synchronized void requestVote() {
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+        buffer = new VoteRequest();
+        bufferIsEmpty = false;
+        notify();
+    }
+
+    public synchronized void requestGuess() {
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+        buffer = new GuessRequest();
+        bufferIsEmpty = false;
+        notify();
+    }
+
+
+    //-----Requests definition-----
+
+    private interface Request {
+
+        public void handle(GameController controller);
+
+    }
+
+    private class InitRequest implements Request {
+        private String word;
+        private Role role;
+        private Set<String> players;
+
+        public InitRequest(String word, Role role, Set<String> players) {
+            this.word = word;
+            this.role = role;
+            this.players = players;
+        }
+
+        public void handle(GameController controller) {
+            controller.init(word, role, players);
+        }
+    }
+
+    private class WordRequest implements Request {
+        public void handle(GameController controller) {
+            controller.openInput("Write a word : ");
+        }
+    }
+
+    private class VoteRequest implements Request {
+        public void handle(GameController controller) {
+            controller.openInput("Vote : ");
+        }
+    }
+
+    private class GuessRequest implements Request {
+        public void handle(GameController controller) {
+            controller.openInput("Guess the word : ");
+        }
     }
 }

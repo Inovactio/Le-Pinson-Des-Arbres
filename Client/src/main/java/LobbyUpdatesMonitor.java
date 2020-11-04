@@ -8,21 +8,18 @@ import java.lang.Thread;
 
 public class LobbyUpdatesMonitor {
 
-    private Queue<Set<String>> queue;
-    private boolean kicked;
+    private Queue<Update> queue;
     private Controller lobbyController;
 
     public LobbyUpdatesMonitor(Controller controller) {
-        queue = new LinkedList<Set<String>>();
-        kicked = false;
+        queue = new LinkedList<Update>();
         lobbyController = controller;
         Thread thread = new Thread(() -> { getUpdate(); });
         thread.start();
     }
 
-
     public synchronized void getUpdate() {
-        if (queue.isEmpty() && kicked == false) {
+        if (queue.isEmpty()) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -30,27 +27,49 @@ public class LobbyUpdatesMonitor {
                 e.printStackTrace();
             }
         }
-        if (kicked) {
-            kicked = false;
-            queue = new LinkedList<Set<String>>();
-            Thread thread = new Thread(() -> {lobbyController.kick();});
-            Platform.runLater(thread);
-        } else {
-            Set<String> currentUpdate = queue.poll();
-            Thread thread = new Thread(() -> {lobbyController.refreshLobby(currentUpdate);});
-            Platform.runLater(thread);
-        }
+        Update currentUpdate = queue.poll();
+        Thread thread = new Thread(() -> {currentUpdate.handle(lobbyController);});
+        Platform.runLater(thread);
         getUpdate();
     }
 
-    public synchronized void giveUpdate(Set<String> update) {
-        queue.add(update);
+    public synchronized void giveUpdate(Set<String> players) {
+        queue.add(new LobbyRefreshUpdate(players));
         notify();
     }
 
     public synchronized void kick() {
-        kicked = true;
+        queue.add(new KickUpdate());
         notify();
     }
+
+
+    //-----Updates definition-----
+
+    private interface Update {
+
+        public void handle(Controller controller);
+        
+    }
+
+    private class KickUpdate implements Update {
+
+        public void handle(Controller controller) {
+            controller.kick();
+        }
+
+    }
+    
+    private class LobbyRefreshUpdate implements Update {
+        private Set<String> players;
+
+        public LobbyRefreshUpdate(Set<String> players) {
+            this.players = players;
+        }
+
+        public void handle(Controller controller) {
+            controller.refreshLobby(players);
+        }
+    } 
 
 }
