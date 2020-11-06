@@ -1,11 +1,15 @@
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -24,14 +28,19 @@ import javafx.util.Callback;
 public class Controller {
 
     @FXML
-    private Button connect, createLobby, showLobbies, playGame, refreshButton, joinToMainMenuButton,
-            lobbyToMainMenuButton;
+    private Button connect, createLobby, showLobbies, playGame, refreshButton, validateButton, joinToMainMenuButton, lobbyToMainMenuButton;
     @FXML
-    private TextField usernameTextField, labelmots, labeltours, tempstours, nbimposteurs;
+    private Button incrNbWords, decrNbWords, incrNbRounds, decrNbRounds, incrNbImpostors, decrNbImpostors, incrTurnTime, decrTurnTime;
+    @FXML
+    private TextField usernameTextField;
     @FXML
     private ImageView joueur1, joueur2, joueur3, joueur4, joueur5, joueur6;
     @FXML
     private Label pseudoJoueur1, pseudoJoueur2, pseudoJoueur3, pseudoJoueur4, pseudoJoueur5, pseudoJoueur6, nbJoueurs;
+    @FXML
+    private Label nbWordsLabel, nbRoundsLabel, nbImpostorsLabel, turnTimeLabel;
+    @FXML
+    private Slider nbWordsSlider, nbRoundsSlider, nbImpostorsSlider, turnTimeSlider;
     @FXML
     private TableView lobbiesList;
 
@@ -142,51 +151,81 @@ public class Controller {
     // -----Lobby tuning-----
 
     @FXML
-    private void incrementNumberOfWords(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labelmots.getText()) + 1;
-        labelmots.setText(Integer.toString(value));
+    private void incrementNbWords(ActionEvent event) throws Exception {
+        nbWordsSlider.increment();
+        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
     }
 
     @FXML
-    private void decrementNumberOfWords(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labelmots.getText()) - 1;
-        labelmots.setText(Integer.toString(value));
+    private void decrementNbWords(ActionEvent event) throws Exception {
+        nbWordsSlider.decrement();
+        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
     }
 
     @FXML
-    private void incrementNumberOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labeltours.getText()) + 1;
-        labeltours.setText(Integer.toString(value));
+    private void setNbWords(Event event) throws Exception {
+        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
     }
 
     @FXML
-    private void decrementNumberOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(labeltours.getText()) - 1;
-        labeltours.setText(Integer.toString(value));
+    private void incrementNbRounds(ActionEvent event) throws Exception {
+        nbRoundsSlider.increment();
+        nbRoundsLabel.setText(Integer.toString((int) nbRoundsSlider.getValue()));
     }
 
     @FXML
-    private void incrementTimeOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(tempstours.getText()) + 1;
-        tempstours.setText(Integer.toString(value));
+    private void decrementNbRounds(ActionEvent event) throws Exception {
+        nbRoundsSlider.decrement();
+        nbRoundsLabel.setText(Integer.toString((int) nbRoundsSlider.getValue()));
     }
 
     @FXML
-    private void decrementTimeOfRounds(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(tempstours.getText()) - 1;
-        tempstours.setText(Integer.toString(value));
+    private void setNbRounds(Event event) throws Exception {
+        nbRoundsLabel.setText(Integer.toString((int) nbRoundsSlider.getValue()));
     }
 
     @FXML
-    private void incrementNumberOfImposters(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(nbimposteurs.getText()) + 1;
-        nbimposteurs.setText(Integer.toString(value));
+    private void incrementNbImpostors(ActionEvent event) throws Exception {
+        nbImpostorsSlider.increment();
+        nbImpostorsLabel.setText(Integer.toString((int) nbImpostorsSlider.getValue()));
     }
 
     @FXML
-    private void decrementNumberOfImposters(ActionEvent event) throws Exception {
-        int value = Integer.parseInt(nbimposteurs.getText()) - 1;
-        nbimposteurs.setText(Integer.toString(value));
+    private void decrementNbImpostors(ActionEvent event) throws Exception {
+        nbImpostorsSlider.decrement();
+        nbImpostorsLabel.setText(Integer.toString((int) nbImpostorsSlider.getValue()));
+    }
+
+    @FXML
+    private void setNbImpostors(Event event) throws Exception {
+        nbImpostorsLabel.setText(Integer.toString((int) nbImpostorsSlider.getValue()));
+    }
+
+    @FXML
+    private void incrementTurnTime(ActionEvent event) throws Exception {
+        turnTimeSlider.increment();
+        turnTimeLabel.setText(Integer.toString((int) turnTimeSlider.getValue()));
+    }
+
+    @FXML
+    private void decrementTurnTime(ActionEvent event) throws Exception {
+        turnTimeSlider.decrement();
+        turnTimeLabel.setText(Integer.toString((int) turnTimeSlider.getValue()));
+    }
+
+    @FXML
+    private void setTurnTime(Event event) throws Exception {
+        int mod = (int) turnTimeSlider.getValue()%5;
+        if (mod<=2) {
+            turnTimeLabel.setText(Integer.toString((int) turnTimeSlider.getValue()-mod));
+        } else {
+            turnTimeLabel.setText(Integer.toString((int) turnTimeSlider.getValue()+(5-mod)));
+        }
+    }
+
+    @FXML
+    private void validateSettings(ActionEvent event) throws Exception {
+        client.changeSettings((int) turnTimeSlider.getValue(), (int) nbWordsSlider.getValue(), (int) nbRoundsSlider.getValue(), (int) nbImpostorsSlider.getValue());
     }
 
     // -----Intermediate methods-----
@@ -240,6 +279,14 @@ public class Controller {
         nbJoueurs.setText("Joueurs (" + players.size() + "/6)");
     }
 
+    // Settings refresh
+    public void refreshLobby(int turnTime, int nbWords, int nbRounds, int nbImpostors) {
+        nbWordsLabel.setText(Integer.toString(nbWords));
+        nbRoundsLabel.setText(Integer.toString(nbRounds));
+        nbImpostorsLabel.setText(Integer.toString(nbImpostors));
+        turnTimeLabel.setText(Integer.toString(turnTime));
+    }
+
     private void refreshLobbiesList(Set<RoomInfo> rooms) {
 
         ObservableList<RoomInfo> roomsList = FXCollections.observableArrayList(rooms);
@@ -291,7 +338,7 @@ public class Controller {
             initUsernamesLobby();
             initImagesLobby();
             refreshLobby(players);
-            playGame.setVisible(false);
+            initNotOwnerLobby();
             stage.show();
         } catch (RoomFullException e) {
             Alert alert = new Alert(AlertType.ERROR, "This room is full.");
@@ -306,6 +353,27 @@ public class Controller {
             e.printStackTrace();
         }
 
+    }
+
+    private void initNotOwnerLobby() {
+        playGame.setVisible(false);
+        validateButton.setVisible(false);
+
+        nbWordsSlider.setVisible(false);
+        incrNbWords.setVisible(false);
+        decrNbWords.setVisible(false);
+
+        nbRoundsSlider.setVisible(false);
+        incrNbRounds.setVisible(false);
+        decrNbRounds.setVisible(false);
+
+        nbImpostorsSlider.setVisible(false);
+        incrNbImpostors.setVisible(false);
+        decrNbImpostors.setVisible(false);
+
+        turnTimeSlider.setVisible(false);
+        incrTurnTime.setVisible(false);
+        decrTurnTime.setVisible(false);
     }
 
     public void kick() {

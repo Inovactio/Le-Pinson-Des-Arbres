@@ -16,12 +16,21 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private boolean gameLaunched;
     private int roomSize;
 
+    private int turnTime;
+    private int nbWords;
+    private int nbRounds;
+    private int nbImpostors;
+
     public Room(int roomSize, ServerGame server) throws RemoteException {
         this.server = server;
         this.clients = new HashSet<IClient>();
         this.usernames = new HashSet<String>();
         this.gameLaunched = false;
-        if(roomSize>=6 && roomSize<=10){
+        this.turnTime = 20;
+        this.nbWords = 3;
+        this.nbRounds = 3;
+        this.nbImpostors = 1;
+        if (roomSize >= 6 && roomSize <= 10) {
             this.roomSize = roomSize;
         } else {
             System.out.println("la taille de la room doit être entre 6 et 10");
@@ -37,27 +46,19 @@ public class Room extends UnicastRemoteObject implements IRoom {
         owner = client.getUsername();
     }
 
-    public synchronized Set<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException {
-        if (gameLaunched) throw new GameLaunchedException();
-        if (clients.size() >= roomSize) throw new RoomFullException();
+    public synchronized Set<String> join(IClient client)
+            throws RemoteException, GameLaunchedException, RoomFullException {
+        if (gameLaunched)
+            throw new GameLaunchedException();
+        if (clients.size() >= roomSize)
+            throw new RoomFullException();
         usernames.add(client.getUsername());
         for (IClient c : clients) {
             c.giveLobbyUpdate(usernames);
         }
+        client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
         clients.add(client);
         return usernames;
-    }
-
-    public String getOwner() throws RemoteException {
-        return owner;
-    }
-
-    public int getNbPlayers() throws RemoteException {
-        return clients.size();
-    }
-
-    public int getRoomSize() throws RemoteException {
-        return roomSize;
     }
 
     public synchronized void quit(IClient client) throws RemoteException {
@@ -89,9 +90,15 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
-    public void vote(String player) throws RemoteException {
-        // TODO Auto-generated method stub
-
+    @Override
+    public synchronized void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
+        this.turnTime = turnTime;
+        this.nbWords = nbWords;
+        this.nbRounds = nbRounds;
+        this.nbImpostors = nbImpostors;
+        for (IClient client : clients) {
+            client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
+        }
     }
 
     @Override
@@ -106,5 +113,18 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     }
 
+    // -----Getters-----
+
+    public String getOwner() throws RemoteException {
+        return owner;
+    }
+
+    public int getNbPlayers() throws RemoteException {
+        return clients.size();
+    }
+
+    public int getRoomSize() throws RemoteException {
+        return roomSize;
+    }
 
 }

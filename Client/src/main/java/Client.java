@@ -14,12 +14,11 @@ public class Client extends UnicastRemoteObject implements IClient {
     private LobbyUpdatesMonitor lobbyUpdatesMonitor;
     private GameMonitor gameMonitor;
 
-
     public Client(String address) throws RemoteException {
         try {
             server = (IServerGame) Naming.lookup(address);
             System.out.println("Connected to server " + address + ".");
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Connection failed.");
             e.printStackTrace();
         }
@@ -33,21 +32,18 @@ public class Client extends UnicastRemoteObject implements IClient {
         lobbyUpdatesMonitor.giveUpdate(update);
     }
 
-    /*
-    public void getVote() throws RemoteException {
+    @Override
+    public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
+        lobbyUpdatesMonitor.giveUpdate(turnTime, nbWords, nbRounds, nbImpostors);
     }
-    */
-    
-    
+
+    public void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
+        currentRoom.changeSettings(turnTime, nbWords, nbRounds, nbImpostors);
+    }
+
     public void requestWord() throws RemoteException, InterruptedException {
         gameMonitor.requestWord();
     }
-
-   /*
-    public synchronized String getGuess() throws RemoteException {
-        return "";
-    }
-    */
 
     public void init(String word, Role role, Set<String> players) {
         gameMonitor.init(word, role, players);
@@ -59,9 +55,10 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public void sendWord(String word) throws RemoteException {
 
-    } 
+    }
 
-    public Set<String> connectToLobby(String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
+    public Set<String> connectToLobby(String owner)
+            throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
         return server.connectToLobby(this, owner);
     }
 
@@ -79,7 +76,7 @@ public class Client extends UnicastRemoteObject implements IClient {
         currentRoom.launchGame();
     }
 
-    //Getters and setters
+    // Getters and setters
 
     public void setUsername(String username) {
         this.username = username;
