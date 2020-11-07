@@ -72,6 +72,10 @@ public class Client extends UnicastRemoteObject implements IClient {
         currentRoom = null;
     }
 
+    public void freeUsername() throws RemoteException {
+        server.freeUsername(username);
+    }
+
     public void launchGame() throws RemoteException {
         currentRoom.launchGame();
     }
@@ -88,6 +92,10 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public IServerGame getServer() {
         return server;
+    }
+
+    public IRoom getCurrentRoom() {
+        return currentRoom;
     }
 
     public void setCurrentRoom(IRoom room) {
