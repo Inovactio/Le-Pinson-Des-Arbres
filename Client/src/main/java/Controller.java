@@ -398,4 +398,8 @@ public class Controller {
         playGame.setDisable(false);
     }
 
+    public void disablePlayButton() {
+        playGame.setDisable(true);
+    }
+
 }
