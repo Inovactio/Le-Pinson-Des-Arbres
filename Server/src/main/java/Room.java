@@ -101,13 +101,13 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
         for(int i=0;i<clients.size();i++){
             if(i == mrWhiteIndex){
-                clients.get(i).init("Vous êtes MrWhite",Role.MRWHITE,usernames);
+                clients.get(i).init("Vous êtes MrWhite",true,usernames);
                 System.out.println(usernames.get(i)+" est initialisé MrWhite");
             }else if (impostersIndex.contains(i)){
-                clients.get(i).init(words.getSecond(), Role.IMPOSTER, usernames);
+                clients.get(i).init(words.getSecond(), false, usernames);
                 System.out.println(usernames.get(i)+" est initialisé Imposter");
             }else{
-                clients.get(i).init(words.getFirst(), Role.CITIZEN, usernames);
+                clients.get(i).init(words.getFirst(), false, usernames);
                 System.out.println(usernames.get(i)+" est initialisé Citoyen");
             }
         }
