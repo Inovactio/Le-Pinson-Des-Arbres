@@ -8,8 +8,8 @@
     },
 
     {
-      "word1" : "Réfrigérateur",
-      "word2" : "Congèlateur"
+      "word1" : "Refrigerateur",
+      "word2" : "Congelateur"
     },
 
     {
@@ -33,18 +33,18 @@
     },
 
     {
-      "word1" : "Carré",
+      "word1" : "Carre",
       "word2" : "Rectangle"
     },
 
     {
-      "word1" : "Rap",
-      "word2" : "R&b"
+      "word1" : "Violon",
+      "word2" : "Guitare"
     },
 
     {
       "word1" : "Gaufre",
-      "word2" : "Crêpe"
+      "word2" : "Crepe"
     },
 
     {
@@ -53,12 +53,12 @@
     },
 
     {
-      "word1" : "Canapé",
+      "word1" : "Canape",
       "word2" : "Fauteuil"
     },
 
     {
-      "word1" : "Télévision",
+      "word1" : "Television",
       "word2" : "Ordinateur"
     },
 
