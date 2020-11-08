@@ -8,10 +8,6 @@ public interface IClient extends Remote {
 
     public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException;
 
-    public void enablePlayButton() throws RemoteException;
-
-    public void disablePlayButton() throws RemoteException;
-
     //public void requestVote() throws RemoteException;
     
     public void requestWord() throws RemoteException, InterruptedException;

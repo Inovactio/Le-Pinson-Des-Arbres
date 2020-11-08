@@ -58,7 +58,6 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
         client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
         clients.add(client);
-        if(clients.size() >= roomSize) clients.get(usernames.indexOf(owner)).enablePlayButton();
         return usernames;
     }
 
@@ -71,7 +70,6 @@ public class Room extends UnicastRemoteObject implements IRoom {
             }
             server.removeRoom(owner);
         } else {
-            clients.get(usernames.indexOf(owner)).disablePlayButton();
             for (IClient c : clients) {
                 c.giveLobbyUpdate(usernames);
             }

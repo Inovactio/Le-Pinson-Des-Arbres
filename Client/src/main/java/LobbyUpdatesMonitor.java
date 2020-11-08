@@ -71,6 +71,8 @@ public class LobbyUpdatesMonitor {
 
         public LobbyRefreshUpdate(List<String> players) {
             this.players = players;
+            if(players.size()>=6) lobbyController.enablePlayButton();
+            if(players.size()<=5) lobbyController.disablePlayButton();
         }
 
         public void handle(Controller controller) {

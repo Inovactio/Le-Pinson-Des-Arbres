@@ -30,12 +30,8 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor = new GameMonitor(gameController);
     }
 
-    public void enablePlayButton() throws RemoteException{
-        controller.enablePlayButton();
-    }
-    public void disablePlayButton() throws RemoteException{
-        controller.disablePlayButton();
-    }
+
+
 
     public void giveLobbyUpdate(List<String> update) throws RemoteException {
         lobbyUpdatesMonitor.giveUpdate(update);
