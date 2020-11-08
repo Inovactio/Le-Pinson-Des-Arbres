@@ -94,7 +94,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
         Set<Integer> impostersIndex = new HashSet<>();
 
         for(int i=0;i<nbImpostors;i++){
-            int randomNumber = new Random().ints(1,clients.size()-1-impostersIndex.size()-1).findFirst().getAsInt();
+            int randomNumber = new Random().ints(0,clients.size()-1-impostersIndex.size()-1).findFirst().getAsInt();
             if(randomNumber>=mrWhiteIndex) randomNumber++;
             for (Integer imposterIndex: impostersIndex
                  ) {
