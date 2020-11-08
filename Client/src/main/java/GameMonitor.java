@@ -33,7 +33,7 @@ public class GameMonitor {
         getRequest();
     }
 
-    public synchronized void init(String word, Role role, List<String> players) {
+    public synchronized void init(String word, Boolean isMrWhite, List<String> players) {
         if (!bufferIsEmpty) {
             try {
                 wait();
@@ -43,7 +43,7 @@ public class GameMonitor {
             }
         }
 
-        buffer = new InitRequest(word,role, players);
+        buffer = new InitRequest(word,isMrWhite, players);
         bufferIsEmpty = false;
         notify();
     }
@@ -101,17 +101,17 @@ public class GameMonitor {
 
     private class InitRequest implements Request {
         private String word;
-        private Role role;
+        private Boolean isMrwhite;
         private List<String> players;
 
-        public InitRequest(String word, Role role, List<String> players) {
+        public InitRequest(String word, Boolean isMrwhite, List<String> players) {
             this.word = word;
-            this.role = role;
+            this.isMrwhite=isMrwhite;
             this.players = players;
         }
 
         public void handle(GameController controller) {
-            controller.init(word, role, players);
+            controller.init(word, isMrwhite, players);
         }
     }
 

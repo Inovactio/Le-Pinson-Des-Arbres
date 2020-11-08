@@ -44,7 +44,7 @@ public class GameController {
         send.setDisable(true);
     }
 
-    public void init(String word, Role role, List<String> players) {
+    public void init(String word, Boolean isMrwhite, List<String> players) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
         loader.setController(client.getGameController());
         try {
