@@ -1,6 +1,7 @@
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Set;
 
 public class Client extends UnicastRemoteObject implements IClient {
@@ -28,7 +29,7 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor = new GameMonitor(gameController);
     }
 
-    public void giveLobbyUpdate(Set<String> update) throws RemoteException {
+    public void giveLobbyUpdate(List<String> update) throws RemoteException {
         lobbyUpdatesMonitor.giveUpdate(update);
     }
 
@@ -45,7 +46,7 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor.requestWord();
     }
 
-    public void init(String word, Role role, Set<String> players) {
+    public void init(String word, Role role, List<String> players) {
         gameMonitor.init(word, role, players);
     }
 
@@ -57,7 +58,7 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     }
 
-    public Set<String> connectToLobby(String owner)
+    public List<String> connectToLobby(String owner)
             throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
         return server.connectToLobby(this, owner);
     }

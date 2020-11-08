@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Set;
 
 public interface IRoom extends Remote {
@@ -8,7 +9,7 @@ public interface IRoom extends Remote {
 
     public void sendWord(String word) throws RemoteException;
 
-    public Set<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException;
+    public List<String> join(IClient client) throws RemoteException, GameLaunchedException, RoomFullException;
 
     public void quit(IClient client) throws RemoteException;
 

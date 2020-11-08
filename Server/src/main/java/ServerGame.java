@@ -1,6 +1,7 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,9 +43,9 @@ public class ServerGame extends UnicastRemoteObject implements IServerGame {
     }
 
     @Override
-    public Set<String> connectToLobby(IClient client, String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
+    public List<String> connectToLobby(IClient client, String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException {
         if (!rooms.containsKey(owner)) throw new RoomInexistentException();
-        Set<String> res = rooms.get(owner).join(client);
+        List<String> res = rooms.get(owner).join(client);
         client.setCurrentRoom(rooms.get(owner));
         return res;
     }

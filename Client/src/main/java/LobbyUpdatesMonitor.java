@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Set;
 
 import javafx.application.Platform;
@@ -33,7 +34,7 @@ public class LobbyUpdatesMonitor {
         getUpdate();
     }
 
-    public synchronized void giveUpdate(Set<String> players) {
+    public synchronized void giveUpdate(List<String> players) {
         queue.add(new LobbyRefreshUpdate(players));
         notify();
     }
@@ -66,9 +67,9 @@ public class LobbyUpdatesMonitor {
     }
     
     private class LobbyRefreshUpdate implements Update {
-        private Set<String> players;
+        private List<String> players;
 
-        public LobbyRefreshUpdate(Set<String> players) {
+        public LobbyRefreshUpdate(List<String> players) {
             this.players = players;
         }
 

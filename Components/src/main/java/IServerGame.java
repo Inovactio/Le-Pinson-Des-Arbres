@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Set;
 
 public interface IServerGame  extends Remote{
@@ -10,7 +11,7 @@ public interface IServerGame  extends Remote{
 
     public boolean createLobby(IClient client, int roomSize) throws RemoteException;
 
-    public Set<String> connectToLobby(IClient client, String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException;
+    public List<String> connectToLobby(IClient client, String owner) throws RemoteException, RoomInexistentException, RoomFullException, GameLaunchedException;
 
     public Set<RoomInfo> getLobbies() throws RemoteException;
 

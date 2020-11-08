@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableCell;
@@ -262,7 +263,7 @@ public class Controller {
     }
 
     // Join refresh
-    public void refreshLobby(Set<String> players) {
+    public void refreshLobby(List<String> players) {
         int i = 0;
         for (String player : players) {
             usernamesLobby[i].setText(player);
@@ -328,7 +329,7 @@ public class Controller {
     private void joinLobby(String owner) {
         System.out.println("Trying to join room owned by " + owner);
         try {
-            Set<String> players = client.connectToLobby(owner);
+            List<String> players = client.connectToLobby(owner);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lobby.fxml"));
             loader.setController(client.getController());
             Parent root = loader.load();

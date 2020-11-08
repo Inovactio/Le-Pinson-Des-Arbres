@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import java.util.List;
 import java.util.Set;
 
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class GameController {
 
     private Client client;
     private Role role;
-    private Set<String> players;
+    private List<String> players;
     private Label usernamesGame[];
 
     public GameController(Client client) {
@@ -43,7 +44,7 @@ public class GameController {
         send.setDisable(true);
     }
 
-    public void init(String word, Role role, Set<String> players) {
+    public void init(String word, Role role, List<String> players) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
         loader.setController(client.getGameController());
         try {

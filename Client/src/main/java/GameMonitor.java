@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Set;
 
 import javafx.application.Platform;
@@ -32,7 +33,7 @@ public class GameMonitor {
         getRequest();
     }
 
-    public synchronized void init(String word, Role role, Set<String> players) {
+    public synchronized void init(String word, Role role, List<String> players) {
         if (!bufferIsEmpty) {
             try {
                 wait();
@@ -101,9 +102,9 @@ public class GameMonitor {
     private class InitRequest implements Request {
         private String word;
         private Role role;
-        private Set<String> players;
+        private List<String> players;
 
-        public InitRequest(String word, Role role, Set<String> players) {
+        public InitRequest(String word, Role role, List<String> players) {
             this.word = word;
             this.role = role;
             this.players = players;

@@ -1,17 +1,21 @@
 import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jsonparser.JsonParser;
 import jsonparser.Tuple;
 
+
+
 public class Room extends UnicastRemoteObject implements IRoom {
 
     private ServerGame server;
-    private Set<IClient> clients;
-    private Set<String> usernames;
+    private List<IClient> clients;
+    private List<String> usernames;
     private String owner;
     private boolean gameLaunched;
     private int roomSize;
@@ -23,8 +27,8 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     public Room(int roomSize, ServerGame server) throws RemoteException {
         this.server = server;
-        this.clients = new HashSet<IClient>();
-        this.usernames = new HashSet<String>();
+        this.clients = new ArrayList<IClient>();
+        this.usernames = new ArrayList<String>();
         this.gameLaunched = false;
         this.turnTime = 20;
         this.nbWords = 3;
@@ -46,7 +50,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
         owner = client.getUsername();
     }
 
-    public synchronized Set<String> join(IClient client)
+    public synchronized List<String> join(IClient client)
             throws RemoteException, GameLaunchedException, RoomFullException {
         if (gameLaunched)
             throw new GameLaunchedException();

@@ -1,10 +1,11 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Set;
 
 public interface IClient extends Remote {
 
-    public void giveLobbyUpdate(Set<String> update) throws RemoteException;
+    public void giveLobbyUpdate(List<String> update) throws RemoteException;
 
     public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException;
 
@@ -14,7 +15,7 @@ public interface IClient extends Remote {
 
     //public String requestGuess() throws RemoteException;
 
-    public void init(String word, Role role, Set<String> players) throws RemoteException;
+    public void init(String word, Role role, List<String> players) throws RemoteException;
 
     public void setCurrentRoom(IRoom room) throws RemoteException;
 
