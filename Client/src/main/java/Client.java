@@ -1,3 +1,4 @@
+import java.rmi.Remote;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -31,6 +32,9 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public void enablePlayButton() throws RemoteException{
         controller.enablePlayButton();
+    }
+    public void disablePlayButton() throws RemoteException{
+        controller.disablePlayButton();
     }
 
     public void giveLobbyUpdate(List<String> update) throws RemoteException {

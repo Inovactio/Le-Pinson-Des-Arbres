@@ -11,6 +11,8 @@ public interface IClient extends Remote {
 
     public void enablePlayButton() throws RemoteException;
 
+    public void disablePlayButton() throws RemoteException;
+
     //public void requestVote() throws RemoteException;
     
     public void requestWord() throws RemoteException, InterruptedException;

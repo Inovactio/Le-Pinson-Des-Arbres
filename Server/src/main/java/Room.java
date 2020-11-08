@@ -73,6 +73,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
             }
             server.removeRoom(owner);
         } else {
+            clients.get(usernames.indexOf(owner)).disablePlayButton();
             for (IClient c : clients) {
                 c.giveLobbyUpdate(usernames);
             }
