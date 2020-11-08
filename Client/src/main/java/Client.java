@@ -46,6 +46,10 @@ public class Client extends UnicastRemoteObject implements IClient {
         lobbyUpdatesMonitor.giveUpdate(turnTime, nbWords, nbRounds, nbImpostors);
     }
 
+    public void enablePlayButton() throws RemoteException {
+        controller.enablePlayButton();
+    }
+
     public void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
         currentRoom.changeSettings(turnTime, nbWords, nbRounds, nbImpostors);
     }

@@ -82,7 +82,6 @@ public class Controller {
             Alert alert = new Alert(AlertType.ERROR, "Username already taken.");
             alert.show();
         }
-
     }
 
     @FXML
@@ -95,6 +94,7 @@ public class Controller {
             Stage stage = (Stage) createLobby.getScene().getWindow();
             Scene scene = new Scene(root, 1080, 720);
             stage.setScene(scene);
+            playGame.setDisable(true);
             initUsernamesLobby();
             initImagesLobby();
             refreshLobby(client.getUsername());
@@ -392,6 +392,10 @@ public class Controller {
             System.out.println("Kick failed.");
             e.printStackTrace();
         }
+    }
+
+    public void enablePlayButton() {
+        playGame.setDisable(false);
     }
 
 }
