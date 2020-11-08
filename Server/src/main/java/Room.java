@@ -9,8 +9,6 @@ import jsonparser.Tuple;
 
 public class Room extends UnicastRemoteObject implements IRoom {
 
-    private int ROOMMAXSIZE = 6;
-
     private ServerGame server;
     private List<IClient> clients;
     private List<String> usernames;
@@ -60,7 +58,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
         client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
         clients.add(client);
-        if(clients.size() >= 6) clients.get(usernames.indexOf(owner)).enablePlayButton();
+        if(clients.size() >= roomSize) clients.get(usernames.indexOf(owner)).enablePlayButton();
         return usernames;
     }
 
@@ -120,21 +118,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private void randomizeRoomOrder() {
         long seed = System.nanoTime();
         Collections.shuffle(clients, new Random(seed));
-        System.out.println("Client list :");
-        for (IClient client: clients
-             ) {
-            try {
-                System.out.println(client.getUsername());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
         Collections.shuffle(usernames, new Random(seed));
-        System.out.println("UserName list :");
-        for (String s:usernames
-             ) {
-            System.out.println(s);
-        }
     }
 
     @Override
