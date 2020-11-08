@@ -15,7 +15,7 @@ public interface IClient extends Remote {
 
     //public String requestGuess() throws RemoteException;
 
-    public void init(String word, Role role, List<String> players) throws RemoteException;
+    public void init(String word, Boolean isMrWhite, List<String> players) throws RemoteException;
 
     public void setCurrentRoom(IRoom room) throws RemoteException;
 

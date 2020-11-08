@@ -1,8 +1,6 @@
-import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
-import java.util.stream.IntStream;
 
 import jsonparser.JsonParser;
 import jsonparser.Tuple;
@@ -86,7 +84,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
         Tuple<String> words = jsonParser.getRandomWords();
         System.out.println("Words : " + words.getFirst() + " / " + words.getSecond());
 
-        RandomizeRoomOrder();
+        randomizeRoomOrder();
 
         int mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
         Set<Integer> impostersIndex = new HashSet<>();
@@ -103,19 +101,19 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
         for(int i=0;i<clients.size();i++){
             if(i == mrWhiteIndex){
-                clients.get(i).init("Vous êtes MrWhite",Role.MRWHITE,usernames);
+                clients.get(i).init("Vous êtes MrWhite",true,usernames);
                 System.out.println(usernames.get(i)+" est initialisé MrWhite");
             }else if (impostersIndex.contains(i)){
-                clients.get(i).init(words.getSecond(), Role.IMPOSTER, usernames);
+                clients.get(i).init(words.getSecond(), false, usernames);
                 System.out.println(usernames.get(i)+" est initialisé Imposter");
             }else{
-                clients.get(i).init(words.getFirst(), Role.CITIZEN, usernames);
+                clients.get(i).init(words.getFirst(), false, usernames);
                 System.out.println(usernames.get(i)+" est initialisé Citoyen");
             }
         }
     }
 
-    private void RandomizeRoomOrder() {
+    private void randomizeRoomOrder() {
         long seed = System.nanoTime();
         Collections.shuffle(clients, new Random(seed));
         Collections.shuffle(usernames, new Random(seed));

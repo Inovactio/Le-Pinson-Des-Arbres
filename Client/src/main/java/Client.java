@@ -46,8 +46,8 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor.requestWord();
     }
 
-    public void init(String word, Role role, List<String> players) {
-        gameMonitor.init(word, role, players);
+    public void init(String word,Boolean isMrWhite, List<String> players) {
+        gameMonitor.init(word, isMrWhite, players);
     }
 
     public Set<RoomInfo> getLobbies() throws RemoteException {
