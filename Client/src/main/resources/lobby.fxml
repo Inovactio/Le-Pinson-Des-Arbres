@@ -214,7 +214,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="joueur1" fitHeight="132.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur1" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@kisspng-virtual-private-network-internet-information-secur-spy-5b15dee6e21106.026296441528159974926.png" />
                </image>
@@ -224,7 +224,7 @@
                   <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="joueur2" fitHeight="112.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur2" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@greenPng.png" />
                </image>
@@ -234,7 +234,7 @@
                   <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="joueur3" fitHeight="112.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur3" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@pinkPng.png" />
                </image>
@@ -244,7 +244,7 @@
                   <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="joueur4" fitHeight="112.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur4" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@greyPng.png" />
                </image>
@@ -254,7 +254,7 @@
                   <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="joueur5" fitHeight="112.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur5" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@violetPng.png" />
                </image>
@@ -264,7 +264,7 @@
                   <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="joueur6" fitHeight="112.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="joueur6" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@yellowPng.png" />
                </image>

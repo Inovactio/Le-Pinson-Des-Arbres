@@ -2,28 +2,117 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="428.0" fitWidth="682.0" layoutX="-14.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="720.0" fitWidth="1080.0" layoutX="-14.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@light-background-wallpaper-preview.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="194.0" layoutY="23.0" text="Votre mot est :" />
-      <TextField id="input" fx:id="input" alignment="CENTER" editable="false" layoutX="249.0" layoutY="335.0" />
-      <Button id="send" fx:id="send" disable="true" layoutX="434.0" layoutY="335.0" mnemonicParsing="false" onAction="#sendButtonAction" text="Send" />
-      <Label id="inputInfo" fx:id="inputInfo" alignment="CENTER" layoutX="316.0" layoutY="305.0" text="Info label" visible="false" />
-      <Label fx:id="givenWord" layoutX="298.0" layoutY="23.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer1" layoutX="34.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer2" layoutX="138.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer3" layoutX="241.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer4" layoutX="340.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer5" layoutX="444.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
-      <Label fx:id="pseudoPlayer6" layoutX="547.0" layoutY="234.0" prefHeight="5.0" prefWidth="88.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="23.0" text="Votre mot est :" textAlignment="CENTER" AnchorPane.leftAnchor="450.0">
+         <font>
+            <Font name="Cambria" size="32.0" />
+         </font></Label>
+      <TextField id="input" fx:id="input" alignment="CENTER" editable="false" layoutX="434.0" layoutY="597.0" AnchorPane.leftAnchor="434.0">
+         <font>
+            <Font name="Cambria" size="15.0" />
+         </font></TextField>
+      <Button id="send" fx:id="send" contentDisplay="CENTER" disable="true" layoutX="640.0" layoutY="597.0" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="30.0" prefWidth="52.0" text="Send" textAlignment="CENTER" AnchorPane.leftAnchor="640.0" />
+      <Label fx:id="givenWord" layoutX="666.0" layoutY="23.0" prefHeight="5.0" prefWidth="88.0">
+         <font>
+            <Font name="Cambria" size="32.0" />
+         </font></Label>
+      <GridPane layoutX="69.0" layoutY="105.0" prefHeight="448.0" prefWidth="960.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="105.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="221.59998168945313" minHeight="10.0" prefHeight="168.00001831054686" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="320.8000244140625" minHeight="10.0" prefHeight="283.99998168945314" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@kisspng-virtual-private-network-internet-information-secur-spy-5b15dee6e21106.026296441528159974926.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@greenPng.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@pinkPng.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@greyPng.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@violetPng.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@yellowPng.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="pseudoPlayer1" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Cambria" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="pseudoPlayer2" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Cambria" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="pseudoPlayer3" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Cambria" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="pseudoPlayer4" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="pseudoPlayer5" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="pseudoPlayer6" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listeMotJoueur1" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ListView fx:id="listeMotJoueur2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ListView fx:id="listeMotJoueur3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ListView fx:id="listeMotJoueur4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ListView fx:id="listeMotJoueur5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ListView fx:id="listeMotJoueur6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
