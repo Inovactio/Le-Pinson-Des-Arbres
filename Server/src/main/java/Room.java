@@ -1,10 +1,8 @@
 import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.IntStream;
 
 import jsonparser.JsonParser;
 import jsonparser.Tuple;
@@ -82,16 +80,45 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     public synchronized void launchGame() throws RemoteException {
 
-        // TODO : randomly select roles
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = classLoader.getResource("words.json").getPath();
         JsonParser jsonParser = new JsonParser(path);
         Tuple<String> words = jsonParser.getRandomWords();
         System.out.println("Words : " + words.getFirst() + " / " + words.getSecond());
 
-        for (IClient client : clients) {
-            client.init(words.getFirst(), Role.CITIZEN, usernames);
+        RandomizeRoomOrder();
+
+        int mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
+        Set<Integer> impostersIndex = new HashSet<>();
+
+        for(int i=0;i<nbImpostors;i++){
+            int randomNumber = new Random().ints(1,clients.size()-1-impostersIndex.size()-1).findFirst().getAsInt();
+            if(randomNumber>=mrWhiteIndex) randomNumber++;
+            for (Integer imposterIndex: impostersIndex
+                 ) {
+                if(randomNumber>=imposterIndex)randomNumber++;
+            }
+            impostersIndex.add(randomNumber);
         }
+
+        for(int i=0;i<clients.size();i++){
+            if(i == mrWhiteIndex){
+                clients.get(i).init("Vous êtes MrWhite",Role.MRWHITE,usernames);
+                System.out.println(usernames.get(i)+" est initialisé MrWhite");
+            }else if (impostersIndex.contains(i)){
+                clients.get(i).init(words.getSecond(), Role.IMPOSTER, usernames);
+                System.out.println(usernames.get(i)+" est initialisé Imposter");
+            }else{
+                clients.get(i).init(words.getFirst(), Role.CITIZEN, usernames);
+                System.out.println(usernames.get(i)+" est initialisé Citoyen");
+            }
+        }
+    }
+
+    private void RandomizeRoomOrder() {
+        long seed = System.nanoTime();
+        Collections.shuffle(clients, new Random(seed));
+        Collections.shuffle(usernames, new Random(seed));
     }
 
     @Override
