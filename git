@@ -1,0 +1,12 @@
+Disable play button when room not full
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Client/src/main/java/Client.java
+#	modified:   Components/src/main/java/IClient.java
+#	modified:   Server/src/main/java/Room.java
+#
