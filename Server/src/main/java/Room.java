@@ -15,6 +15,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private String owner;
     private boolean gameLaunched;
     private int roomSize;
+    private int mrWhiteIndex;
 
     private int turnTime;
     private int nbWords;
@@ -86,7 +87,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
         randomizeRoomOrder();
 
-        int mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
+        mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
         Set<Integer> impostersIndex = new HashSet<>();
 
         for(int i=0;i<nbImpostors;i++){
@@ -111,12 +112,47 @@ public class Room extends UnicastRemoteObject implements IRoom {
                 System.out.println(usernames.get(i)+" est initialisé Citoyen");
             }
         }
+        playGame();
     }
 
     private void randomizeRoomOrder() {
         long seed = System.nanoTime();
         Collections.shuffle(clients, new Random(seed));
         Collections.shuffle(usernames, new Random(seed));
+    }
+
+    private void playGame(){
+        for (int i = 0; i < nbRounds ; i++) {
+            for (IClient client:clients
+                 ) {
+                try {
+                    client.requestWord();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // TODO Récupérer le mot proposé par un joueur.
+            }
+        }
+        for (IClient client:clients
+             ) {
+            try {
+                client.requestVote();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO Récupérer les votes des joueurs et donner des points en fonction de la réussite
+        try {
+            clients.get(mrWhiteIndex).requestWord();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // TODO Récupérer le mot que MrWhite pense avoir deviné et le comparer au mot des Citoyen
+
     }
 
     @Override
