@@ -105,7 +105,16 @@ public class GameMonitor {
                     currentWord = buffer;
                 }
                 words.get(playerIndex).add(currentWord);
-                //TODO update every player
+                
+                for (IClient c : clients) {
+                    try {
+                        c.giveGameUpdate(currentWord, playerIndex);
+                    } catch (RemoteException e) {
+                        System.out.println("Game update failed.");
+                        e.printStackTrace();
+                    }
+                }
+
                 playerIndex = (playerIndex+1)%6;
             }
         }
