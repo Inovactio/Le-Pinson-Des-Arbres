@@ -134,4 +134,8 @@ public class GameMonitor {
     public synchronized void sendVote(String player) {
 
     }
+
+    public synchronized void sendGuess(IClient client, String word) throws RemoteException {
+        
+    }
 }

@@ -110,6 +110,11 @@ public class Room extends UnicastRemoteObject implements IRoom {
         gameMonitor.sendWord(word);
     }
 
+    @Override
+    public void sendGuess(IClient client, String word) throws RemoteException {
+        gameMonitor.sendGuess(client, word);
+    }
+
     public void close() {
         try {
             unexportObject(this, true);
