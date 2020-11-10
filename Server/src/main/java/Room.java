@@ -1,3 +1,4 @@
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -66,7 +67,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
                 c.kick();
             }
             server.removeRoom(owner);
-
+            close();
         } else {
             for (IClient c : clients) {
                 c.giveLobbyUpdate(usernames);
@@ -76,16 +77,19 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     public synchronized void launchGame() throws RemoteException {
 
-        //Throw exception if nb players != 6
+        // Throw exception if nb players != 6
 
-        gameMonitor = new GameMonitor(clients, usernames, nbWords, nbRounds, nbImpostors, turnTime);
-        Thread monitorThread = new Thread(() -> { gameMonitor.launchGame();});
+        gameMonitor = new GameMonitor(this, clients, usernames, nbWords, nbRounds, nbImpostors, turnTime);
+        Thread monitorThread = new Thread(() -> {
+            gameMonitor.launchGame();
+        });
         server.removeRoom(owner);
         monitorThread.start();
     }
 
     @Override
-    public synchronized void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
+    public synchronized void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors)
+            throws RemoteException {
         this.turnTime = turnTime;
         this.nbWords = nbWords;
         this.nbRounds = nbRounds;
@@ -104,6 +108,15 @@ public class Room extends UnicastRemoteObject implements IRoom {
     @Override
     public void sendWord(String word) throws RemoteException {
         gameMonitor.sendWord(word);
+    }
+
+    public void close() {
+        try {
+            unexportObject(this, true);
+        } catch (NoSuchObjectException e) {
+            System.out.println("Failed to close room correctly.");
+            e.printStackTrace();
+        }
     }
 
     // -----Getters-----

@@ -11,6 +11,7 @@ import jsonparser.Tuple;
 
 public class GameMonitor {
 
+    private Room room;
     private List<IClient> clients;
     private List<String> usernames;
     private int turnTime;
@@ -23,7 +24,8 @@ public class GameMonitor {
     private String votes[];
     private String buffer;
 
-    public GameMonitor(List<IClient> clients, List<String> usernames, int nbWords, int nbRounds, int nbImpostors, int turnTime) {
+    public GameMonitor(Room room, List<IClient> clients, List<String> usernames, int nbWords, int nbRounds, int nbImpostors, int turnTime) {
+        this.room = room;
         this.clients = clients;
         this.usernames = usernames;
         this.turnTime = turnTime;
@@ -120,6 +122,8 @@ public class GameMonitor {
 
         // TODO Récupérer le mot que MrWhite pense avoir deviné et le comparer au mot des Citoyen
 
+        room.close();
+        
     }
 
     public synchronized void sendWord(String word) {
