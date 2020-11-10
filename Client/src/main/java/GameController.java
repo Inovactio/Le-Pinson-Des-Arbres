@@ -27,7 +27,7 @@ public class GameController {
     private ListView<String> listeMotJoueur1,listeMotJoueur2,listeMotJoueur3,listeMotJoueur4,listeMotJoueur5,listeMotJoueur6;
 
     private Client client;
-    private Role role;
+    private boolean isMrWhite;
     private List<String> players;
     private Label usernamesGame[];
     private ListView<String> listeMotList[];
@@ -59,7 +59,7 @@ public class GameController {
             stage.setScene(scene);
             givenWord.setText(word);
             initUsernamesGame();
-            this.role = role;
+            this.isMrWhite = isMrwhite;
             this.players = players;
 
             int i = 0;
@@ -107,7 +107,7 @@ public class GameController {
     @FXML
     private synchronized void sendButtonAction(ActionEvent event) throws Exception {
         String word = input.getText();
-        if (word.length()!=0 && !word.equals(givenWord)) {
+        if (word.length()!=0 && !word.equals(givenWord.getText())) {
             client.sendWord(word);
             closeInput();
         } else {
