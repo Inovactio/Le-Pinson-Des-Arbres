@@ -1,5 +1,4 @@
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +19,7 @@ public class GameMonitor {
     private int nbImpostors;
     private int mrWhiteIndex;
 
-    private List<List<String>> words;
+    private String words[][];
     private String votes[];
     private String buffer;
 
@@ -32,10 +31,7 @@ public class GameMonitor {
         this.nbWords = nbWords;
         this.nbRounds = nbRounds;
         this.nbImpostors = nbImpostors;
-        words = new ArrayList<List<String>>(6);
-        for (List<String> wordList : words) {
-            wordList = new ArrayList<String>();
-        }
+        words = new String[6][nbRounds];
         votes = new String[6];
     }
 
@@ -104,7 +100,7 @@ public class GameMonitor {
                     System.out.println("Time out.");
                     currentWord = buffer;
                 }
-                words.get(playerIndex).add(currentWord);
+                words[playerIndex][i] = currentWord;
                 
                 for (IClient c : clients) {
                     try {
