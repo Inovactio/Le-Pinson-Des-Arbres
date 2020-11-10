@@ -2,11 +2,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
-import jsonparser.JsonParser;
-import jsonparser.Tuple;
-
-
-
 public class Room extends UnicastRemoteObject implements IRoom {
 
     private ServerGame server;
@@ -15,12 +10,13 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private String owner;
     private boolean gameLaunched;
     private int roomSize;
-    private int mrWhiteIndex;
 
     private int turnTime;
     private int nbWords;
     private int nbRounds;
     private int nbImpostors;
+
+    private GameMonitor gameMonitor;
 
     public Room(int roomSize, ServerGame server) throws RemoteException {
         this.server = server;
@@ -70,6 +66,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
                 c.kick();
             }
             server.removeRoom(owner);
+
         } else {
             for (IClient c : clients) {
                 c.giveLobbyUpdate(usernames);
@@ -79,80 +76,12 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     public synchronized void launchGame() throws RemoteException {
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = classLoader.getResource("words.json").getPath();
-        JsonParser jsonParser = new JsonParser(path);
-        Tuple<String> words = jsonParser.getRandomWords();
-        System.out.println("Words : " + words.getFirst() + " / " + words.getSecond());
+        //Throw exception if nb players != 6
 
-        randomizeRoomOrder();
-
-        mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
-        Set<Integer> impostersIndex = new HashSet<>();
-
-        for(int i=0;i<nbImpostors;i++){
-            int randomNumber = new Random().ints(0,clients.size()-1-impostersIndex.size()-1).findFirst().getAsInt();
-            if(randomNumber>=mrWhiteIndex) randomNumber++;
-            for (Integer imposterIndex: impostersIndex
-                 ) {
-                if(randomNumber>=imposterIndex)randomNumber++;
-            }
-            impostersIndex.add(randomNumber);
-        }
-
-        for(int i=0;i<clients.size();i++){
-            if(i == mrWhiteIndex){
-                clients.get(i).init("Vous êtes MrWhite",true,usernames);
-                System.out.println(usernames.get(i)+" est initialisé MrWhite");
-            }else if (impostersIndex.contains(i)){
-                clients.get(i).init(words.getSecond(), false, usernames);
-                System.out.println(usernames.get(i)+" est initialisé Imposter");
-            }else{
-                clients.get(i).init(words.getFirst(), false, usernames);
-                System.out.println(usernames.get(i)+" est initialisé Citoyen");
-            }
-        }
-        playGame();
-    }
-
-    private void randomizeRoomOrder() {
-        long seed = System.nanoTime();
-        Collections.shuffle(clients, new Random(seed));
-        Collections.shuffle(usernames, new Random(seed));
-    }
-
-    private void playGame(){
-        for (int i = 0; i < nbRounds ; i++) {
-            for (IClient client:clients
-                 ) {
-                try {
-                    client.requestWord();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                // TODO Récupérer le mot proposé par un joueur.
-            }
-        }
-        for (IClient client:clients
-             ) {
-            try {
-                client.requestVote();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-        // TODO Récupérer les votes des joueurs et donner des points en fonction de la réussite
-        try {
-            clients.get(mrWhiteIndex).requestWord();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // TODO Récupérer le mot que MrWhite pense avoir deviné et le comparer au mot des Citoyen
-
+        gameMonitor = new GameMonitor(clients, usernames, nbWords, nbRounds, nbImpostors, turnTime);
+        Thread monitorThread = new Thread(() -> { gameMonitor.launchGame();});
+        server.removeRoom(owner);
+        monitorThread.start();
     }
 
     @Override
@@ -168,14 +97,13 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
     @Override
     public void sendVote(String player) throws RemoteException {
-        // TODO Auto-generated method stub
+        gameMonitor.sendVote(player);
 
     }
 
     @Override
     public void sendWord(String word) throws RemoteException {
-        // TODO Auto-generated method stub
-
+        gameMonitor.sendWord(word);
     }
 
     // -----Getters-----
