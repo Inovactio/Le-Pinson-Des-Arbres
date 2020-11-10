@@ -1,31 +1,36 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Set;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.scene.control.Label;
 
 public class GameController {
 
     @FXML
-    private TextField input;
+    private TextField input, guessMrWhiteInput;
     @FXML
-    private Button send;
+    private Button send, voteButton,vote;
     @FXML
-    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, givenWord;
+    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, givenWord ;
+    @FXML
+    private MenuButton imposteurMenu, mrWhiteMenu;
+    @FXML
+    private ListView<String> listeMotJoueur1,listeMotJoueur2,listeMotJoueur3,listeMotJoueur4,listeMotJoueur5,listeMotJoueur6;
 
     private Client client;
     private Role role;
     private List<String> players;
     private Label usernamesGame[];
+    private ListView<String> listeMotList[];
 
     public GameController(Client client) {
         this.client = client;
@@ -86,6 +91,19 @@ public class GameController {
         usernamesGame[5] = pseudoPlayer6;
     }
 
+    private void initListeMots(){
+        listeMotList = new ListView[6];
+        listeMotList[0] = listeMotJoueur1;
+        listeMotList[1] = listeMotJoueur2;
+        listeMotList[2] = listeMotJoueur3;
+        listeMotList[3] = listeMotJoueur4;
+        listeMotList[4] = listeMotJoueur5;
+        listeMotList[5] = listeMotJoueur6;
+
+    }
+
+
+
     @FXML
     private synchronized void sendButtonAction(ActionEvent event) throws Exception {
         String word = input.getText();
@@ -95,5 +113,32 @@ public class GameController {
         } else {
             inputInfo.setText("Please write a valid word : ");
         }
+    }
+
+    @FXML
+    public void switchToVoteScene(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vote.fxml"));
+        loader.setController(client.getGameController());
+        try {
+            Parent root = loader.load();
+            Stage stage = (Stage) voteButton.getScene().getWindow();
+            Scene scene = new Scene(root,1080,720);
+            stage.setScene(scene);
+            initListeMots();
+            for(int i=0;i<6;i++){
+                imposteurMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
+                mrWhiteMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
+            }
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void giveGameUpdate(String word, int playerIndex)throws RemoteException {
+        listeMotList[playerIndex].getItems().add(word);
     }
 }

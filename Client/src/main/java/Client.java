@@ -46,8 +46,16 @@ public class Client extends UnicastRemoteObject implements IClient {
         currentRoom.changeSettings(turnTime, nbWords, nbRounds, nbImpostors);
     }
 
+    public void giveGameUpdate(String word, int playerIndex) throws RemoteException{
+        gameController.giveGameUpdate(word,playerIndex);
+    }
+
     public void requestWord() throws RemoteException, InterruptedException {
         gameMonitor.requestWord();
+    }
+
+    public void requestVote() throws RemoteException{
+        gameMonitor.requestVote();
     }
 
     public void init(String word,Boolean isMrWhite, List<String> players) {
