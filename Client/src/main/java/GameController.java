@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -20,7 +22,7 @@ public class GameController {
     @FXML
     private Button send, voteButton,vote;
     @FXML
-    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, givenWord ;
+    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel ;
     @FXML
     private MenuButton imposteurMenu, mrWhiteMenu;
     @FXML
@@ -30,7 +32,8 @@ public class GameController {
     private boolean isMrWhite;
     private List<String> players;
     private Label usernamesGame[];
-    private ListView<String> listeMotList[];
+    private ObservableList<String> obsListeMotsJoueurs[];
+    private ListView<String> listeMotsJoueurs[];
 
     public GameController(Client client) {
         this.client = client;
@@ -57,8 +60,15 @@ public class GameController {
             Stage stage = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
             Scene scene = new Scene(root,1080,720);
             stage.setScene(scene);
-            givenWord.setText(word);
+            if(isMrwhite){
+                gameGivenWordLabel.setText("you are Mister White");
+            }
+            else{
+                gameGivenWordLabel.setText(" your word is : " + word);
+            }
+
             initUsernamesGame();
+            initListeMots();
             this.isMrWhite = isMrwhite;
             this.players = players;
 
@@ -92,13 +102,24 @@ public class GameController {
     }
 
     private void initListeMots(){
-        listeMotList = new ListView[6];
-        listeMotList[0] = listeMotJoueur1;
-        listeMotList[1] = listeMotJoueur2;
-        listeMotList[2] = listeMotJoueur3;
-        listeMotList[3] = listeMotJoueur4;
-        listeMotList[4] = listeMotJoueur5;
-        listeMotList[5] = listeMotJoueur6;
+        listeMotsJoueurs= new ListView[6];
+        listeMotsJoueurs[0]= listeMotJoueur1;
+        listeMotsJoueurs[1]= listeMotJoueur2;
+        listeMotsJoueurs[2]= listeMotJoueur3;
+        listeMotsJoueurs[3]= listeMotJoueur4;
+        listeMotsJoueurs[4]= listeMotJoueur5;
+        listeMotsJoueurs[5]= listeMotJoueur6;
+        obsListeMotsJoueurs = new ObservableList[6];
+        for (int i=0;i<6;i++){
+            obsListeMotsJoueurs[i]=FXCollections.observableArrayList();
+        }
+        listeMotsJoueurs[0].setItems(obsListeMotsJoueurs[0]);
+        listeMotsJoueurs[1].setItems(obsListeMotsJoueurs[1]);
+        listeMotsJoueurs[2].setItems(obsListeMotsJoueurs[2]);
+        listeMotsJoueurs[3].setItems(obsListeMotsJoueurs[3]);
+        listeMotsJoueurs[4].setItems(obsListeMotsJoueurs[4]);
+        listeMotsJoueurs[5].setItems(obsListeMotsJoueurs[5]);
+
 
     }
 
@@ -107,7 +128,7 @@ public class GameController {
     @FXML
     private synchronized void sendButtonAction(ActionEvent event) throws Exception {
         String word = input.getText();
-        if (word.length()!=0 && !word.equals(givenWord.getText())) {
+        if (word.length()!=0 && !word.equals(gameGivenWordLabel.getText())) {
             client.sendWord(word);
             closeInput();
         } else {
@@ -121,10 +142,9 @@ public class GameController {
         loader.setController(client.getGameController());
         try {
             Parent root = loader.load();
-            Stage stage = (Stage) voteButton.getScene().getWindow();
+            Stage stage = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
             Scene scene = new Scene(root,1080,720);
             stage.setScene(scene);
-            initListeMots();
             for(int i=0;i<6;i++){
                 imposteurMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
                 mrWhiteMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
@@ -139,6 +159,7 @@ public class GameController {
 
     @FXML
     public void giveGameUpdate(String word, int playerIndex)throws RemoteException {
-        listeMotList[playerIndex].getItems().add(word);
+        obsListeMotsJoueurs[playerIndex].add(word);
+
     }
 }
