@@ -1,5 +1,6 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -22,7 +23,7 @@ public class GameController {
     @FXML
     private Button send, voteButton,vote;
     @FXML
-    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel ;
+    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel, whoIsMrWhiteLabel,imposterRevealLabel, imposterWordRevealLabel, mrWhiteRevealLabel, citizensWordRevealLabel, guessMrWhiteLabel, guessImposterLabel;
     @FXML
     private MenuButton imposteurMenu, mrWhiteMenu;
     @FXML
@@ -145,10 +146,33 @@ public class GameController {
             Stage stage = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
             Scene scene = new Scene(root,1080,720);
             stage.setScene(scene);
+            if(isMrWhite){
+                whoIsMrWhiteLabel.setText("Devinez le mot :");
+                mrWhiteMenu.setVisible(false);
+                mrWhiteMenu.setDisable(true);
+                guessMrWhiteLabel.setVisible(false);
+
+            }
+            else {
+                whoIsMrWhiteLabel.setText("Qui est Mr White ?");
+                guessMrWhiteInput.setDisable(true);
+                guessMrWhiteInput.setVisible(false);
+            }
             for(int i=0;i<6;i++){
                 imposteurMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
-                mrWhiteMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
+                if(!isMrWhite)
+                    mrWhiteMenu.getItems().add(new MenuItem(usernamesGame[i].getText()));
             }
+            pseudoPlayer1.setText(usernamesGame[0].getText());
+            pseudoPlayer2.setText(usernamesGame[1].getText());
+            pseudoPlayer3.setText(usernamesGame[2].getText());
+            pseudoPlayer4.setText(usernamesGame[3].getText());
+            pseudoPlayer5.setText(usernamesGame[4].getText());
+            pseudoPlayer6.setText(usernamesGame[5].getText());
+
+            initMenuButtonImposter();
+            if(!isMrWhite)
+                initMenuButtonMrWhite();
 
         }
         catch(Exception e) {
@@ -157,9 +181,99 @@ public class GameController {
 
     }
 
+    private void initMenuButtonImposter() throws Exception{
+        imposteurMenu.getItems().get(0).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(0).getText());
+            }
+        });
+
+        imposteurMenu.getItems().get(1).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(1).getText());
+            }
+        });
+
+        imposteurMenu.getItems().get(2).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(2).getText());
+            }
+        });
+
+        imposteurMenu.getItems().get(3).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(3).getText());
+            }
+        });
+
+        imposteurMenu.getItems().get(4).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(4).getText());
+            }
+        });
+
+        imposteurMenu.getItems().get(5).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessImposterLabel.setText(imposteurMenu.getItems().get(5).getText());
+            }
+        });
+    }
+
+    private void initMenuButtonMrWhite() throws Exception{
+        mrWhiteMenu.getItems().get(0).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(0).getText());
+            }
+        });
+
+        mrWhiteMenu.getItems().get(1).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(1).getText());
+            }
+        });
+
+        mrWhiteMenu.getItems().get(2).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(2).getText());
+            }
+        });
+
+        mrWhiteMenu.getItems().get(3).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(3).getText());
+            }
+        });
+
+        mrWhiteMenu.getItems().get(4).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(4).getText());
+            }
+        });
+
+        mrWhiteMenu.getItems().get(5).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                guessMrWhiteLabel.setText(mrWhiteMenu.getItems().get(5).getText());
+            }
+        });
+
+    }
+
     @FXML
     public void giveGameUpdate(String word, int playerIndex)throws RemoteException {
         obsListeMotsJoueurs[playerIndex].add(word);
 
     }
+
 }

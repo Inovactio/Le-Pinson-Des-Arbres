@@ -28,7 +28,7 @@
             <Font name="Cambria" size="15.0" />
          </font></TextField>
       <Button id="send" fx:id="send" contentDisplay="CENTER" disable="true" layoutX="640.0" layoutY="597.0" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="30.0" prefWidth="52.0" text="Send" textAlignment="CENTER" AnchorPane.leftAnchor="640.0" />
-      <GridPane layoutX="69.0" layoutY="105.0" prefHeight="399.0" prefWidth="962.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+      <GridPane layoutX="69.0" layoutY="105.0" prefHeight="412.0" prefWidth="981.0" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -74,32 +74,32 @@
             </ImageView>
             <Label fx:id="pseudoPlayer1" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria" size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer2" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria" size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer3" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria" size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer4" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer5" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer6" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Cambria Bold" size="15.0" />
                </font>
             </Label>
             <ListView fx:id="listeMotJoueur1" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -111,7 +111,7 @@
          </children>
       </GridPane>
       <Button fx:id="vote" layoutX="157.0" layoutY="600.0" mnemonicParsing="false" onAction="#switchToVoteScene" text="vote" />
-      <Label fx:id="inputInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="634.0" prefHeight="26.0" prefWidth="365.0">
+      <Label fx:id="inputInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="563.0" prefHeight="26.0" prefWidth="365.0">
          <font>
             <Font name="Cambria" size="15.0" />
          </font>
