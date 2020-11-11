@@ -22,6 +22,7 @@ public class GameMonitor {
     private String words[][];
     private String votes[];
     private String buffer;
+    private boolean bufferIsEmpty;
 
     public GameMonitor(Room room, List<IClient> clients, List<String> usernames, int nbWords, int nbRounds, int nbImpostors, int turnTime) {
         this.room = room;
@@ -33,6 +34,7 @@ public class GameMonitor {
         this.nbImpostors = nbImpostors;
         words = new String[6][nbRounds];
         votes = new String[6];
+        bufferIsEmpty = true;
     }
 
     public void launchGame() {
@@ -86,19 +88,23 @@ public class GameMonitor {
 
     private synchronized void playGame() {
         int playerIndex = 0;
-        String currentWord = "";
 
         for (int i = 0; i < nbRounds ; i++) {
             for (IClient client:clients) {
                 try {
                     client.requestWord();
                     wait(turnTime*1000);
-                    currentWord = buffer;
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
-                    System.out.println("Time out.");
+                    e.printStackTrace();
+                }
+                String currentWord;
+                if (bufferIsEmpty) {
+                    currentWord = "TIMED OUT";
+                } else {
                     currentWord = buffer;
+                    bufferIsEmpty = true;
                 }
                 words[playerIndex][i] = currentWord;
                 
@@ -133,6 +139,7 @@ public class GameMonitor {
 
     public synchronized void sendWord(String word) {
         buffer = word;
+        bufferIsEmpty = false;
         notify();
     }
 

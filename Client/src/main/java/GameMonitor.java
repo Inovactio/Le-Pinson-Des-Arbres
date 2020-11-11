@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Set;
 
 import javafx.application.Platform;
 
@@ -90,6 +89,19 @@ public class GameMonitor {
         notify();
     }
 
+    public synchronized void giveGameUpdate(String word, int playerIndex) {
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+        buffer = new UpdateRequest(word, playerIndex);
+        bufferIsEmpty = false;
+        notify();
+    }
 
     //-----Requests definition-----
 
@@ -130,6 +142,20 @@ public class GameMonitor {
     private class GuessRequest implements Request {
         public void handle(GameController controller) {
             controller.openInput("Guess the word : ");
+        }
+    }
+
+    private class UpdateRequest implements Request {
+        private String word;
+        private int playerIndex;
+
+        public UpdateRequest(String word, int playerIndex) {
+            this.word = word;
+            this.playerIndex = playerIndex;
+        }
+
+        public void handle(GameController controller) {
+            controller.giveGameUpdate(word, playerIndex);
         }
     }
 }

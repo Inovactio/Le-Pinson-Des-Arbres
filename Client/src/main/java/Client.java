@@ -30,9 +30,6 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor = new GameMonitor(gameController);
     }
 
-
-
-
     public void giveLobbyUpdate(List<String> update) throws RemoteException {
         lobbyUpdatesMonitor.giveUpdate(update);
     }
@@ -47,7 +44,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     public void giveGameUpdate(String word, int playerIndex) throws RemoteException{
-        gameController.giveGameUpdate(word,playerIndex);
+        gameMonitor.giveGameUpdate(word,playerIndex);
     }
 
     public void requestWord() throws RemoteException, InterruptedException {
@@ -67,7 +64,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     public void sendWord(String word) throws RemoteException {
-
+        currentRoom.sendWord(word);
     }
 
     public List<String> connectToLobby(String owner)

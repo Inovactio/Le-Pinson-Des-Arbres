@@ -6,13 +6,11 @@ import javafx.fxml.FXMLLoader;
 
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Set;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -31,7 +29,8 @@ public class GameController {
 
     private Client client;
     private boolean isMrWhite;
-    private List<String> players;
+    private String givenWord;
+    private int myIndex;
     private Label usernamesGame[];
     private ObservableList<String> obsListeMotsJoueurs[];
     private ListView<String> listeMotsJoueurs[];
@@ -70,11 +69,15 @@ public class GameController {
 
             initUsernamesGame();
             initListeMots();
+            givenWord = word;
             this.isMrWhite = isMrwhite;
-            this.players = players;
 
             int i = 0;
+            String myUsername = client.getUsername();
             for (String player : players) {
+                if (player.equals(myUsername)) {
+                    myIndex = i;
+                }
                 usernamesGame[i].setText(player);
                 usernamesGame[i].setVisible(true);
                 i++;
@@ -124,12 +127,11 @@ public class GameController {
 
     }
 
-
-
     @FXML
     private synchronized void sendButtonAction(ActionEvent event) throws Exception {
         String word = input.getText();
-        if (word.length()!=0 && !word.equals(gameGivenWordLabel.getText())) {
+        input.clear();
+        if (word.length()!=0 && !word.equals(givenWord)) {
             client.sendWord(word);
             closeInput();
         } else {
@@ -270,10 +272,12 @@ public class GameController {
 
     }
 
-    @FXML
-    public void giveGameUpdate(String word, int playerIndex)throws RemoteException {
+    public void giveGameUpdate(String word, int playerIndex) {
         obsListeMotsJoueurs[playerIndex].add(word);
-
+        if (playerIndex == myIndex) {
+            closeInput();
+            input.clear();
+        }
     }
 
 }
