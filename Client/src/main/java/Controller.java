@@ -125,6 +125,11 @@ public class Controller {
         refreshLobbiesList(client.getLobbies());
     }
 
+    @FXML
+    public void fillLobby(ActionEvent event) throws Exception {
+        client.fillLobby();
+    }
+
     // -----Back buttons-----
 
     @FXML

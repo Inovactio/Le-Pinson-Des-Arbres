@@ -18,6 +18,8 @@ public interface IRoom extends Remote {
 
     public void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException;
 
+    public void fill() throws RemoteException;
+
     public String getOwner() throws RemoteException;
 
     public int getNbPlayers() throws RemoteException;

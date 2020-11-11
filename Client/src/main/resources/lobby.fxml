@@ -276,5 +276,10 @@
             </Label>
          </children>
       </GridPane>
+      <Button fx:id="fillButton" layoutX="832.0" layoutY="643.0" mnemonicParsing="false" onAction="#fillLobby" text="Fill">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

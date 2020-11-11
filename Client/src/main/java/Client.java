@@ -93,6 +93,10 @@ public class Client extends UnicastRemoteObject implements IClient {
         currentRoom.launchGame();
     }
 
+    public void fillLobby() throws RemoteException {
+        currentRoom.fill();
+    }
+
     // Getters and setters
 
     public void setUsername(String username) {

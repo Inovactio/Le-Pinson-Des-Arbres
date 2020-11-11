@@ -100,6 +100,20 @@ public class Room extends UnicastRemoteObject implements IRoom {
     }
 
     @Override
+    public synchronized void fill() throws RemoteException {
+        if (clients.size()==1) {
+            for (int i = 0; i<5; i++) {
+                clients.add(new ClientMock());
+                String s = "bot" + i;
+                usernames.add(s);
+            }
+            for (IClient c : clients) {
+                c.giveLobbyUpdate(usernames);
+            }
+        }
+    }
+
+    @Override
     public void sendVote(String player) throws RemoteException {
         gameMonitor.sendVote(player);
 
