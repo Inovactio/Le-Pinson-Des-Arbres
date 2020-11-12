@@ -12,6 +12,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     private String username;
     private GameController gameController;
     private Controller controller;
+    private Boolean isMrWhite;
 
     private LobbyUpdatesMonitor lobbyUpdatesMonitor;
     private GameMonitor gameMonitor;
@@ -55,7 +56,13 @@ public class Client extends UnicastRemoteObject implements IClient {
         gameMonitor.requestVote();
     }
 
+    public String requestGuess() throws RemoteException{
+        gameMonitor.getRequest();
+        return null;
+    }
+
     public void init(String word,Boolean isMrWhite, List<String> players) {
+        this.isMrWhite = isMrWhite;
         gameMonitor.init(word, isMrWhite, players);
     }
 
@@ -95,7 +102,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     public void sendVoteResult(String imposterVote, String mrWhiteVote) throws RemoteException{
-        currentRoom.sendVote(imposterVote,mrWhiteVote);
+        currentRoom.sendVote(username,imposterVote,mrWhiteVote,isMrWhite);
 
     }
 

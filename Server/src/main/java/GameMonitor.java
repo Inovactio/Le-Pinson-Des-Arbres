@@ -1,9 +1,5 @@
 import java.rmi.RemoteException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import jsonparser.JsonParser;
 import jsonparser.Tuple;
@@ -18,9 +14,11 @@ public class GameMonitor {
     private int nbRounds;
     private int nbImpostors;
     private int mrWhiteIndex;
+    private Set<Integer> impostersIndex;
 
     private String words[][];
-    private String votes[];
+    private List<Vote> votes;
+    private int points[];
     private String buffer;
     private boolean bufferIsEmpty;
 
@@ -33,7 +31,11 @@ public class GameMonitor {
         this.nbRounds = nbRounds;
         this.nbImpostors = nbImpostors;
         words = new String[6][nbRounds];
-        votes = new String[6];
+        votes = new ArrayList<>(6);
+        points = new int[6];
+        for (int i = 0; i < points.length ; i++) {
+            points[i] = 0;
+        }
         bufferIsEmpty = true;
     }
 
@@ -47,7 +49,7 @@ public class GameMonitor {
         randomizeRoomOrder();
 
         mrWhiteIndex = new Random().ints(1,clients.size()-1).findFirst().getAsInt();
-        Set<Integer> impostersIndex = new HashSet<>();
+        impostersIndex = new HashSet<>();
 
         for(int i=0;i<nbImpostors;i++){
             int randomNumber = new Random().ints(0,clients.size()-1-impostersIndex.size()-1).findFirst().getAsInt();
@@ -122,19 +124,46 @@ public class GameMonitor {
         }
 
         for (IClient client:clients) {
-            try {
-                client.requestVote();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            new Thread(() -> {
+                try {
+                    client.requestVote();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            });
         }
-        // TODO Récupérer les votes des joueurs et donner des points en fonction de la réussite
-        
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        verifyVote();
+
 
         // TODO Récupérer le mot que MrWhite pense avoir deviné et le comparer au mot des Citoyen
 
         room.close();
         
+    }
+
+    private void verifyVote() {
+        for (int i = 0; i < votes.size(); i++) {
+            if(i!=mrWhiteIndex){
+                for (int j = 0; j < usernames.size(); j++) {
+                    String user = usernames.get(j);
+                    if(user==votes.get(i).getImposteur()){
+                        if(impostersIndex.contains(j)) givePoint(i);
+                    }else if(user==votes.get(i).getMrWhite()){
+                        if(mrWhiteIndex == j )givePoint(i);
+                    }
+                }
+            }
+        }
+    }
+
+    private void givePoint(int userIndex){
+        points[userIndex]++;
     }
 
     public synchronized void sendWord(String word) {
@@ -143,11 +172,36 @@ public class GameMonitor {
         notify();
     }
 
-    public synchronized void sendVote(String imposteur, String mrWhite) {
-
+    public synchronized void sendVote(String username,String imposteur, String mrWhite, boolean isMrWhite) {
+        if(isMrWhite) return;
+        Vote vote = new Vote(imposteur,mrWhite);
+        for (String user:usernames) {
+            if(user.equals(username)){
+                votes.add(usernames.indexOf(user),vote) ;
+            }
+        }
     }
 
     public synchronized void sendGuess(IClient client, String word) throws RemoteException {
         
+    }
+
+
+    private class Vote{
+        private String imposteur;
+        private String mrWhite;
+
+        public Vote(String imposteur, String mrWhite){
+            this.imposteur = imposteur;
+            this.mrWhite = mrWhite;
+        }
+
+        public String getImposteur() {
+            return imposteur;
+        }
+
+        public String getMrWhite() {
+            return mrWhite;
+        }
     }
 }

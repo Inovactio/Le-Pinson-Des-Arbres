@@ -114,9 +114,8 @@ public class Room extends UnicastRemoteObject implements IRoom {
     }
 
     @Override
-    public void sendVote(String imposteur, String mrWhite) throws RemoteException {
-        gameMonitor.sendVote(imposteur,mrWhite);
-
+    public void sendVote(String username,String imposteur, String mrWhite, boolean isMrWhite) throws RemoteException {
+        gameMonitor.sendVote(username,imposteur,mrWhite, isMrWhite);
     }
 
     @Override

@@ -34,6 +34,12 @@ public class ClientMock implements IClient {
     }
 
     @Override
+    public String requestGuess() throws RemoteException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public void init(String word, Boolean isMrWhite, List<String> players) throws RemoteException {
         // TODO Auto-generated method stub
 
