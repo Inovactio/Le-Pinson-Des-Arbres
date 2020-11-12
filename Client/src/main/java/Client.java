@@ -13,6 +13,7 @@ public class Client extends UnicastRemoteObject implements IClient {
     private GameController gameController;
     private Controller controller;
     private Boolean isMrWhite;
+    private Boolean foundImposteur;
 
     private LobbyUpdatesMonitor lobbyUpdatesMonitor;
     private GameMonitor gameMonitor;
@@ -29,6 +30,7 @@ public class Client extends UnicastRemoteObject implements IClient {
         controller = new Controller(this);
         lobbyUpdatesMonitor = new LobbyUpdatesMonitor(controller);
         gameMonitor = new GameMonitor(gameController);
+        foundImposteur=false;
     }
 
     public void giveLobbyUpdate(List<String> update) throws RemoteException {
@@ -137,7 +139,23 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException{
+        gameController.updateEndOfGameInfo(imposterNameReveal,imposterWordReveal,mrWhiteNameReveal,citizensWordReveal,gameResultReveal);
+    }
 
+    public void switchToVoteScene() throws RemoteException{
+        gameController.switchToVoteScene();
+    }
+
+    public boolean getIsMrWhite() throws RemoteException{
+        return isMrWhite;
+    }
+
+    public void setFoundImposteur(boolean foundImposteur) throws RemoteException{
+        this.foundImposteur=foundImposteur;
+    }
+
+    public boolean getFoundImposteur() throws RemoteException{
+        return foundImposteur;
     }
 
 }

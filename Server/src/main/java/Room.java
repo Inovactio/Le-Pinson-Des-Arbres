@@ -81,7 +81,14 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
         gameMonitor = new GameMonitor(this, clients, usernames, nbWords, nbRounds, nbImpostors, turnTime);
         Thread monitorThread = new Thread(() -> {
-            gameMonitor.launchGame();
+            try{
+                gameMonitor.launchGame();
+            }
+            catch(RemoteException e) {
+                System.out.println("game launching failed.");
+                e.printStackTrace();
+            }
+
         });
         server.removeRoom(owner);
         monitorThread.start();

@@ -26,4 +26,11 @@ public interface IClient extends Remote {
 
     public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException;
 
+    public void switchToVoteScene() throws RemoteException;
+
+    public boolean getIsMrWhite() throws RemoteException;
+
+    public boolean getFoundImposteur() throws RemoteException;
+
+    public void setFoundImposteur(boolean foundImposteur) throws RemoteException;
 }

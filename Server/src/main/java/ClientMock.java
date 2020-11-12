@@ -68,5 +68,27 @@ public class ClientMock implements IClient {
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public boolean getIsMrWhite() throws RemoteException{
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean getFoundImposteur() throws RemoteException{
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void setFoundImposteur(boolean foundImposteur) throws RemoteException{
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void switchToVoteScene() throws RemoteException{
+        // TODO Auto-generated method stub
+    }
+
 }
 

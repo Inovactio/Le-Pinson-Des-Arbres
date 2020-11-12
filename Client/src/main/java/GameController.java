@@ -140,7 +140,7 @@ public class GameController {
     }
 
     @FXML
-    public void switchToVoteScene(ActionEvent event) throws Exception {
+    public void switchToVoteScene() throws RemoteException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vote.fxml"));
         loader.setController(client.getGameController());
         try {
@@ -182,6 +182,12 @@ public class GameController {
         }
 
     }
+
+    @FXML
+    private void switchVoteScene(ActionEvent event) throws RemoteException{
+        switchToVoteScene();
+    }
+
 
     @FXML
     private void sendVoteResult(ActionEvent event) throws Exception {

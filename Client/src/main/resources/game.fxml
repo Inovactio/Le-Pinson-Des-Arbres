@@ -110,7 +110,7 @@
             <ListView fx:id="listeMotJoueur6" prefHeight="150.0" prefWidth="40.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button fx:id="vote" layoutX="162.0" layoutY="628.0" mnemonicParsing="false" onAction="#switchToVoteScene" text="vote" />
+      <Button fx:id="vote" layoutX="162.0" layoutY="628.0" mnemonicParsing="false" onAction="#switchVoteScene" text="vote" />
       <Label fx:id="inputInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="563.0" prefHeight="26.0" prefWidth="365.0">
          <font>
             <Font name="Cambria" size="15.0" />
