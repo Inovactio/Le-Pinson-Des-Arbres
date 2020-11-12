@@ -57,5 +57,10 @@ public class ClientMock implements IClient {
         return null;
     }
 
+    @Override
+    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException{
+        // TODO Auto-generated method stub
+    }
+
 }
 

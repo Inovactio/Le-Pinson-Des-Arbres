@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IRoom extends Remote {
 
-    public void sendVote(String player) throws RemoteException;
+    public void sendVote(String imposter, String mrWhite) throws RemoteException;
 
     public void sendWord(String word) throws RemoteException;
 

@@ -143,7 +143,7 @@ public class GameMonitor {
         notify();
     }
 
-    public synchronized void sendVote(String player) {
+    public synchronized void sendVote(String imposteur, String mrWhite) {
 
     }
 

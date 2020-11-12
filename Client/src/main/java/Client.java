@@ -94,6 +94,11 @@ public class Client extends UnicastRemoteObject implements IClient {
         currentRoom.fill();
     }
 
+    public void sendVoteResult(String imposterVote, String mrWhiteVote) throws RemoteException{
+        currentRoom.sendVote(imposterVote,mrWhiteVote);
+
+    }
+
     // Getters and setters
 
     public void setUsername(String username) {
@@ -122,6 +127,10 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public GameController getGameController() {
         return gameController;
+    }
+
+    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException{
+
     }
 
 }

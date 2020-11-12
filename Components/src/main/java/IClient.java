@@ -24,4 +24,6 @@ public interface IClient extends Remote {
 
     public String getUsername() throws RemoteException;
 
+    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException;
+
 }

@@ -21,7 +21,7 @@ public class GameController {
     @FXML
     private Button send, voteButton,vote;
     @FXML
-    private Label inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel, whoIsMrWhiteLabel,imposterRevealLabel, imposterWordRevealLabel, mrWhiteRevealLabel, citizensWordRevealLabel, guessMrWhiteLabel, guessImposterLabel;
+    private Label gameResultLabel, voteInfoLabel, inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel, whoIsMrWhiteLabel,imposterRevealLabel, imposterWordRevealLabel, mrWhiteRevealLabel, citizensWordRevealLabel, guessMrWhiteLabel, guessImposterLabel;
     @FXML
     private MenuButton imposteurMenu, mrWhiteMenu;
     @FXML
@@ -180,6 +180,39 @@ public class GameController {
         catch(Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @FXML
+    private void sendVoteResult(ActionEvent event) throws Exception {
+        String imposteurVote;
+        String mrWhiteVote;
+        if(isMrWhite){
+            mrWhiteVote=guessMrWhiteInput.getText();
+
+        }
+        else {
+            mrWhiteVote=guessMrWhiteLabel.getText();
+        }
+        imposteurVote=guessImposterLabel.getText();
+        if(imposteurVote.length()<1 || mrWhiteVote.length()<1){
+            voteInfoLabel.setText("veuillez choisir un vote valide");
+        }
+        else {
+            client.sendVoteResult(imposteurVote,mrWhiteVote);
+        }
+
+
+    }
+
+
+    @FXML
+    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException {
+        imposterRevealLabel.setText("L'imposteur etait : " + imposterNameReveal);
+        imposterWordRevealLabel.setText("Le mot de l'imposteur etait : " + imposterWordReveal);
+        mrWhiteRevealLabel.setText("Mr White etait : " + mrWhiteNameReveal);
+        citizensWordRevealLabel.setText("Le mot des citoyens etait : " + citizensWordReveal);
+        gameResultLabel.setText("Vous avez "+ gameResultReveal);
 
     }
 
