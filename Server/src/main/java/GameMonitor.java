@@ -10,7 +10,6 @@ public class GameMonitor {
     private List<IClient> clients;
     private List<String> usernames;
     private int turnTime;
-    private int nbWords;
     private int nbRounds;
     private int nbImpostors;
     private int mrWhiteIndex;
@@ -25,12 +24,11 @@ public class GameMonitor {
     private boolean bufferIsEmpty;
     private int nbVoteAgainstImposteur;
 
-    public GameMonitor(Room room, List<IClient> clients, List<String> usernames, int nbWords, int nbRounds, int nbImpostors, int turnTime) {
+    public GameMonitor(Room room, List<IClient> clients, List<String> usernames, int nbRounds, int nbImpostors, int turnTime) {
         this.room = room;
         this.clients = clients;
         this.usernames = usernames;
         this.turnTime = turnTime;
-        this.nbWords = nbWords;
         this.nbRounds = nbRounds;
         this.nbImpostors = nbImpostors;
         this.mrWhiteGuess="";

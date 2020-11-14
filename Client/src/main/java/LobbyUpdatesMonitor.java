@@ -39,8 +39,8 @@ public class LobbyUpdatesMonitor {
         notify();
     }
 
-    public synchronized void giveUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) {
-        queue.add(new SettingsUpdate(turnTime, nbWords, nbRounds, nbImpostors));
+    public synchronized void giveUpdate(int turnTime, int nbRounds, int nbImpostors) {
+        queue.add(new SettingsUpdate(turnTime, nbRounds, nbImpostors));
         notify();
     }
 
@@ -82,19 +82,17 @@ public class LobbyUpdatesMonitor {
 
     private class SettingsUpdate implements Update {
         private int turnTime;
-        private int nbWords;
         private int nbRounds;
         private int nbImpostors;
 
-        public SettingsUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) {
+        public SettingsUpdate(int turnTime, int nbRounds, int nbImpostors) {
             this.turnTime = turnTime;
-            this.nbWords = nbWords;
             this.nbRounds = nbRounds;
             this.nbImpostors = nbImpostors;
         }
 
         public void handle(Controller controller) {
-            controller.refreshLobby(turnTime, nbWords, nbRounds, nbImpostors);
+            controller.refreshLobby(turnTime, nbRounds, nbImpostors);
         }
     }
 

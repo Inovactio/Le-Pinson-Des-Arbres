@@ -13,7 +13,6 @@ public class Room extends UnicastRemoteObject implements IRoom {
     private int roomSize;
 
     private int turnTime;
-    private int nbWords;
     private int nbRounds;
     private int nbImpostors;
 
@@ -25,7 +24,6 @@ public class Room extends UnicastRemoteObject implements IRoom {
         this.usernames = new ArrayList<String>();
         this.gameLaunched = false;
         this.turnTime = 20;
-        this.nbWords = 3;
         this.nbRounds = 3;
         this.nbImpostors = 1;
         if (roomSize >= 6 && roomSize <= 10) {
@@ -54,7 +52,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
         for (IClient c : clients) {
             c.giveLobbyUpdate(usernames);
         }
-        client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
+        client.giveLobbyUpdate(turnTime, nbRounds, nbImpostors);
         clients.add(client);
         return usernames;
     }
@@ -79,7 +77,7 @@ public class Room extends UnicastRemoteObject implements IRoom {
 
         // Throw exception if nb players != 6
 
-        gameMonitor = new GameMonitor(this, clients, usernames, nbWords, nbRounds, nbImpostors, turnTime);
+        gameMonitor = new GameMonitor(this, clients, usernames, nbRounds, nbImpostors, turnTime);
         Thread monitorThread = new Thread(() -> {
             try{
                 gameMonitor.launchGame();
@@ -95,14 +93,13 @@ public class Room extends UnicastRemoteObject implements IRoom {
     }
 
     @Override
-    public synchronized void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors)
+    public synchronized void changeSettings(int turnTime, int nbRounds, int nbImpostors)
             throws RemoteException {
         this.turnTime = turnTime;
-        this.nbWords = nbWords;
         this.nbRounds = nbRounds;
         this.nbImpostors = nbImpostors;
         for (IClient client : clients) {
-            client.giveLobbyUpdate(turnTime, nbWords, nbRounds, nbImpostors);
+            client.giveLobbyUpdate(turnTime, nbRounds, nbImpostors);
         }
     }
 

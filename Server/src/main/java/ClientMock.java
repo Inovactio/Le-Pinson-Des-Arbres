@@ -10,7 +10,7 @@ public class ClientMock implements IClient {
     }
 
     @Override
-    public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
+    public void giveLobbyUpdate(int turnTime, int nbRounds, int nbImpostors) throws RemoteException {
         // TODO Auto-generated method stub
 
     }

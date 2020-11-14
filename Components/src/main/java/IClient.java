@@ -6,7 +6,7 @@ public interface IClient extends Remote {
 
     public void giveLobbyUpdate(List<String> update) throws RemoteException;
 
-    public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException;
+    public void giveLobbyUpdate(int turnTime, int nbRounds, int nbImpostors) throws RemoteException;
 
     public void giveGameUpdate(String word, int playerIndex)throws RemoteException;
 

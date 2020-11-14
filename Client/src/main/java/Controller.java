@@ -31,7 +31,7 @@ public class Controller {
     @FXML
     private Button connect, createLobby, showLobbies, playGame, refreshButton, validateButton, joinToMainMenuButton, lobbyToMainMenuButton;
     @FXML
-    private Button incrNbWords, decrNbWords, incrNbRounds, decrNbRounds, incrNbImpostors, decrNbImpostors, incrTurnTime, decrTurnTime;
+    private Button incrNbRounds, decrNbRounds, incrNbImpostors, decrNbImpostors, incrTurnTime, decrTurnTime;
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -39,9 +39,9 @@ public class Controller {
     @FXML
     private Label pseudoJoueur1, pseudoJoueur2, pseudoJoueur3, pseudoJoueur4, pseudoJoueur5, pseudoJoueur6, nbJoueurs;
     @FXML
-    private Label nbWordsLabel, nbRoundsLabel, nbImpostorsLabel, turnTimeLabel;
+    private Label nbRoundsLabel, nbImpostorsLabel, turnTimeLabel;
     @FXML
-    private Slider nbWordsSlider, nbRoundsSlider, nbImpostorsSlider, turnTimeSlider;
+    private Slider nbRoundsSlider, nbImpostorsSlider, turnTimeSlider;
     @FXML
     private TableView lobbiesList;
 
@@ -157,23 +157,6 @@ public class Controller {
     // -----Lobby tuning-----
 
     @FXML
-    private void incrementNbWords(ActionEvent event) throws Exception {
-        nbWordsSlider.increment();
-        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
-    }
-
-    @FXML
-    private void decrementNbWords(ActionEvent event) throws Exception {
-        nbWordsSlider.decrement();
-        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
-    }
-
-    @FXML
-    private void setNbWords(Event event) throws Exception {
-        nbWordsLabel.setText(Integer.toString((int) nbWordsSlider.getValue()));
-    }
-
-    @FXML
     private void incrementNbRounds(ActionEvent event) throws Exception {
         nbRoundsSlider.increment();
         nbRoundsLabel.setText(Integer.toString((int) nbRoundsSlider.getValue()));
@@ -231,7 +214,7 @@ public class Controller {
 
     @FXML
     private void validateSettings(ActionEvent event) throws Exception {
-        client.changeSettings((int) turnTimeSlider.getValue(), (int) nbWordsSlider.getValue(), (int) nbRoundsSlider.getValue(), (int) nbImpostorsSlider.getValue());
+        client.changeSettings((int) turnTimeSlider.getValue(), (int) nbRoundsSlider.getValue(), (int) nbImpostorsSlider.getValue());
     }
 
     // -----Intermediate methods-----
@@ -286,8 +269,7 @@ public class Controller {
     }
 
     // Settings refresh
-    public void refreshLobby(int turnTime, int nbWords, int nbRounds, int nbImpostors) {
-        nbWordsLabel.setText(Integer.toString(nbWords));
+    public void refreshLobby(int turnTime, int nbRounds, int nbImpostors) {
         nbRoundsLabel.setText(Integer.toString(nbRounds));
         nbImpostorsLabel.setText(Integer.toString(nbImpostors));
         turnTimeLabel.setText(Integer.toString(turnTime));
@@ -364,10 +346,6 @@ public class Controller {
     private void initNotOwnerLobby() {
         playGame.setVisible(false);
         validateButton.setVisible(false);
-
-        nbWordsSlider.setVisible(false);
-        incrNbWords.setVisible(false);
-        decrNbWords.setVisible(false);
 
         nbRoundsSlider.setVisible(false);
         incrNbRounds.setVisible(false);

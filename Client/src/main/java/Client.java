@@ -38,12 +38,12 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     @Override
-    public void giveLobbyUpdate(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
-        lobbyUpdatesMonitor.giveUpdate(turnTime, nbWords, nbRounds, nbImpostors);
+    public void giveLobbyUpdate(int turnTime, int nbRounds, int nbImpostors) throws RemoteException {
+        lobbyUpdatesMonitor.giveUpdate(turnTime, nbRounds, nbImpostors);
     }
 
-    public void changeSettings(int turnTime, int nbWords, int nbRounds, int nbImpostors) throws RemoteException {
-        currentRoom.changeSettings(turnTime, nbWords, nbRounds, nbImpostors);
+    public void changeSettings(int turnTime, int nbRounds, int nbImpostors) throws RemoteException {
+        currentRoom.changeSettings(turnTime, nbRounds, nbImpostors);
     }
 
     public void giveGameUpdate(String word, int playerIndex) throws RemoteException{
