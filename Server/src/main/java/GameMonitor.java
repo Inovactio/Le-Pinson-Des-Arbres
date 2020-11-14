@@ -35,7 +35,7 @@ public class GameMonitor {
         this.imposteurIndex=-1;
         this.nbVoteAgainstImposteur=0;
         words = new String[6][nbRounds];
-        votes = new ArrayList<>(6);
+        votes = new ArrayList<>();
         points = new int[6];
         for (int i = 0; i < points.length ; i++) {
             points[i] = 0;
@@ -191,13 +191,11 @@ public class GameMonitor {
         if(isMrWhite){
             vote = new Vote(imposteur);
             mrWhiteGuess=mrWhite;
-
         }
         else {
             vote = new Vote(imposteur,mrWhite);
         }
-
-        for (String user:usernames) {
+        for(String user:usernames) {
             if(user.equals(username)){
                 votes.add(usernames.indexOf(user),vote) ;
             }
@@ -245,15 +243,17 @@ public class GameMonitor {
     private class Vote{
         private String imposteur;
         private String mrWhite;
+        private boolean mrWhiteVote;
 
         public Vote(String imposteur, String mrWhite){
             this.imposteur = imposteur;
             this.mrWhite = mrWhite;
+            mrWhiteVote = true;
         }
 
         public Vote(String imposteur){
             this.imposteur = imposteur;
-            this.mrWhite = "";
+            mrWhiteVote = false;
         }
 
         public String getImposteur() {
@@ -262,6 +262,10 @@ public class GameMonitor {
 
         public String getMrWhite() {
             return mrWhite;
+        }
+
+        public boolean isMrWhiteVote() {
+            return mrWhiteVote;
         }
     }
 }
