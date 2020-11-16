@@ -164,10 +164,11 @@ public class GameMonitor {
                         catch(RemoteException e){
                             e.printStackTrace();
                         }
-
                     }
                 }else if(user.equals(votes[i].getMrWhite()) && i!=mrWhiteIndex){
                     if(mrWhiteIndex == j )givePoint(i);
+                }else if(j == mrWhiteIndex){
+                    if(wordsImposterCitizens.getFirst().equals(mrWhiteGuess)) givePoint(j);
                 }
             }
         }
@@ -176,6 +177,10 @@ public class GameMonitor {
 
     private void givePoint(int userIndex){
         points[userIndex]++;
+    }
+
+    private void givePoint(int userIndex,int nbPoints){
+        points[userIndex]+=nbPoints;
     }
 
     public synchronized void sendWord(String word) {
@@ -209,22 +214,24 @@ public class GameMonitor {
 
     public void updateEndOfGameResult() throws RemoteException{
         System.out.println("Debut de l'envoie des resultats de fin de partie");
+
         for (IClient client:clients) {
+            String stringpoint = " Vous avez "+points[clients.indexOf(client)]+" points.";
             String result;
             if(client.getIsMrWhite()){
                 if(wordsImposterCitizens.getFirst().equals(mrWhiteGuess)){
-                    result = " devine le mot ! Victoire ! ";
+                    result = " devine le mot ! Victoire !";
                 }
                 else {
-                    result = " perdu ! ce n'etait pas le bon mot";
+                    result = " perdu ! ce n'etait pas le bon mot.";
                 }
             }
             else if(getImpostersUsername().contains(client.getUsername())){
                 if(nbVoteAgainstImposteur>2){
-                    result = "perdu ! Plus de la moitie des joueurs vous ont trouve";
+                    result = "perdu ! Plus de la moitie des joueurs vous ont trouve.";
                 }
                 else {
-                    result = "gagne ! moins de la moitie des joueurs vous ont trouve";
+                    result = "gagne ! moins de la moitie des joueurs vous ont trouve.";
                 }
             }
             else{
@@ -235,10 +242,11 @@ public class GameMonitor {
                     result = "perdu ! vous n'avez pas trouve l'imposteur !";
                 }
             }
+            result+=stringpoint;
             String imposters = getImpostersString();
             client.updateEndOfGameInfo(imposters,wordsImposterCitizens.getSecond(),usernames.get(mrWhiteIndex),wordsImposterCitizens.getFirst(),result);
         }
-        System.out.println("Fin de l'envoie des resultats de fin de partie");
+        System.out.println("Fin de l'envoie des resultats de fin de partie.");
 
     }
 
