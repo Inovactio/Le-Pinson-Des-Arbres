@@ -18,19 +18,22 @@ public class Client extends UnicastRemoteObject implements IClient {
     private LobbyUpdatesMonitor lobbyUpdatesMonitor;
     private GameMonitor gameMonitor;
 
-    public Client(String address) throws RemoteException {
-        try {
-            server = (IServerGame) Naming.lookup(address);
-            System.out.println("Connected to server " + address + ".");
-        } catch (Exception e) {
-            System.out.println("Connection failed.");
-            e.printStackTrace();
-        }
+    public Client() throws RemoteException {
         gameController = new GameController(this);
         controller = new Controller(this);
         lobbyUpdatesMonitor = new LobbyUpdatesMonitor(controller);
         gameMonitor = new GameMonitor(gameController);
         foundImposteur=false;
+    }
+
+    public void initConnection(String address){
+        try {
+            server = (IServerGame) Naming.lookup("//"+address+":8090/undercover");
+            System.out.println("Connected to server " + address + ".");
+        } catch (Exception e) {
+            System.out.println("Connection failed.");
+            e.printStackTrace();
+        }
     }
 
     public void giveLobbyUpdate(List<String> update) throws RemoteException {

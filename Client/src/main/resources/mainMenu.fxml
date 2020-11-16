@@ -34,5 +34,10 @@
             <Image url="@kisspng-virtual-private-network-internet-information-secur-spy-5b15dee6e21106.026296441528159974926.png" />
          </image>
       </ImageView>
+      <Label layoutX="647.0" layoutY="698.0" text="© Made by Josselin Enet, Roy Kevin and Lenormand Tristan. All rights reserved.">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

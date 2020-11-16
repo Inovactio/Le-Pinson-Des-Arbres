@@ -34,7 +34,6 @@ public class GameController {
     private Label usernamesGame[];
     private ObservableList<String> obsListeMotsJoueurs[];
     private ListView<String> listeMotsJoueurs[];
-
     public GameController(Client client) {
         this.client = client;
     }
@@ -139,7 +138,6 @@ public class GameController {
         }
     }
 
-    @FXML
     public void switchToVoteScene(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vote.fxml"));
         loader.setController(client.getGameController());
@@ -176,10 +174,13 @@ public class GameController {
             if(!isMrWhite)
                 initMenuButtonMrWhite();
 
+            stage.show();
+
         }
         catch(Exception e) {
             e.printStackTrace();
         }
+
 
     }
 

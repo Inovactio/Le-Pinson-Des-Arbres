@@ -38,8 +38,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="221.59998168945313" minHeight="10.0" prefHeight="181.3999755859375" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="320.8000244140625" minHeight="10.0" prefHeight="285.4000244140625" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="221.59998168945313" minHeight="10.0" prefHeight="160.59998779296876" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="320.8000244140625" minHeight="10.0" prefHeight="306.40001220703124" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ImageView fitHeight="130.0" fitWidth="120.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
@@ -74,32 +74,32 @@
             </ImageView>
             <Label fx:id="pseudoPlayer1" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer2" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer3" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer4" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer5" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer6" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <ListView fx:id="listeMotJoueur1" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -110,10 +110,18 @@
             <ListView fx:id="listeMotJoueur6" prefHeight="150.0" prefWidth="40.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button fx:id="vote" layoutX="162.0" layoutY="628.0" mnemonicParsing="false" onAction="#switchVoteScene" text="vote" />
-      <Label fx:id="inputInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="563.0" prefHeight="26.0" prefWidth="365.0">
+      <Button fx:id="vote" layoutX="44.0" layoutY="666.0" mnemonicParsing="false" onAction="#switchVoteScene" text="vote">
          <font>
             <Font name="Cambria" size="15.0" />
+         </font></Button>
+      <Label fx:id="inputInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="588.0" prefHeight="26.0" prefWidth="365.0">
+         <font>
+            <Font name="Cambria" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="647.0" layoutY="698.0" text="© Made by Josselin Enet, Roy Kevin and Lenormand Tristan. All rights reserved.">
+         <font>
+            <Font name="Cambria" size="12.0" />
          </font>
       </Label>
    </children>

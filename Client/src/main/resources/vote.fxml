@@ -64,32 +64,32 @@
             </ImageView>
             <Label fx:id="pseudoPlayer1" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer2" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer3" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer4" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer5" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
             <Label fx:id="pseudoPlayer6" alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="88.0" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="Cambria Bold" size="15.0" />
+                  <Font name="Cambria Bold" size="20.0" />
                </font>
             </Label>
          </children>
@@ -109,7 +109,7 @@
             <Font name="Cambria" size="15.0" />
          </font>
       </MenuButton>
-      <Button fx:id="voteButton" layoutX="440.0" layoutY="439.0" mnemonicParsing="false" onAction="#sendVoteResult" text="Voter">
+      <Button fx:id="voteButton" layoutX="511.0" layoutY="440.0" mnemonicParsing="false" onAction="#sendVoteResult" text="Voter">
          <font>
             <Font name="Cambria" size="22.0" />
          </font>
@@ -145,12 +145,12 @@
          </font>
       </Label>
       <TextField fx:id="guessMrWhiteInput" layoutX="553.0" layoutY="381.0" prefHeight="30.0" prefWidth="154.0" />
-      <Label fx:id="guessMrWhiteLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="384.0" prefHeight="18.0" prefWidth="198.0" textFill="WHITE">
+      <Label fx:id="guessMrWhiteLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="384.0" prefHeight="18.0" prefWidth="198.0">
          <font>
             <Font name="Cambria Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="guessImposterLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="324.0" prefHeight="18.0" prefWidth="198.0" textFill="WHITE">
+      <Label fx:id="guessImposterLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="324.0" prefHeight="18.0" prefWidth="198.0">
          <font>
             <Font name="Cambria Bold" size="20.0" />
          </font>
@@ -160,9 +160,14 @@
             <Font name="Cambria" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="gameResultLabel" layoutX="386.0" layoutY="673.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="670.0">
+      <Label fx:id="gameResultLabel" layoutX="386.0" layoutY="673.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="670.0">
          <font>
             <Font name="Cambria" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="647.0" layoutY="698.0" text="© Made by Josselin Enet, Roy Kevin and Lenormand Tristan. All rights reserved.">
+         <font>
+            <Font name="Cambria" size="12.0" />
          </font>
       </Label>
    </children>

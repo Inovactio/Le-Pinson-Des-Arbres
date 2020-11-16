@@ -243,5 +243,10 @@
             <Font size="21.0" />
          </font>
       </Button>
+      <Label layoutX="647.0" layoutY="698.0" text="© Made by Josselin Enet, Roy Kevin and Lenormand Tristan. All rights reserved.">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

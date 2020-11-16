@@ -8,7 +8,7 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
-        private static final String SERVER_ADDRESS = "//localhost:8090/undercover";
+
         private static Client client;
 
         public static void main(String[] args){
@@ -17,8 +17,8 @@ public class Main extends Application {
 
         @Override
         public void start(Stage primaryStage) throws Exception{
-            client = new Client(SERVER_ADDRESS);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/usernameSelection.fxml"));
+            client = new Client();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ipconfig.fxml"));
             loader.setController(client.getController());
             Parent root = loader.load();
             primaryStage.setTitle("Undercover");
