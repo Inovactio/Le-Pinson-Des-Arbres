@@ -1,4 +1,5 @@
 import java.rmi.RemoteException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import jsonparser.JsonParser;
@@ -127,12 +128,15 @@ public class GameMonitor {
                 playerIndex = (playerIndex+1)%6;
             }
         }
+        System.out.println("fin de la phase de jeu");
 
-        for (IClient client:clients) {
+        for (IClient client : clients) {
             new Thread(() -> {
                 try {
+                    System.out.println("Debut du changement de scene vers vote pour les clients");
                     client.switchToVoteScene();
                     client.requestVote();
+                    System.out.println("fin du changement de scene vers vote pour les clients + request");
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -146,9 +150,6 @@ public class GameMonitor {
 
         verifyVote();
         updateEndOfGameResult();
-
-        // TODO Récupérer le mot que MrWhite pense avoir deviné et le comparer au mot des Citoyen
-
         room.close();
         
     }
@@ -174,6 +175,7 @@ public class GameMonitor {
                 }
             }
         }
+        System.out.println("votes vérifies");
     }
 
     private void givePoint(int userIndex){
@@ -200,6 +202,7 @@ public class GameMonitor {
                 votes[usernames.indexOf(user)] = vote ;
             }
         }
+        System.out.println("Votes envoyes");
     }
 
     public synchronized void sendGuess(IClient client, String word) throws RemoteException {
@@ -207,6 +210,7 @@ public class GameMonitor {
     }
 
     public void updateEndOfGameResult() throws RemoteException{
+        System.out.println("Debut de l'envoie des resultats de fin de partie");
         for (IClient client:clients) {
             String result;
             if(client.getIsMrWhite()){
@@ -236,6 +240,7 @@ public class GameMonitor {
             }
             client.updateEndOfGameInfo(usernames.get(imposteurIndex),wordsImposterCitizens.getSecond(),usernames.get(mrWhiteIndex),wordsImposterCitizens.getFirst(),result);
         }
+        System.out.println("Fin de l'envoie des resultats de fin de partie");
 
     }
 
