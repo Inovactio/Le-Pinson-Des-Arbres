@@ -19,6 +19,7 @@ public class GameMonitor {
     private Tuple<String> wordsImposterCitizens;
     private String words[][];
     private Vote votes[];
+    private int nbVoted;
     private int points[];
     private String buffer;
     private boolean bufferIsEmpty;
@@ -36,6 +37,7 @@ public class GameMonitor {
         this.nbVoteAgainstImposteur=0;
         words = new String[6][nbRounds];
         votes = new Vote[6];
+        nbVoted = 0;
         points = new int[6];
         for (int i = 0; i < points.length ; i++) {
             points[i] = 0;
@@ -129,14 +131,13 @@ public class GameMonitor {
         }
 
         for (IClient client:clients) {
-            new Thread(() -> {
-                try {
+            try {
                     client.switchToVoteScene();
                     client.requestVote();
-                } catch (RemoteException e) {
+            } catch (RemoteException e) {
                     e.printStackTrace();
-                }
-            });
+            }
+
         }
         try {
             wait();
@@ -198,8 +199,10 @@ public class GameMonitor {
         for(String user:usernames) {
             if(user.equals(username)){
                 votes[usernames.indexOf(user)] = vote ;
+                nbVoted++;
             }
         }
+        if(nbVoted>=clients.size())notify();
     }
 
     public synchronized void sendGuess(IClient client, String word) throws RemoteException {
