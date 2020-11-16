@@ -18,7 +18,7 @@ public class GameMonitor {
     private int imposteurIndex;
     private Tuple<String> wordsImposterCitizens;
     private String words[][];
-    private List<Vote> votes;
+    private Vote votes[];
     private int points[];
     private String buffer;
     private boolean bufferIsEmpty;
@@ -35,7 +35,7 @@ public class GameMonitor {
         this.imposteurIndex=-1;
         this.nbVoteAgainstImposteur=0;
         words = new String[6][nbRounds];
-        votes = new ArrayList<>();
+        votes = new Vote[6];
         points = new int[6];
         for (int i = 0; i < points.length ; i++) {
             points[i] = 0;
@@ -154,10 +154,10 @@ public class GameMonitor {
     }
 
     private void verifyVote() {
-        for (int i = 0; i < votes.size(); i++) {
+        for (int i = 0; i < votes.length; i++) {
             for (int j = 0; j < usernames.size(); j++) {
                 String user = usernames.get(j);
-                if(user.equals(votes.get(i).getImposteur())){
+                if(user.equals(votes[i].getImposteur())){
                     if(impostersIndex.contains(j)){
                         givePoint(i);
                         nbVoteAgainstImposteur++;
@@ -169,7 +169,7 @@ public class GameMonitor {
                         }
 
                     }
-                }else if(user.equals(votes.get(i).getMrWhite()) && i!=mrWhiteIndex){
+                }else if(user.equals(votes[i].getMrWhite()) && i!=mrWhiteIndex){
                     if(mrWhiteIndex == j )givePoint(i);
                 }
             }
@@ -197,7 +197,7 @@ public class GameMonitor {
         }
         for(String user:usernames) {
             if(user.equals(username)){
-                votes.add(usernames.indexOf(user),vote) ;
+                votes[usernames.indexOf(user)] = vote ;
             }
         }
     }
