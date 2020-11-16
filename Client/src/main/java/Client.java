@@ -139,11 +139,11 @@ public class Client extends UnicastRemoteObject implements IClient {
     }
 
     public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException{
-        gameController.updateEndOfGameInfo(imposterNameReveal,imposterWordReveal,mrWhiteNameReveal,citizensWordReveal,gameResultReveal);
+        gameMonitor.requestUpdateEndOfGame(imposterNameReveal,imposterWordReveal,mrWhiteNameReveal,citizensWordReveal,gameResultReveal);
     }
 
     public void switchToVoteScene() throws RemoteException{
-        gameController.switchToVoteScene();
+        gameMonitor.requestSwitchToVoteScene();
     }
 
     public boolean getIsMrWhite() throws RemoteException{

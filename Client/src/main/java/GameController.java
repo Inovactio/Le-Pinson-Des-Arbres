@@ -140,7 +140,7 @@ public class GameController {
     }
 
     @FXML
-    public void switchToVoteScene() throws RemoteException {
+    public void switchToVoteScene(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vote.fxml"));
         loader.setController(client.getGameController());
         try {
@@ -213,7 +213,7 @@ public class GameController {
 
 
     @FXML
-    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal) throws RemoteException {
+    public void updateEndOfGameInfo(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal){
         imposterRevealLabel.setText("L'imposteur etait : " + imposterNameReveal);
         imposterWordRevealLabel.setText("Le mot de l'imposteur etait : " + imposterWordReveal);
         mrWhiteRevealLabel.setText("Mr White etait : " + mrWhiteNameReveal);

@@ -1,3 +1,4 @@
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -61,6 +62,34 @@ public class GameMonitor {
         notify();
     }
 
+    public synchronized void requestUpdateEndOfGame(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal){
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+        buffer = new updateEndOfGameRequest(imposterNameReveal, imposterWordReveal, mrWhiteNameReveal, citizensWordReveal, gameResultReveal);
+        bufferIsEmpty = false;
+        notify();
+    }
+
+    public synchronized void requestSwitchToVoteScene(){
+        if (!bufferIsEmpty) {
+            try {
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("GameMonitor wait() failed.");
+                e.printStackTrace();
+            }
+        }
+        buffer = new switchToVoteSceneRequest();
+        bufferIsEmpty = false;
+        notify();
+    }
+
     public synchronized void requestVote() {
         if (!bufferIsEmpty) {
             try {
@@ -75,19 +104,6 @@ public class GameMonitor {
         notify();
     }
 
-    public synchronized void requestGuess() {
-        if (!bufferIsEmpty) {
-            try {
-                wait();
-            } catch(InterruptedException e) {
-                System.out.println("GameMonitor wait() failed.");
-                e.printStackTrace();
-            }
-        }
-        buffer = new GuessRequest();
-        bufferIsEmpty = false;
-        notify();
-    }
 
     public synchronized void giveGameUpdate(String word, int playerIndex) {
         if (!bufferIsEmpty) {
@@ -139,11 +155,29 @@ public class GameMonitor {
         }
     }
 
-    private class GuessRequest implements Request {
-        public void handle(GameController controller) {
-            controller.openInput("Guess the word : ");
+    private class updateEndOfGameRequest implements Request {
+        private String imposterNameReveal;
+        private String imposterWordReveal;
+        private String mrWhiteNameReveal;
+        private String citizensWordReveal;
+        private String gameResultReveal;
+
+        public updateEndOfGameRequest(String imposterNameReveal, String imposterWordReveal, String mrWhiteNameReveal, String citizensWordReveal, String gameResultReveal){
+            this.imposterNameReveal=imposterNameReveal;
+            this.imposterWordReveal=imposterWordReveal;
+            this.mrWhiteNameReveal=mrWhiteNameReveal;
+            this.citizensWordReveal=citizensWordReveal;
+            this.gameResultReveal=gameResultReveal;
+        }
+        public void handle(GameController controller){controller.updateEndOfGameInfo(imposterNameReveal,imposterWordReveal,mrWhiteNameReveal,citizensWordReveal,gameResultReveal);}
+    }
+
+    private class switchToVoteSceneRequest implements Request {
+        public void handle(GameController controller){
+            controller.switchToVoteScene();
         }
     }
+
 
     private class UpdateRequest implements Request {
         private String word;
