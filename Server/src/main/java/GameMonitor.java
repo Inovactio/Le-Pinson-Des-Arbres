@@ -219,8 +219,7 @@ public class GameMonitor {
                     result = " perdu ! ce n'etait pas le bon mot";
                 }
             }
-
-            else if(client.getUsername().equals(usernames.get(imposteurIndex))){
+            else if(getImpostersUsername().contains(client.getUsername())){
                 if(nbVoteAgainstImposteur>2){
                     result = "perdu ! Plus de la moitie des joueurs vous ont trouve";
                 }
@@ -236,10 +235,34 @@ public class GameMonitor {
                     result = "perdu ! vous n'avez pas trouve l'imposteur !";
                 }
             }
-            client.updateEndOfGameInfo(usernames.get(imposteurIndex),wordsImposterCitizens.getSecond(),usernames.get(mrWhiteIndex),wordsImposterCitizens.getFirst(),result);
+            String imposters = getImpostersString();
+            client.updateEndOfGameInfo(imposters,wordsImposterCitizens.getSecond(),usernames.get(mrWhiteIndex),wordsImposterCitizens.getFirst(),result);
         }
         System.out.println("Fin de l'envoie des resultats de fin de partie");
 
+    }
+
+    private Set<String> getImpostersUsername(){
+        Set<String> result = new HashSet<String>();
+        for (int i:impostersIndex
+             ) {
+            result.add(usernames.get(i));
+        }
+        return result;
+    }
+
+    private String getImpostersString() {
+        String imposters="";
+        for (int i:impostersIndex
+             ) {
+            imposters+=usernames.get(i)+" ";
+        }
+        if(nbImpostors>1){
+            imposters+="est l'imposteur.";
+        }else{
+            imposters+="sont les imposteurs.";
+        }
+        return imposters;
     }
 
 
