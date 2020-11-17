@@ -1,5 +1,7 @@
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 
 public class Main {
@@ -8,13 +10,12 @@ public class Main {
 
         try {
             /*Création du serveur*/
-            
             final String url = "localhost";
             final int port = 8090;
-            LocateRegistry.createRegistry(port);
-            IServerGame serverGame = new ServerGame();
-            Naming.rebind("//"+url+":"+port+"/undercover", serverGame);
-            System.out.println("Server running at //" + url + ":" + port + "/undercover");
+            Registry registry = LocateRegistry.createRegistry(port);
+            ServerGame serverGame = new ServerGame();
+            IServerGame stub = (IServerGame) UnicastRemoteObject.exportObject(serverGame, 0);
+            registry.bind("undercover", stub);
 
         } catch (Exception e) {
             System.out.println("Erreur lors de la création du serveur de jeu.");
