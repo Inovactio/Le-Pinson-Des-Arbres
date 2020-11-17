@@ -1,6 +1,4 @@
 import java.rmi.Remote;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -30,8 +28,7 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public void initConnection(String address){
         try {
-            Registry registry = LocateRegistry.getRegistry(address, 8090);
-            server =  (IServerGame) registry.lookup("undercover");
+            server = (IServerGame) Naming.lookup("//"+address+":8090/undercover");
             System.out.println("Connected to server " + address + ".");
         } catch (Exception e) {
             System.out.println("Connection failed.");
