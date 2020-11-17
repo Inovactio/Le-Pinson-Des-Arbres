@@ -22,8 +22,17 @@
     }
 
     application{
-        mainClassName = 'Main'
+        mainClassName = 'Launcher'
     }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Launcher'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 
 

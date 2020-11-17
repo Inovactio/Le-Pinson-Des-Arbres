@@ -8,6 +8,7 @@ public class Main {
 
         try {
             /*Création du serveur*/
+            
             final String url = "localhost";
             final int port = 8090;
             LocateRegistry.createRegistry(port);
