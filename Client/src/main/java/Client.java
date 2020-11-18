@@ -28,7 +28,7 @@ public class Client extends UnicastRemoteObject implements IClient {
 
     public void initConnection(String address){
         try {
-            server = (IServerGame) Naming.lookup("//"+address+":8090/undercover");
+            server = (IServerGame) Naming.lookup("//"+address+":1099/undercover");
             System.out.println("Connected to server " + address + ".");
         } catch (Exception e) {
             System.out.println("Connection failed.");
