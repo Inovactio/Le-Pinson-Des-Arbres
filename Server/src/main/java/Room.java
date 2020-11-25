@@ -42,6 +42,14 @@ public class Room extends UnicastRemoteObject implements IRoom {
         owner = client.getUsername();
     }
 
+    /**
+     * add a client to this room
+     * @param client is the client added
+     * @return the list of all client in the room
+     * @throws RemoteException
+     * @throws GameLaunchedException throw if the game is already lauched
+     * @throws RoomFullException throw if the lobby is full
+     */
     public synchronized List<String> join(IClient client)
             throws RemoteException, GameLaunchedException, RoomFullException {
         if (gameLaunched)
@@ -57,6 +65,11 @@ public class Room extends UnicastRemoteObject implements IRoom {
         return usernames;
     }
 
+    /**
+     * remove a client from this room
+     * @param client is the client removed
+     * @throws RemoteException
+     */
     public synchronized void quit(IClient client) throws RemoteException {
         clients.remove(client);
         usernames.remove(client.getUsername());
@@ -73,10 +86,11 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
+    /**
+     * Start the game
+     * @throws RemoteException
+     */
     public synchronized void launchGame() throws RemoteException {
-
-        // Throw exception if nb players != 6
-
         gameMonitor = new GameMonitor(this, clients, usernames, nbRounds, nbImpostors, turnTime);
         Thread monitorThread = new Thread(() -> {
             try{
@@ -92,6 +106,13 @@ public class Room extends UnicastRemoteObject implements IRoom {
         monitorThread.start();
     }
 
+    /**
+     * Change settings of the room
+     * @param turnTime is time of a turn
+     * @param nbRounds is the number of round
+     * @param nbImpostors is the number of impostors
+     * @throws RemoteException
+     */
     @Override
     public synchronized void changeSettings(int turnTime, int nbRounds, int nbImpostors)
             throws RemoteException {
@@ -103,6 +124,10 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
+    /**
+     * fill the room with mock ( used to test )
+     * @throws RemoteException
+     */
     @Override
     public synchronized void fill() throws RemoteException {
         if (clients.size()==1) {
@@ -117,21 +142,43 @@ public class Room extends UnicastRemoteObject implements IRoom {
         }
     }
 
-    @Override
-    public void sendVote(String username,String imposteur, String mrWhite, boolean isMrWhite) throws RemoteException {
-        gameMonitor.sendVote(username,imposteur,mrWhite, isMrWhite);
-    }
-
+    /**
+     * Send a word
+     * @param word is the word send
+     * @throws RemoteException
+     */
     @Override
     public void sendWord(String word) throws RemoteException {
         gameMonitor.sendWord(word);
     }
 
+    /**
+     * Send vote for who is an impostor and who is MrWhite
+     * @param username is the username of the client who vote
+     * @param imposteur is username of the vote for impostor
+     * @param mrWhite is the username of the vote for mrWhite
+     * @param isMrWhite true if the client is MrWhite, else false
+     * @throws RemoteException
+     */
+    @Override
+    public void sendVote(String username,String imposteur, String mrWhite, boolean isMrWhite) throws RemoteException {
+        gameMonitor.sendVote(username,imposteur,mrWhite, isMrWhite);
+    }
+
+    /**
+     * Send the guess of MrWhite at the end of the game
+     * @param client is the client who guess
+     * @param word is the word guessed
+     * @throws RemoteException
+     */
     @Override
     public void sendGuess(IClient client, String word) throws RemoteException {
         gameMonitor.sendGuess(client, word);
     }
 
+    /**
+     * Close the lobby
+     */
     public void close() {
         try {
             unexportObject(this, true);
@@ -140,8 +187,6 @@ public class Room extends UnicastRemoteObject implements IRoom {
             e.printStackTrace();
         }
     }
-
-    // -----Getters-----
 
     public String getOwner() throws RemoteException {
         return owner;

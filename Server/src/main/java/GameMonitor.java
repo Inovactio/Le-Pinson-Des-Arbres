@@ -5,6 +5,9 @@ import java.util.*;
 import jsonparser.JsonParser;
 import jsonparser.Tuple;
 
+/**
+ * Monitor of a lobby.
+ */
 public class GameMonitor {
 
     private Room room;
@@ -46,6 +49,10 @@ public class GameMonitor {
         bufferIsEmpty = true;
     }
 
+    /**
+     * Initialization of the game
+     * @throws RemoteException
+     */
     public void launchGame() throws RemoteException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = classLoader.getResource("words.json").getPath();
@@ -90,12 +97,19 @@ public class GameMonitor {
         playGame();
     }
 
+    /**
+     * Randomize the order of the room
+     */
     private void randomizeRoomOrder() {
         long seed = System.nanoTime();
         Collections.shuffle(clients, new Random(seed));
         Collections.shuffle(usernames, new Random(seed));
     }
 
+    /**
+     * Start the game
+     * @throws RemoteException
+     */
     private synchronized void playGame() throws RemoteException{
         int playerIndex = 0;
 
@@ -150,6 +164,9 @@ public class GameMonitor {
         
     }
 
+    /**
+     * Verify all vote of the clients and give points.
+     */
     private void verifyVote() {
         for (int i = 0; i < votes.length; i++) {
             for (int j = 0; j < usernames.size(); j++) {
@@ -175,20 +192,40 @@ public class GameMonitor {
         System.out.println("votes vérifies");
     }
 
+    /**
+     * give a point to a player
+     * @param userIndex is the username of the player who win a point
+     */
     private void givePoint(int userIndex){
         points[userIndex]++;
     }
 
+    /**
+     * give points to a player
+     * @param userIndex is the username of the player who win points
+     * @param nbPoints is the number of points
+     */
     private void givePoint(int userIndex,int nbPoints){
         points[userIndex]+=nbPoints;
     }
 
+    /**
+     * change the buffer with a word send
+     * @param word is the word sended
+     */
     public synchronized void sendWord(String word) {
         buffer = word;
         bufferIsEmpty = false;
         notify();
     }
 
+    /**
+     * add Vote to the array of votes
+     * @param username is the username of the voter
+     * @param imposteur is the guess for the impostor
+     * @param mrWhite is the guess for mrWhite
+     * @param isMrWhite true if the player is MrWhite, else false
+     */
     public synchronized void sendVote(String username,String imposteur, String mrWhite, boolean isMrWhite) {
         Vote vote;
         if(isMrWhite){
@@ -212,6 +249,10 @@ public class GameMonitor {
         
     }
 
+    /**
+     * Show the result of the game and send information to clients.
+     * @throws RemoteException
+     */
     public void updateEndOfGameResult() throws RemoteException{
         System.out.println("Debut de l'envoie des resultats de fin de partie");
 
@@ -250,6 +291,10 @@ public class GameMonitor {
 
     }
 
+    /**
+     * get usernames of the impostors
+     * @return list of username
+     */
     private Set<String> getImpostersUsername(){
         Set<String> result = new HashSet<String>();
         for (int i:impostersIndex
@@ -259,6 +304,10 @@ public class GameMonitor {
         return result;
     }
 
+    /**
+     * get usernames of the impostors as a String, used for result
+     * @return a string with all the impostors name
+     */
     private String getImpostersString() {
         String imposters="";
         for (int i:impostersIndex
@@ -274,6 +323,9 @@ public class GameMonitor {
     }
 
 
+    /**
+     * This class is used for the Vote
+     */
     private class Vote{
         private String imposteur;
         private String mrWhite;

@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * This class is used to parse a JSONFile.
+ */
 public class JsonParser {
 
     private String filepath;

@@ -1,6 +1,9 @@
 import java.rmi.RemoteException;
 import java.util.List;
 
+/**
+ * This class is mock to test the game with the method fill() in Room
+ */
 public class ClientMock implements IClient {
 
     @Override
