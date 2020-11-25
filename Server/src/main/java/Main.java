@@ -10,7 +10,7 @@ public class Main {
             /*Création du serveur*/
 
             final String url = "localhost";
-            final int port = 1099;
+            final int port = 8090;
             LocateRegistry.createRegistry(port);
             IServerGame serverGame = new ServerGame();
             Naming.rebind("//"+url+":"+port+"/undercover", serverGame);
