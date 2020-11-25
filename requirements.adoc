@@ -1,1 +1,2 @@
-include::doc/rules.adoc
+include::doc/rules.adoc[]
+include::Server/src/doc/server.adoc[]

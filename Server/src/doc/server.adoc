@@ -1,7 +1,9 @@
 = Server
 
-== Server method
+== Introduction
 
-vote(String player) : allow a player to vote for another one at the end of the game.
+This section is about the server part, it explains how it works and how it is initialized.
 
-write(String word) : allow a player to write a word during his turn.
+== ServerGame
+The code in the main bind an instance of a ServerGame(the main class of our server) to an url.
+ServerGame can contains many Rooms, each room is an independant game owned by a client.
