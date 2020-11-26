@@ -34,6 +34,8 @@ jar {
     }
 }
 
+build.dependsOn(installDist)
+
 
 
 

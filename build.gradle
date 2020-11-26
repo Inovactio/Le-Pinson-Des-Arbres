@@ -7,6 +7,12 @@ allprojects {
     version = '1.0-SNAPSHOT'
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+
+    task stage(dependsOn: ['build', 'clean'])
+    build.mustRunAfter clean
+
+
+
 }
 
 subprojects {
@@ -30,5 +36,7 @@ subprojects {
         }
     }
 }
+
+
 
 
