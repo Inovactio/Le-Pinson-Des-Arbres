@@ -37,6 +37,11 @@ subprojects {
     }
 }
 
+task runServer(type: JavaExec) {
+    dependsOn(':Server:run')
+}
+
+
 
 
 
