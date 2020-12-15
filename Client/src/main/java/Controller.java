@@ -20,6 +20,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+/**
+ * This class is the Controller of the program, such as choosing name, choosing server, creating server and other...
+ */
 public class Controller {
 
     @FXML

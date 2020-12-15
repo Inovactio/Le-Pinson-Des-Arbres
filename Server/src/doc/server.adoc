@@ -7,3 +7,15 @@ This section is about the server part, it explains how it works and how it is in
 == ServerGame
 The code in the main bind an instance of a ServerGame(the main class of our server) to an url.
 ServerGame can contains many Rooms, each room is an independant game owned by a client.
+
+
+== JSonParser
+
+JsonParser package contains two classes, Couple and JsonParser
+
+=== Couple
+
+Couple is a simple class used to have two attribute of the same type.
+
+=== JsonParser
+Has a json file path, currently it s words.json in package resources. The class has method to get a random couple of words among words.json file.

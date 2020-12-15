@@ -1,0 +1,17 @@
+= Component
+
+== Introduction
+
+This section is about the component module which is a module containing shared interfaces, and exception between Client and Server.
+
+== Shared Interfaces
+
+IClient is an interface which contain method used by Client, and IServerGame is the interface for the server part with it's own methods too. Then with this shared interface we are able in the server part to have a list of IClient with instances even if there is no Client class that implement IClient in the server module. Client part as an IServerGame, and doesn't have a class which Implement IServerGame in his Module.
+
+== Shared Exception
+
+As the interface Exception are shared between Client and Server.
+
+== Room Info
+
+Client and Server need a class with info of the room, so it is useless to redifine this class in two module instead of one.

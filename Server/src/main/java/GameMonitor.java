@@ -1,9 +1,8 @@
 import java.rmi.RemoteException;
-import java.sql.SQLOutput;
 import java.util.*;
 
 import jsonparser.JsonParser;
-import jsonparser.Tuple;
+import jsonparser.Couple;
 
 /**
  * Monitor of a lobby.
@@ -20,7 +19,7 @@ public class GameMonitor {
     private Set<Integer> impostersIndex;
     private String mrWhiteGuess;
     private int imposteurIndex;
-    private Tuple<String> wordsImposterCitizens;
+    private Couple<String> wordsImposterCitizens;
     private String words[][];
     private Vote votes[];
     private int nbVoted;

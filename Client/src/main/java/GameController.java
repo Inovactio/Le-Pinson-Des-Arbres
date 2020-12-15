@@ -14,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ * This class is the Controller of a game started such as the word of the player, the names of others players, their words...
+ */
 public class GameController {
 
     @FXML

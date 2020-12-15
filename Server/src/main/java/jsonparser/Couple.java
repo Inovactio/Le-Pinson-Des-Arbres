@@ -1,12 +1,12 @@
 package jsonparser;
 
 
-public class Tuple<E> {
+public class Couple<E> {
     private E first;
     private E second;
 
 
-    public Tuple(E f,E s){
+    public Couple(E f, E s){
         first = f;
         second = s;
     }

@@ -23,7 +23,7 @@ public class JsonParser {
      * get random words from the Json file
      * @return a random couple of word
      */
-    public Tuple<String> getRandomWords() {
+    public Couple<String> getRandomWords() {
 
         String firstword = "",secondword = "";
 
@@ -54,7 +54,7 @@ public class JsonParser {
             System.out.println("Json File cannot be parsed");
             e.printStackTrace();
         }
-        return new Tuple<String>(firstword,secondword);
+        return new Couple<String>(firstword,secondword);
 
     }
 

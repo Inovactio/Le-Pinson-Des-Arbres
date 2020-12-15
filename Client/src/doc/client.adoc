@@ -1,0 +1,7 @@
+= Client
+
+== Introduction
+
+This section is about the client part, it explains how it works.
+
+
