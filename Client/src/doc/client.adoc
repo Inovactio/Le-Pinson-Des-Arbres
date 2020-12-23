@@ -4,4 +4,22 @@
 
 This section is about the client part, it explains how it works.
 
+== Client
+
+This is the main class for the client side. It contains all the informations the Client has such as its Server, its current Room, its username...
+It also contains its own monitors called gameMonitor which is the monitor used for the game and a lobbyUpdatesMonitor used for the lobby.
+
+== Controller & GameController
+
+Controller classes are used for the graphical interface, it determines the actions of the differents buttons you can use.
+
+== GameMonitor & LobbyUpdatesMonitor
+
+=== GameMonitor
+
+This monitor is used for trade between client and server for the game part. The class contains a buffer which is a request.
+
+=== LobbyUpdatesMonitor
+
+This monitor is used for trade between client and server for the lobby part. This class contains a Queue of updates that will be applied to the client.
 

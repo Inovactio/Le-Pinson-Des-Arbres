@@ -1,0 +1,15 @@
+= How to Play
+
+== Core information
+
+During the project we have tried to run the game online but we have some issues.. then the game can only be run in local using localhost when ip adress is requested.
+
+== Run Server
+
+You must run a Server on a device for clients who want to join the server. As you have read the "Core Information" part, you must run it on a local network using localhost as ip adress. The server will handle all rooms and client connected to it.
+
+== Run Client
+
+When running client executable an interface open where you can enter an ip adress. You must chose localhost as explain before. Then a username is request, each client connected to the network as a distinct username.
+The main menu contains there is two options, create a new lobby or join an existing lobby. To start a game you must have 6 clients connected to a lobby, to test you must launch 6 instances of client with different username. One of them create a lobby and others join it. In a lobby there is a fill button that was used when testing the game.
+As your 6 in a room the host can start the game.

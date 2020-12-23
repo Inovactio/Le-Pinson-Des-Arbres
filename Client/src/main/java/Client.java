@@ -26,6 +26,10 @@ public class Client extends UnicastRemoteObject implements IClient {
         foundImposteur=false;
     }
 
+    /**
+     * Start a connection to a given adress
+     * @param address is the adress griven
+     */
     public void initConnection(String address){
         try {
             server = (IServerGame) Naming.lookup("rmi://"+address+":8090/undercover");
@@ -36,36 +40,81 @@ public class Client extends UnicastRemoteObject implements IClient {
         }
     }
 
+    /**
+     * Send informations about the lobby to the monitor
+     * @param update information to updates.
+     * @throws RemoteException
+     */
     public void giveLobbyUpdate(List<String> update) throws RemoteException {
         lobbyUpdatesMonitor.giveUpdate(update);
     }
 
+    /**
+     * Send informations about the lobby to the monitor
+     * @param turnTime number of turn
+     * @param nbRounds number of rounds
+     * @param nbImpostors number of impostors
+     * @throws RemoteException
+     */
     @Override
     public void giveLobbyUpdate(int turnTime, int nbRounds, int nbImpostors) throws RemoteException {
         lobbyUpdatesMonitor.giveUpdate(turnTime, nbRounds, nbImpostors);
     }
 
+    /**
+     * Send information about the lobby to the server
+     * @param turnTime number of turn
+     * @param nbRounds number of rounds
+     * @param nbImpostors number of impostors
+     * @throws RemoteException
+     */
     public void changeSettings(int turnTime, int nbRounds, int nbImpostors) throws RemoteException {
         currentRoom.changeSettings(turnTime, nbRounds, nbImpostors);
     }
 
+    /**
+     *
+     * @param word
+     * @param playerIndex
+     * @throws RemoteException
+     */
     public void giveGameUpdate(String word, int playerIndex) throws RemoteException{
         gameMonitor.giveGameUpdate(word,playerIndex);
     }
 
+    /**
+     * Request a word for the client
+     * @throws RemoteException
+     * @throws InterruptedException
+     */
     public void requestWord() throws RemoteException, InterruptedException {
         gameMonitor.requestWord();
     }
 
+    /**
+     * Request a vote for the client
+     * @throws RemoteException
+     */
     public void requestVote() throws RemoteException{
         gameMonitor.requestVote();
     }
 
+    /**
+     * request a guess for the client
+     * @return
+     * @throws RemoteException
+     */
     public String requestGuess() throws RemoteException{
         gameMonitor.getRequest();
         return null;
     }
 
+    /**
+     * Initialize all information for the monitor of the game
+     * @param word current word of the client
+     * @param isMrWhite true if the player is MrWhite else false
+     * @param players list of usernames
+     */
     public void init(String word,Boolean isMrWhite, List<String> players) {
         this.isMrWhite = isMrWhite;
         gameMonitor.init(word, isMrWhite, players);

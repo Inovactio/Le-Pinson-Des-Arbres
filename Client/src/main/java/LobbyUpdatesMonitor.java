@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.Thread;
 
+/**
+ * Monitor of the client for the lobby
+ */
 public class LobbyUpdatesMonitor {
 
     private Queue<Update> queue;

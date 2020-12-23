@@ -3,7 +3,7 @@ import java.util.List;
 import javafx.application.Platform;
 
 /**
- * Monitor of a Client
+ * Monitor of a Client for the game
  */
 public class GameMonitor {
 

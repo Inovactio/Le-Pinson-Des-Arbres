@@ -1,4 +1,9 @@
+include::doc/howtouse.adoc[]
+
 include::doc/rules.adoc[]
+
 include::Components/src/doc/component.adoc[]
+
 include::Server/src/doc/server.adoc[]
+
 include::Client/src/doc/client.adoc[]
