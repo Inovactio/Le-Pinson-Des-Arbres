@@ -8,12 +8,12 @@ public class Main {
 
         try {
             /*Création du serveur*/
-
+            System.setProperty("java.rmi.server.hostname","192.168.1.44");
             final String url = "localhost";
             final int port = 8090;
             LocateRegistry.createRegistry(port);
             IServerGame serverGame = new ServerGame();
-            Naming.rebind("//"+url+":"+port+"/undercover", serverGame);
+            Naming.rebind("rmi://"+url+":"+port+"/undercover", serverGame);
             System.out.println("Server running at //" + url + ":" + port + "/undercover");
         } catch (Exception e) {
             System.out.println("Erreur lors de la création du serveur de jeu.");
