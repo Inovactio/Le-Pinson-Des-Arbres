@@ -183,7 +183,7 @@
             </Label>
             <ImageView fx:id="joueur2" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@greenPng.png" />
+                  <Image url="@133551080_1537260746464419_9078863929440820558_n.png" />
                </image>
             </ImageView>
             <Label fx:id="pseudoJoueur2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -193,7 +193,7 @@
             </Label>
             <ImageView fx:id="joueur3" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@133515482_816522515796025_2080546841360559852_n.png" />
+                  <Image url="@133551080_1537260746464419_9078863929440820558_n.png" />
                </image>
             </ImageView>
             <Label fx:id="pseudoJoueur3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -203,7 +203,7 @@
             </Label>
             <ImageView fx:id="joueur4" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@greyPng.png" />
+                  <Image url="@133551080_1537260746464419_9078863929440820558_n.png" />
                </image>
             </ImageView>
             <Label fx:id="pseudoJoueur4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -213,7 +213,7 @@
             </Label>
             <ImageView fx:id="joueur5" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@violetPng.png" />
+                  <Image url="@133551080_1537260746464419_9078863929440820558_n.png" />
                </image>
             </ImageView>
             <Label fx:id="pseudoJoueur5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -223,7 +223,7 @@
             </Label>
             <ImageView fx:id="joueur6" fitHeight="130.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@yellowPng.png" />
+                  <Image url="@133551080_1537260746464419_9078863929440820558_n.png" />
                </image>
             </ImageView>
             <Label fx:id="pseudoJoueur6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
