@@ -150,12 +150,12 @@
          </font></TextField>
       <Label fx:id="guessMrWhiteLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="384.0" prefHeight="18.0" prefWidth="198.0" AnchorPane.leftAnchor="570.0">
          <font>
-            <Font name="Verdana" size="20.0" />
+            <Font name="Verdana Bold" size="20.0" />
          </font>
       </Label>
       <Label fx:id="guessImposterLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="324.0" prefHeight="18.0" prefWidth="198.0" AnchorPane.leftAnchor="570.0">
          <font>
-            <Font name="Verdana" size="20.0" />
+            <Font name="Verdana Bold" size="20.0" />
          </font>
       </Label>
       <Label fx:id="voteInfoLabel" layoutX="732.0" layoutY="384.0">
@@ -163,7 +163,7 @@
             <Font name="Verdana" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="gameResultLabel" layoutX="386.0" layoutY="673.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="670.0">
+      <Label fx:id="gameResultLabel" layoutX="386.0" layoutY="673.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="670.0">
          <font>
             <Font name="Verdana" size="20.0" />
          </font>
@@ -173,5 +173,10 @@
             <Font name="Verdana" size="10.0" />
          </font>
       </Label>
+      <Button fx:id="backToMenu" layoutX="27.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchBackToMenu" text="Retour au Menu">
+         <font>
+            <Font name="Verdana" size="25.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

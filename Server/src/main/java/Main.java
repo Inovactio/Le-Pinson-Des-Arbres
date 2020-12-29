@@ -8,7 +8,6 @@ public class Main {
 
         try {
             /*Création du serveur*/
-            System.setProperty("java.rmi.server.hostname","192.168.1.44");
             final String url = "localhost";
             final int port = 8090;
             LocateRegistry.createRegistry(port);

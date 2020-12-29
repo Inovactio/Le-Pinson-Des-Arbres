@@ -22,7 +22,7 @@ public class GameController {
     @FXML
     private TextField input, guessMrWhiteInput;
     @FXML
-    private Button send, voteButton,vote;
+    private Button send, voteButton,vote, backToMenu;
     @FXML
     private Label gameResultLabel, voteInfoLabel, inputInfo, pseudoPlayer1, pseudoPlayer2, pseudoPlayer3, pseudoPlayer4, pseudoPlayer5, pseudoPlayer6, gameGivenWordLabel, whoIsMrWhiteLabel,imposterRevealLabel, imposterWordRevealLabel, mrWhiteRevealLabel, citizensWordRevealLabel, guessMrWhiteLabel, guessImposterLabel;
     @FXML
@@ -149,6 +149,7 @@ public class GameController {
             Stage stage = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
             Scene scene = new Scene(root,1080,720);
             stage.setScene(scene);
+            backToMenu.setVisible(false);
             if(isMrWhite){
                 whoIsMrWhiteLabel.setText("Devinez le mot :");
                 mrWhiteMenu.setVisible(false);
@@ -223,7 +224,19 @@ public class GameController {
         mrWhiteRevealLabel.setText("Mr White etait : " + mrWhiteNameReveal);
         citizensWordRevealLabel.setText("Le mot des citoyens etait : " + citizensWordReveal);
         gameResultLabel.setText("Vous avez "+ gameResultReveal);
+        backToMenu.setVisible(true);
 
+    }
+
+    @FXML
+    public void switchBackToMenu(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu.fxml"));
+        loader.setController(client.getController());
+        Parent root = loader.load();
+        Stage stage = (Stage) Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        Scene scene = new Scene(root, 1080, 720);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void initMenuButtonImposter() throws Exception{
